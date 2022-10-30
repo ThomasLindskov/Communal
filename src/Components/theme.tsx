@@ -6,6 +6,7 @@ export const theme = {
     white: "hsl(0,0%,100%)",
     cta: "hsl(36, 57%, 47%)",
     risk: "hsl(0, 100%, 31%)",
+    background: "hsl(20, 10%, 88%)",
   },
   utils: {
     borderRadius: "10px",
