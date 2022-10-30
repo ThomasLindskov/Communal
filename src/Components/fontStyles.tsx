@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme";
 
-const FontStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
 @font-face {
   font-family: 'SF Pro';
   src: url("public/fonts/sf-pro-display_regular.woff2");
@@ -17,6 +18,10 @@ const FontStyles = createGlobalStyle`
   src: url("public/fonts/sf-pro-display_semibold.woff2");  
   font-weight: bold;
   }
+
+  body {
+    background-color: ${theme.colors.background};
+  }
 `;
 
-export default FontStyles;
+export default GlobalStyles;

@@ -12,4 +12,10 @@ export const Button = styled.button`
   border: none;
   filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
   font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.95; // TODO: improve
+  }
+  width: fit-content;
+  /* TODO: add onClick */
 `;
