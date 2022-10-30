@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import { ThemeProvider } from "styled-components";
-import GlobalStyles from "./components/fontStyles";
+import GlobalStyles from "./components/gloabalStyles";
 import { theme } from "./components/theme";
 
 const root = ReactDOM.createRoot(
