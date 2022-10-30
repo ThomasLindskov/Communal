@@ -3,18 +3,18 @@ import { createGlobalStyle } from "styled-components";
 const FontStyles = createGlobalStyle`
 @font-face {
   font-family: 'SF Pro';
-  src: url("/Users/emilhertz/private/tid-project/public/fonts/sf-pro-display_regular.woff2");
+  src: url("public/fonts/sf-pro-display_regular.woff2");
   font-weight: normal;
 }
 @font-face {
   font-family: 'SF Pro';
-  src: url("/Users/emilhertz/private/tid-project/public/fonts/sf-pro-display_bold.woff2");  
+  src: url("public/fonts/sf-pro-display_bold.woff2");  
   font-weight: bolder;
 }
 
 @font-face {
   font-family: 'SF Pro';
-  src: url("/Users/emilhertz/private/tid-project/public/fonts/sf-pro-display_semibold.woff2");  
+  src: url("public/fonts/sf-pro-display_semibold.woff2");  
   font-weight: bold;
   }
 `;
