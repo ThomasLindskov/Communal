@@ -1,4 +1,42 @@
-export const theme = {
+type themeType = {
+  colors: {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    white: string;
+    cta: string;
+    risk: string;
+    background: string;
+  };
+  fontSize: {
+    small: string;
+    medium: string;
+    large: string;
+  };
+  fontWeight: {
+    regular: string;
+    bold: string;
+  };
+  padding: {
+    small: string;
+    medium: string;
+    large: string;
+    // xl: string;
+    xxl: string;
+  };
+  utils: {
+    borderRadius: string;
+    buttonBorderRadius: string;
+    dropShadow: string;
+  };
+  link: {
+    color: string;
+    cursor: string;
+    textDecoration: string;
+  };
+};
+
+export const theme: themeType = {
   colors: {
     primary: "hsl(130, 6%, 20%)",
     secondary: "hsl(14, 10%, 52%)",
@@ -6,6 +44,7 @@ export const theme = {
     white: "hsl(0,0%,100%)",
     cta: "hsl(36, 57%, 47%)",
     risk: "hsl(0, 100%, 31%)",
+    background: "hsl(20, 10%, 88%)",
   },
   utils: {
     borderRadius: "10px",
@@ -15,9 +54,10 @@ export const theme = {
   fontSize: {
     small: "12px",
     medium: "14px",
+    large: "24px",
   },
-  fontWeights: {
-    primary: "normal",
+  fontWeight: {
+    regular: "normal",
     bold: "bold",
   },
   padding: {
@@ -27,8 +67,8 @@ export const theme = {
     xxl: "30px",
   },
   link: {
-    textDecoration: 'underline',
-    color: 'hsl(130, 6%, 20%)',
-    cursor: 'pointer',
-  }
+    color: "hsl(130, 6%, 20%)",
+    cursor: "pointer",
+    textDecoration: "underline",
+  },
 };

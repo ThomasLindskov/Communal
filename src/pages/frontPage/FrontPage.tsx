@@ -4,7 +4,7 @@ import { UserGroup } from "./UserGroup";
 
 export default function FrontPage() {
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", height: "100vh" }}>
       <FormContainer />
       <UserGroup />
     </div>

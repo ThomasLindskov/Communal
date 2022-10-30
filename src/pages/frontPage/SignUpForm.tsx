@@ -1,23 +1,80 @@
 import React from "react";
+import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
+import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
+import { theme } from "../../components/theme";
+import { forms } from "./FormContainer";
 
-export default function SignUpForm({
+export const SignUpForm = ({
   setForm,
 }: {
-  setForm: (value: boolean) => void;
-}) {
+  setForm: (value: forms) => void;
+}) => {
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <Card>
-        <p>Create account</p>
+    <Card width="300px">
+      <div style={{ width: "100%" }}>
+        <CardTitle children="Create account" />
+      </div>
+      <InputField
+        label="Email"
+        id="email"
+        type="text"
+        placeholder="Insert email"
+      />
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          padding: "20px 0px",
+          width: "100%",
+        }}
+      >
         <InputField
-          label="Email"
-          id="email"
+          label="Street name and number"
+          id="street"
           type="text"
-          placeholder="Insert email"
+          placeholder="Insert street name and number"
         />
-      </Card>
-    </div>
+        <InputField
+          label="Zip code"
+          id="zip"
+          type="number"
+          placeholder="Insert zip code (four digits)"
+        />
+        <InputField
+          label="City"
+          id="city"
+          type="text"
+          placeholder="Insert city"
+        />
+      </div>
+      <InputField
+        label="Password"
+        id="password"
+        type="password"
+        placeholder="Insert password"
+      />
+      <InputField
+        label="Repeat password"
+        id="repeatPassword"
+        type="password"
+        placeholder="Repeat password"
+      />
+      <div style={{ marginTop: "20px" }}>
+        <Button
+          color={theme.colors.cta}
+          type="button"
+          onClick={() => alert("Button clicked")}
+        >
+          Create account
+        </Button>
+      </div>
+      <p onClick={() => setForm(forms.SignIn)} style={theme.link}>
+        Login
+      </p>
+    </Card>
   );
-}
+};
