@@ -1,8 +1,8 @@
 import React from 'react'
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import { Home, SignIn, SignUp} from "../pages/pages";
 
-export default function routes() {
+export default function RoutesTable() {
   return (
     <Routes>
         <Route path="/" element={<Home />} />
