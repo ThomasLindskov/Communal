@@ -11,7 +11,7 @@ function App() {
       <RoutesTable />
       <div className="App">
         <header className="App-header">
-          <p>Mount styled components here!</p>
+          {/* <p>Mount styled components here!</p>
           <Card>
             <InputField
               label="Email"
@@ -26,7 +26,7 @@ function App() {
             >
               Click me!
             </Button>
-          </Card>
+          </Card> */}
         </header>
       </div>
     </>

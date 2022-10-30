@@ -1,13 +1,14 @@
-import React from 'react'
-import { Routes, Route} from "react-router-dom";
-import { Home, SignIn, SignUp} from "../pages/pages";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { FrontPage } from "../pages/pages";
 
 export default function RoutesTable() {
   return (
     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="SignIn" element={<SignIn />} />
-        <Route path="SignUp" element={<SignUp />} />
+      <Route path="/" element={<FrontPage />} />
+      {/* TODO: refactor this */}
+      {/* <Route path="SignIn" element={<SignIn />} /> */}
+      {/* <Route path="SignUp" element={<SignUp />} /> */}
     </Routes>
-    )
+  );
 }
