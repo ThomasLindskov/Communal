@@ -5,13 +5,26 @@ import SignUpForm from "./SignUpForm";
 export default function FormContainer() {
   const [signIn, setForm] = React.useState(false);
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <Logo />
-      {signIn ? (
-        <SignInForm setForm={setForm} />
-      ) : (
-        <SignUpForm setForm={setForm} />
-      )}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {signIn ? (
+          <SignInForm setForm={setForm} />
+        ) : (
+          <SignUpForm setForm={setForm} />
+        )}
+      </div>
     </div>
   );
 }
