@@ -31,7 +31,14 @@ export const InputField = ({
   type: HTMLInputTypeAttribute;
   placeholder: string;
 }) => (
-  <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "5px",
+      width: "100%",
+    }}
+  >
     {label && <Label htmlFor={id}>{label}</Label>}
     <Input id={id} type={type} placeholder={placeholder} />
   </div>

@@ -1,3 +1,3 @@
 export { default as Home } from "./Home";
 export { default as FrontPage } from "./frontPage/FrontPage";
-export { default as SignUp } from "./frontPage/SignUpForm";
+// export { default SignUp } from "./frontPage/SignUpForm";
