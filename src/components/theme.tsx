@@ -1,42 +1,4 @@
-type themeType = {
-  colors: {
-    primary: string;
-    secondary: string;
-    tertiary: string;
-    white: string;
-    cta: string;
-    risk: string;
-    background: string;
-  };
-  fontSize: {
-    small: string;
-    medium: string;
-    large: string;
-  };
-  fontWeight: {
-    regular: string;
-    bold: string;
-  };
-  padding: {
-    small: string;
-    medium: string;
-    large: string;
-    // xl: string;
-    xxl: string;
-  };
-  utils: {
-    borderRadius: string;
-    buttonBorderRadius: string;
-    dropShadow: string;
-  };
-  link: {
-    color: string;
-    cursor: string;
-    textDecoration: string;
-  };
-};
-
-export const theme: themeType = {
+export const theme = {
   colors: {
     primary: "hsl(130, 6%, 20%)",
     secondary: "hsl(14, 10%, 52%)",
@@ -54,10 +16,9 @@ export const theme: themeType = {
   fontSize: {
     small: "12px",
     medium: "14px",
-    large: "24px",
   },
-  fontWeight: {
-    regular: "normal",
+  fontWeights: {
+    primary: "normal",
     bold: "bold",
   },
   padding: {
@@ -65,10 +26,5 @@ export const theme: themeType = {
     medium: "10px",
     large: "15px",
     xxl: "30px",
-  },
-  link: {
-    color: "hsl(130, 6%, 20%)",
-    cursor: "pointer",
-    textDecoration: "underline",
   },
 };
