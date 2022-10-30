@@ -25,8 +25,11 @@ grid-template-areas:
 interface IIconContainerProps {
     gridArea: string
     transform?: number
-    padding?: number
+    imgpaddingleft?: number
+    divpaddingleft?: number
+    divpaddingright?: number
     justify?: string
+    align?: string
 }
 
 const IconContainer = styled.div<IIconContainerProps>`
@@ -34,35 +37,38 @@ const IconContainer = styled.div<IIconContainerProps>`
     display: flex;
     overflow: hidden;
     ${({transform}) => transform && `img {transform: rotate(${transform}deg)}`}
-    ${({padding}) => padding && `img {padding-left: ${padding}px}`}
-    ${({justify}) => justify && `justify-content: ${justify}`}
-`
+    ${({imgpaddingleft}) => imgpaddingleft && `img {padding-left: ${imgpaddingleft}px}`}
+    ${({divpaddingleft}) => divpaddingleft && `padding-left: ${divpaddingleft}px;`}
+    ${({divpaddingright}) => divpaddingright && `padding-right: ${divpaddingright}px;}`}
+    ${({justify}) => justify && `justify-content: ${justify};`}
+    ${({align}) => align && `align-items: ${align};`}
+    `
 
 
 export const UserGroup = () => (
         <Container>
-            <IconContainer gridArea='x' transform={180} justify="flex-end">
+            <IconContainer gridArea='x' transform={180} justify="flex-end" align="flex-start">
                 <Icon  src={"/icons/users/Group 1.svg"} />
             </IconContainer>
-            <IconContainer gridArea='y' transform={90}>
+            <IconContainer gridArea='y' transform={90}  divpaddingright={40} divpaddingleft={10}>
                 <Icon src={"/icons/users/Group 9.svg"}/>
             </IconContainer>
-            <IconContainer gridArea='z' transform= {-90} justify="flex-end" padding={40} >
+            <IconContainer gridArea='z' transform= {-90} justify="flex-end" imgpaddingleft={20} divpaddingright={5} divpaddingleft={30} >
                 <Icon src={"/icons/users/Group 7.svg"}  />
             </IconContainer>
-            <IconContainer gridArea= 'q' justify='space-around' >
+            <IconContainer gridArea= 'q' justify='space-around' align="flex-end" >
                 <Icon src={"/icons/users/Group 10.svg"} />
             </IconContainer>
-            <IconContainer  gridArea= 'w' >
+            <IconContainer  gridArea= 'w' align="flex-end" >
             <Icon src={"/icons/users/Group 12.svg" }/>
             </IconContainer>
-            <IconContainer  gridArea= 'a' >
+            <IconContainer  gridArea= 'a' justify='flex-start' align="flex-start" >
             <Icon  src={"/icons/bubbles/SpeechBubble1.svg" } />
             </IconContainer>
-            <IconContainer  gridArea= 'b' >
+            <IconContainer  gridArea= 'b' align='flex-end'>
             <Icon  src={"/icons/bubbles/SpeechBubble2.svg"} />
             </IconContainer>
-            <IconContainer gridArea= 'c' justify='center'>
+            <IconContainer gridArea= 'c' justify='center'  align='flex-end'>
                 <Icon src={"/icons/bubbles/SpeechBubble3.svg"} />
             </IconContainer>
         </Container>
