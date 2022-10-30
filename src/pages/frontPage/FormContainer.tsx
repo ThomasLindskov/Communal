@@ -24,16 +24,24 @@ export default function FormContainer() {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
         }}
       >
-        {form === forms.SignIn ? (
-          <SignInForm setForm={setForm} />
-        ) : form === forms.ForgotPassword ? (
-          <ForgotPassword setForm={setForm} />
-        ) : (
-          <SignUpForm setForm={setForm} />
-        )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {form === forms.SignIn ? (
+            <SignInForm setForm={setForm} />
+          ) : form === forms.ForgotPassword ? (
+            <ForgotPassword setForm={setForm} />
+          ) : (
+            <SignUpForm setForm={setForm} />
+          )}
+        </div>
       </div>
     </div>
   );

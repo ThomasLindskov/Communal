@@ -68,7 +68,7 @@ export const theme: themeType = {
   },
   link: {
     color: "hsl(130, 6%, 20%)",
-    cursor: "",
+    cursor: "pointer",
     textDecoration: "underline",
   },
 };

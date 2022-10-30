@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background-color: ${theme.colors.risk};
+    background-color: ${theme.colors.background};
   }
 `;
 
