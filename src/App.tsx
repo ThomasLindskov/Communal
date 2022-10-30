@@ -4,12 +4,14 @@ import { theme } from "./components/theme";
 import FontStyles from "./components/fontStyles";
 import { InputField } from "./components/InputField";
 import { Button } from "./components/Button";
+import RoutesTable from "./routes/RoutesTable";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <FontStyles />
-      <div className="App">
+      <RoutesTable />
+      {/* <div className="App">
         <header className="App-header">
           <p>Mount styled components here!</p>
           <InputField
@@ -26,7 +28,7 @@ function App() {
             Click me!
           </Button>
         </header>
-      </div>
+      </div> */}
     </ThemeProvider>
   );
 }
