@@ -1,13 +1,15 @@
 import React from 'react'
 import { Routes, Route} from "react-router-dom";
-import { Home, SignIn, SignUp} from "../pages/pages";
+import { UserGroup } from '../pages/frontPage/UserGroup';
+import { Home, Front} from "../pages/pages";
 
 export default function RoutesTable() {
   return (
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="SignIn" element={<SignIn />} />
-        <Route path="SignUp" element={<SignUp />} />
+        <Route path="Uservalidate" element={<Front />} />
+        <Route path="userGroup" element={<UserGroup />} />
+
     </Routes>
     )
 }
