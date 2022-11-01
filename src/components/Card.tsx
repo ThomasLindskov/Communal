@@ -11,4 +11,5 @@ export const Card = styled.div<{ width: string }>`
   min-width: ${(props) => props.width || ""};
   width: fit-content;
   align-items: center;
+  overflow-y: auto;
 `;

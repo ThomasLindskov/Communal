@@ -16,46 +16,12 @@ export const SignUpForm = ({
       <div style={{ width: "100%" }}>
         <CardTitle children="Create account" />
       </div>
-      <InputField
-        label="Email"
-        id="email"
-        type="text"
-        placeholder="Insert email"
-      />
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          padding: "20px 0px",
-          width: "100%",
-        }}
-      >
-        <InputField
-          label="Street name and number"
-          id="street"
-          type="text"
-          placeholder="Insert street name and number"
-        />
-        <InputField
-          label="Zip code"
-          id="zip"
-          type="number"
-          placeholder="Insert zip code (four digits)"
-        />
-        <InputField
-          label="City"
-          id="city"
-          type="text"
-          placeholder="Insert city"
-        />
-      </div>
+      <InputField label="Email" id="email" type="text" placeholder="Email" />
       <InputField
         label="Password"
         id="password"
         type="password"
-        placeholder="Insert password"
+        placeholder="Password"
       />
       <InputField
         label="Repeat password"
@@ -63,6 +29,34 @@ export const SignUpForm = ({
         type="password"
         placeholder="Repeat password"
       />
+      <InputField
+        label="Street name and number"
+        id="street"
+        type="text"
+        placeholder="Street name and number"
+      />
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          width: "300px",
+        }}
+      >
+        <InputField
+          label="Zip code"
+          id="zip"
+          type="number"
+          placeholder="Zip code"
+          style={{ div: { width: "30%" } }}
+        />
+        <InputField
+          label="City"
+          id="city"
+          type="text"
+          placeholder="City"
+          style={{ div: { width: "100%" } }}
+        />
+      </div>
       <div style={{ marginTop: "20px" }}>
         <Button
           color={theme.colors.cta}

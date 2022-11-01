@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
+import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
 import { theme } from "../../components/theme";
 import { forms } from "./FormContainer";
@@ -11,8 +12,21 @@ export const SignInForm = ({
   setForm: (value: forms) => void;
 }) => (
   <Card width="300px">
-    <InputField id="username" type="text" placeholder="Username" />
-    <InputField id="password" type="password" placeholder="Password" />
+    <div style={{ width: "100%" }}>
+      <CardTitle>Login</CardTitle>
+    </div>
+    <InputField
+      id="username"
+      type="text"
+      placeholder="Username"
+      label="Username"
+    />
+    <InputField
+      id="password"
+      type="password"
+      placeholder="Password"
+      label="Password"
+    />
     <Button color={theme.colors.cta}>Login</Button>
     <p onClick={() => setForm(forms.SignUp)} style={theme.link}>
       Sign up

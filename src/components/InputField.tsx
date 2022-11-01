@@ -25,11 +25,16 @@ export const InputField = ({
   label,
   type,
   placeholder,
+  style,
 }: {
   id?: string;
   label?: string;
   type: HTMLInputTypeAttribute;
   placeholder: string;
+  style?: {
+    div?: React.CSSProperties;
+    input?: React.CSSProperties;
+  };
 }) => (
   <div
     style={{
@@ -37,9 +42,15 @@ export const InputField = ({
       flexDirection: "column",
       gap: "5px",
       width: "100%",
+      ...style?.div,
     }}
   >
     {label && <Label htmlFor={id}>{label}</Label>}
-    <Input id={id} type={type} placeholder={placeholder} />
+    <Input
+      id={id}
+      type={type}
+      placeholder={placeholder}
+      style={{ ...style?.input }}
+    />
   </div>
 );
