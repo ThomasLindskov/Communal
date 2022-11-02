@@ -4,7 +4,7 @@ import { Card } from "../../components/Card";
 import { CardLink } from "../../components/CardLink";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
-import { theme } from "../../components/theme";
+import { theme } from "../../theme";
 import { forms } from "./FormContainer";
 
 export const SignUpForm = ({
