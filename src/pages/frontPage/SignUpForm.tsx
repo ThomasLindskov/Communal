@@ -4,7 +4,8 @@ import { Card } from "../../components/Card";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
 import { theme } from "../../components/theme";
-import { forms } from "./FormContainer";
+import { forms, ChangeURL } from "./FormContainer";
+
 
 export const SignUpForm = ({
   setForm,
@@ -66,7 +67,7 @@ export const SignUpForm = ({
           Create account
         </Button>
       </div>
-      <p onClick={() => setForm(forms.SignIn)} style={theme.link}>
+      <p onClick={() => { setForm(forms.SignIn); ChangeURL(forms.SignIn) }} style={theme.link}>
         Login
       </p>
     </Card>

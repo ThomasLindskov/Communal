@@ -4,7 +4,7 @@ import { Card } from "../../components/Card";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
 import { theme } from "../../components/theme";
-import { forms } from "./FormContainer";
+import { ChangeURL, forms } from "./FormContainer";
 
 export const SignInForm = ({
   setForm,
@@ -28,10 +28,10 @@ export const SignInForm = ({
       label="Password"
     />
     <Button color={theme.colors.cta}>Login</Button>
-    <p onClick={() => setForm(forms.SignUp)} style={theme.link}>
+    <p onClick={() => { setForm(forms.SignUp); ChangeURL(forms.SignUp) }} style={theme.link}>
       Sign up
     </p>
-    <p onClick={() => setForm(forms.ForgotPassword)} style={theme.link}>
+    <p onClick={() => { setForm(forms.ForgotPassword); ChangeURL(forms.ForgotPassword) }} style={theme.link}>
       Forgot Password?
     </p>
   </Card>

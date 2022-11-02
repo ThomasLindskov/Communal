@@ -3,7 +3,7 @@ import { Card } from "../../components/Card";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
 import { theme } from "../../components/theme";
-import { forms } from "./FormContainer";
+import { ChangeURL, forms } from "./FormContainer";
 
 export const ForgotPassword = ({
   setForm,
@@ -17,7 +17,7 @@ export const ForgotPassword = ({
       </div>
       <InputField label="Email*" id="email" type="email" placeholder="Email" />
       <Button color={theme.colors.cta}>Reset password</Button>
-      <p onClick={() => setForm(forms.SignIn)} style={theme.link}>
+      <p className='signin' onClick={() => {setForm(forms.SignIn); ChangeURL(forms.SignIn)}} style={theme.link}>
         Back to login
       </p>
     </Card>

@@ -6,9 +6,15 @@ import { SignInForm } from "./SignInForm";
 import { SignUpForm } from "./SignUpForm";
 
 export enum forms {
-  SignIn,
-  SignUp,
-  ForgotPassword,
+  SignIn = "sign-in",
+  SignUp = "sign-up",
+  ForgotPassword = "forgot-password",
+}
+
+export const ChangeURL = (form: forms) => {
+  window.history.replaceState(null, '', `/${form}`);
+  var formattedTitle = form.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  document.title = formattedTitle;
 }
 
 const containerPadding = 50;
