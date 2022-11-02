@@ -29,11 +29,6 @@ type themeType = {
     buttonBorderRadius: string;
     dropShadow: string;
   };
-  link: {
-    color: string;
-    cursor: string;
-    textDecoration: string;
-  };
 };
 
 export const theme: themeType = {
@@ -65,10 +60,5 @@ export const theme: themeType = {
     medium: "10px",
     large: "15px",
     xxl: "30px",
-  },
-  link: {
-    color: "hsl(130, 6%, 20%)",
-    cursor: "pointer",
-    textDecoration: "underline",
   },
 };

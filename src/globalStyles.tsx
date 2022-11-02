@@ -20,6 +20,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    margin: 0;
+    font-family: 'SF Pro', sans-serif;
     background-color: ${theme.colors.background};
   }
 `;
