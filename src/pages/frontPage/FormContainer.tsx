@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../assets/svgComponents/Logo";
-import { theme } from "../../components/theme";
+import { theme } from "../../theme";
 import { ForgotPassword } from "./ForgotPassword";
 import { SignInForm } from "./SignInForm";
 import { SignUpForm } from "./SignUpForm";
