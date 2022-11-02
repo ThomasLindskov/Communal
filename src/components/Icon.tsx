@@ -9,10 +9,12 @@ max-height:100%;
 
 export default function Icon({
     src,
+    style
   }: {
-    src: string;
+    src: string,
+    style?: React.CSSProperties;
   }) {
   return (
-    <IconComp src={src} alt="Icon"/>
+    <IconComp src={src} alt="Icon" style={{ ...style }}/>
   )
 }

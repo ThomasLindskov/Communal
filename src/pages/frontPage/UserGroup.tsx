@@ -2,6 +2,7 @@ import React from 'react'
 import { start } from 'repl';
 import styled from "styled-components"
 import Icon from '../../components/Icon';
+import { UserIconContainer } from './UserIconContainer';
 
 const Container = styled.div`
 background-color: ${({ theme }) => theme.colors.primary};
@@ -22,54 +23,19 @@ grid-template-areas:
 ". . q q . . . w w .";
 `;
 
-interface IIconContainerProps {
-    gridArea: string
-    transform?: number
-    imgpaddingleft?: number
-    divpaddingleft?: number
-    divpaddingright?: number
-    justify?: string
-    align?: string
-}
 
-const IconContainer = styled.div<IIconContainerProps>`
-    grid-area: ${(props) => props.gridArea};
-    display: flex;
-    overflow: hidden;
-    ${({transform}) => transform && `img {transform: rotate(${transform}deg)}`}
-    ${({imgpaddingleft}) => imgpaddingleft && `img {padding-left: ${imgpaddingleft}px}`}
-    ${({divpaddingleft}) => divpaddingleft && `padding-left: ${divpaddingleft}px;`}
-    ${({divpaddingright}) => divpaddingright && `padding-right: ${divpaddingright}px;}`}
-    ${({justify}) => justify && `justify-content: ${justify};`}
-    ${({align}) => align && `align-items: ${align};`}
-    `
+
 
 
 export const UserGroup = () => (
         <Container>
-            <IconContainer gridArea='x' transform={180} justify="flex-end" align="flex-start">
-                <Icon  src={"/icons/users/Group 1.svg"} />
-            </IconContainer>
-            <IconContainer gridArea='y' transform={90}  divpaddingright={40} divpaddingleft={10}>
-                <Icon src={"/icons/users/Group 9.svg"}/>
-            </IconContainer>
-            <IconContainer gridArea='z' transform= {-90} justify="flex-end" imgpaddingleft={20} divpaddingright={5} divpaddingleft={30} >
-                <Icon src={"/icons/users/Group 7.svg"}  />
-            </IconContainer>
-            <IconContainer gridArea= 'q' justify='space-around' align="flex-end" >
-                <Icon src={"/icons/users/Group 10.svg"} />
-            </IconContainer>
-            <IconContainer  gridArea= 'w' align="flex-end" >
-            <Icon src={"/icons/users/Group 12.svg" }/>
-            </IconContainer>
-            <IconContainer  gridArea= 'a' justify='flex-start' align="flex-start" >
-            <Icon  src={"/icons/bubbles/SpeechBubble1.svg" } />
-            </IconContainer>
-            <IconContainer  gridArea= 'b' align='flex-end'>
-            <Icon  src={"/icons/bubbles/SpeechBubble2.svg"} />
-            </IconContainer>
-            <IconContainer gridArea= 'c' justify='center'  align='flex-end'>
-                <Icon src={"/icons/bubbles/SpeechBubble3.svg"} />
-            </IconContainer>
+            <UserIconContainer gridArea='x'  src={"/icons/users/Group 1.svg"} style={{ justifyContent: "flex-end", alignItems: 'flex-start' }} iconStyle ={{transform: "rotate(180deg)"}}/>
+            <UserIconContainer gridArea='y'  src={"/icons/users/Group 9.svg"} style={{ justifyContent: "flex-start", paddingLeft: 14 }} iconStyle ={{transform: "rotate(90deg)"}}/>
+            <UserIconContainer gridArea='z'  src={"/icons/users/Group 7.svg"} style={{ justifyContent: "flex-end", paddingRight: 16 }} iconStyle ={{transform: "rotate(-90deg)"}}/>
+            <UserIconContainer gridArea='q'  src={"/icons/users/Group 10.svg"} style={{ justifyContent: "space-around", alignItems: 'flex-end' }}/>
+            <UserIconContainer gridArea='w'  src={"/icons/users/Group 12.svg"} style={{ alignItems: 'flex-end' }}/>
+            <UserIconContainer gridArea='a'  src={"/icons/bubbles/SpeechBubble1.svg"} style={{ justifyContent: 'flex-start' , alignItems: 'flex-start' }}/>
+            <UserIconContainer gridArea='b'  src={"/icons/bubbles/SpeechBubble2.svg"} style={{ alignItems: 'flex-end' }}/>
+            <UserIconContainer gridArea='c'  src={"/icons/bubbles/SpeechBubble3.svg"} style={{ justifyContent: 'center' ,alignItems: 'flex-end' }}/>
         </Container>
 )
