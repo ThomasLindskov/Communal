@@ -1,5 +1,7 @@
 import React from 'react'
+import { start } from 'repl';
 import styled from "styled-components"
+import Icon from '../../components/Icon';
 import { UserIconContainer } from './UserIconContainer';
 
 const Container = styled.div`
