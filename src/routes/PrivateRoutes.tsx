@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuthQuery } from "src/hooks/useAuthQuery";
 
 export const PrivateRoutes = () => {
-  let token = localStorage.getItem("token");
-  return token ? <Outlet /> : <Navigate to="/" />;
+  const {data, error, loading} = useAuthQuery();
+  return !error ? <Outlet /> : <Navigate to="/" />;
 };

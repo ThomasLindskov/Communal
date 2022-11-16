@@ -7,13 +7,23 @@ export const initializeGQL = () => {
   });
 
   const authLink = setContext(() => {
-    return {
-      headers: {
-        "X-Parse-Application-Id": process.env.REACT_APP_ID,
-        "X-Parse-Master-Key": process.env.REACT_APP_Master_Key, // optional?
-        "X-Parse-Client-Key": process.env.REACT_APP_Client_Key,
-      },
-    };
+    if(localStorage.getItem('token')){
+      return {
+        headers: {
+          "X-Parse-Application-Id": process.env.REACT_APP_ID,
+          "X-Parse-Client-Key": process.env.REACT_APP_Client_Key,
+          "X-Parse-Session-Token": localStorage.getItem('token')
+        },
+      };
+    } else {
+      return {
+        headers: {
+          "X-Parse-Application-Id": process.env.REACT_APP_ID,
+          "X-Parse-Client-Key": process.env.REACT_APP_Client_Key,
+        },
+      };
+    }
+      
   });
 
   const apolloClient = new ApolloClient({
