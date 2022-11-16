@@ -68,6 +68,7 @@ export const SignUpForm = ({
           type="text"
           placeholder="Email"
           register={register("email")}
+          errorMessage={errors.email?.message}
         />
         <InputField
           label="Password"
@@ -75,6 +76,7 @@ export const SignUpForm = ({
           type="password"
           placeholder="Password"
           register={register("password")}
+          errorMessage={errors.password?.message}
         />
         <InputField
           label="Repeat password"
@@ -82,6 +84,7 @@ export const SignUpForm = ({
           type="password"
           placeholder="Repeat password"
           register={register("confirmPassword")}
+          errorMessage={errors.confirmPassword?.message}
         />
         <InputField
           label="Street name and number"
@@ -89,6 +92,7 @@ export const SignUpForm = ({
           type="text"
           placeholder="Street name and number"
           register={register("address.street")}
+          errorMessage={errors.address?.street?.message}
         />
         <div
           style={{
@@ -104,6 +108,7 @@ export const SignUpForm = ({
             placeholder="Zip code"
             style={{ div: { width: "30%" } }}
             register={register("address.zipCode")}
+            errorMessage={errors.address?.zipCode?.message}
           />
           <InputField
             label="City"
@@ -112,10 +117,12 @@ export const SignUpForm = ({
             placeholder="City"
             style={{ div: { width: "100%" } }}
             register={register("address.city")}
+            errorMessage={errors.address?.city?.message}
           />
         </div>
         <div style={{ marginTop: "20px" }}>
-          <p>{error?.message}</p>
+          {/* <p>{error?.message}</p> */}
+          <p>message</p>
           <Button color={theme.colors.cta} type="submit" disabled={loading}>
             Create account
           </Button>
