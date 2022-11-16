@@ -1,4 +1,5 @@
 import React from "react";
+import { useSignUpMutation } from "src/hooks/useSignUpMutation";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardLink } from "../../components/CardLink";
@@ -7,12 +8,26 @@ import { InputField } from "../../components/InputField";
 import { theme } from "../../theme";
 import { forms, ChangeURL } from "./FormContainer";
 
-
 export const SignUpForm = ({
   setForm,
 }: {
   setForm: (value: forms) => void;
 }) => {
+  // add query hook here
+
+  const input = {
+    fields: {
+      username: "pvb",
+      password: "password",
+      email: "pvburleigh@gmail.com",
+    },
+  };
+
+  const { signUp, data, loading, error } = useSignUpMutation();
+  console.log(data, loading, error);
+
+  // TODO: add form-validation using react-hook-form
+
   return (
     <Card width="300px">
       <div style={{ width: "100%" }}>
@@ -63,7 +78,7 @@ export const SignUpForm = ({
         <Button
           color={theme.colors.cta}
           type="button"
-          onClick={() => alert("Button clicked")}
+          onClick={() => signUp({ variables: { input } })}
         >
           Create account
         </Button>
@@ -77,7 +92,14 @@ export const SignUpForm = ({
           gap: "10px",
         }}
       >
-        <CardLink onClick={() => { setForm(forms.SignIn); ChangeURL(forms.SignIn) }}>Back to login</CardLink>
+        <CardLink
+          onClick={() => {
+            setForm(forms.SignIn);
+            ChangeURL(forms.SignIn);
+          }}
+        >
+          Back to login
+        </CardLink>
       </div>
     </Card>
   );
