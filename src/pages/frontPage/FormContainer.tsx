@@ -24,7 +24,7 @@ export default function FormContainer({ form }: { form: forms }) {
     <div
       style={{
         padding: `${containerPadding}px`,
-        height: `calc(100% - ${containerPadding * 2}px);`,
+        height: `calc(100% - ${containerPadding * 2}px)`,
       }}
     >
       {/* The height of the logo is 110px ish */}

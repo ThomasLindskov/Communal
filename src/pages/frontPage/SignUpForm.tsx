@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -9,14 +9,15 @@ import { useSignUpMutation } from "../../hooks/useSignUpMutation";
 import { theme } from "../../theme";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ISignUpFormInput, signUpSchema } from "./validationSchemas/SignUpForm";
 
 export const SignUpForm = () => {
   const { signUp, data, loading, error } = useSignUpMutation();
+  let navigate = useNavigate();
   const {
     register,
-    formState: { errors }, // TODO: render errors with helpertext (awaiting @pvburleigh)
+    formState: { errors },
     handleSubmit,
   } = useForm<ISignUpFormInput>({ resolver: yupResolver(signUpSchema) });
 
@@ -31,15 +32,15 @@ export const SignUpForm = () => {
     };
     signUp({
       variables: { input },
-      onCompleted: () => {
-        localStorage.setItem("token", data.signUp.viewer.sessionToken);
-        // Navigate(N);
-      },
     });
   };
 
-  //console.log(error?.message);
-  // do something with the error
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem("token", data?.signUp?.viewer?.sessionToken);
+      navigate("/home");
+    }
+  }, [data]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -127,9 +128,9 @@ export const SignUpForm = () => {
             gap: "10px",
           }}
         >
-          <Link to='/'>
-          <CardLink>Back to login</CardLink>
-        </Link>
+          <Link to="/">
+            <CardLink>Back to login</CardLink>
+          </Link>
         </div>
       </Card>
     </form>
