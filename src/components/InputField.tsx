@@ -28,6 +28,7 @@ export const InputField = ({
   placeholder,
   style,
   register,
+  errorMessage,
 }: {
   id?: string;
   label?: string;
@@ -38,23 +39,27 @@ export const InputField = ({
     input?: React.CSSProperties;
   };
   register?: UseFormRegisterReturn;
+  errorMessage?: string;
 }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      gap: "5px",
-      width: "100%",
-      ...style?.div,
-    }}
-  >
-    {label && <Label htmlFor={id}>{label}</Label>}
-    <Input
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      style={{ ...style?.input }}
-      {...register}
-    />
-  </div>
+  <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "5px",
+        width: "100%",
+        ...style?.div,
+      }}
+    >
+      {label && <Label htmlFor={id}>{label}</Label>}
+      <Input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        style={{ ...style?.input }}
+        {...register}
+      />
+    </div>
+    {errorMessage && <p>{errorMessage}</p>}
+  </>
 );

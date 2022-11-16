@@ -60,6 +60,7 @@ export const SignUpForm = ({
           type="text"
           placeholder="Username"
           register={register("username")}
+          errorMessage={errors.username?.message}
         />
         <InputField
           label="Email"
