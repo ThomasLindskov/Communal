@@ -1,4 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+//TODO: Use react-router-dom to navigate to home page when Logo is clicked
+
 
 export default function Logo({ color }: { color: string }) {
   return (
