@@ -6,6 +6,10 @@ import App from "./App";
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./globalStyles";
 import { theme } from "./theme";
+import { initializeGQL } from "src/initializeGQL";
+import { ApolloProvider } from "@apollo/client";
+
+const apolloClient = initializeGQL();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,8 +18,10 @@ root.render(
   <BrowserRouter>
     <React.StrictMode>
       <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <App />
+        <ApolloProvider client={apolloClient}>
+          <GlobalStyles />
+          <App />
+        </ApolloProvider>
       </ThemeProvider>
     </React.StrictMode>
   </BrowserRouter>
