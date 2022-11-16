@@ -1,4 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 import styled from "styled-components";
 
 const Input = styled.input`
@@ -26,6 +27,7 @@ export const InputField = ({
   type,
   placeholder,
   style,
+  register,
 }: {
   id?: string;
   label?: string;
@@ -35,6 +37,7 @@ export const InputField = ({
     div?: React.CSSProperties;
     input?: React.CSSProperties;
   };
+  register?: UseFormRegisterReturn;
 }) => (
   <div
     style={{
@@ -51,6 +54,7 @@ export const InputField = ({
       type={type}
       placeholder={placeholder}
       style={{ ...style?.input }}
+      {...register}
     />
   </div>
 );

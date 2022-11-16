@@ -1,7 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 
-const Sign_UP = gql`
-  # TODO: what is SignUpInput?
+const SIGN_UP = gql`
   mutation SignUp($input: SignUpInput!) {
     signUp(input: $input) {
       viewer {
@@ -18,7 +17,7 @@ const Sign_UP = gql`
 `;
 
 export const useSignUpMutation = () => {
-  const [signUp, { data, loading, error }] = useMutation(Sign_UP);
+  const [signUp, { data, loading, error }] = useMutation(SIGN_UP);
 
   return {
     signUp,
