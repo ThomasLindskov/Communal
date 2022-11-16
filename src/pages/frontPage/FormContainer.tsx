@@ -12,10 +12,12 @@ export enum forms {
 }
 
 export const ChangeURL = (form: forms) => {
-  window.history.replaceState(null, '', `/${form}`);
-  var formattedTitle = form.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  window.history.replaceState(null, "", `/${form}`);
+  var formattedTitle = form
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (l) => l.toUpperCase());
   document.title = formattedTitle;
-}
+};
 
 const containerPadding = 50;
 
@@ -30,7 +32,7 @@ export default function FormContainer() {
     >
       {/* The height of the logo is 110px ish */}
       <div style={{ marginBottom: "10px" }}>
-        <Logo />
+        <Logo color={theme.colors.primary} />
       </div>
       <div style={{ height: "calc(100% - 120px)", display: "flex" }}>
         <div

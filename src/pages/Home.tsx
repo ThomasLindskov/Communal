@@ -9,7 +9,6 @@ export default function Home() {
       <Link to="/">Home</Link>
       <Link to="/SignIn">SignIn</Link>
       <Link to="/SignUp">SignUp</Link>
-      <Logo />
     </div>
   );
 }
