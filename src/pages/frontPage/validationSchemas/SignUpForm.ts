@@ -35,7 +35,10 @@ export const signUpSchema: yup.SchemaOf<ISignUpFormInput> = yup.object({
       .string()
       .min(5, "Address has to be at least 5 characters")
       .required(),
-    zipCode: yup.number().required("Zip code is required"),
+    zipCode: yup
+      .number()
+      .typeError("Zip code is required")
+      .required("Zip code is required"),
     city: yup.string().required("City is required"),
   }),
 });

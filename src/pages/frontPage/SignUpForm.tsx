@@ -121,8 +121,6 @@ export const SignUpForm = ({
           />
         </div>
         <div style={{ marginTop: "20px" }}>
-          {/* <p>{error?.message}</p> */}
-          <p>message</p>
           <Button color={theme.colors.cta} type="submit" disabled={loading}>
             Create account
           </Button>

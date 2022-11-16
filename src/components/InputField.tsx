@@ -1,5 +1,6 @@
 import { HTMLInputTypeAttribute } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { theme } from "src/theme";
 import styled from "styled-components";
 
 const Input = styled.input`
@@ -16,8 +17,8 @@ const Input = styled.input`
   }
 `;
 
-const Label = styled.label`
-  color: ${({ theme }) => theme.colors.secondary};
+const Label = styled.label<{ color: string }>`
+  color: ${(props) => props.color};
   font-size: ${({ theme }) => theme.fontSize.small};
 `;
 
@@ -51,15 +52,26 @@ export const InputField = ({
         ...style?.div,
       }}
     >
-      {label && <Label htmlFor={id}>{label}</Label>}
+      {label && (
+        <Label htmlFor={id} color={theme.colors.secondary}>
+          {label}
+        </Label>
+      )}
       <Input
         id={id}
         type={type}
         placeholder={placeholder}
-        style={{ ...style?.input }}
+        style={{
+          ...style?.input,
+          ...(errorMessage && { borderColor: theme.colors.risk }),
+        }}
         {...register}
       />
+      {errorMessage && (
+        <Label htmlFor={id} color={theme.colors.risk}>
+          {errorMessage}
+        </Label>
+      )}
     </div>
-    {errorMessage && <p>{errorMessage}</p>}
   </>
 );
