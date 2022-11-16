@@ -38,7 +38,7 @@ export const SignUpForm = () => {
   useEffect(() => {
     if (data) {
       localStorage.setItem("token", data?.signUp?.viewer?.sessionToken);
-      navigate("/home");
+      navigate("/chats");
     }
   }, [data]);
 
