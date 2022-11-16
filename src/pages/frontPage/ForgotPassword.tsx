@@ -1,17 +1,13 @@
-import { useResetPasswordMutation } from "src/hooks/useResetPasswordMutation";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardLink } from "../../components/CardLink";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
+import { useResetPasswordMutation } from "../../hooks/useResetPasswordMutation";
 import { theme } from "../../theme";
-import { ChangeURL, forms } from "./FormContainer";
 
-export const ForgotPassword = ({
-  setForm,
-}: {
-  setForm: (value: forms) => void;
-}) => {
+export const ForgotPassword = () => {
   const { resetPassword, data, loading, error } = useResetPasswordMutation();
   console.log(data, loading, error);
 
@@ -45,14 +41,10 @@ export const ForgotPassword = ({
             gap: "10px",
           }}
         >
-          <CardLink
-            onClick={() => {
-              setForm(forms.SignIn);
-              ChangeURL(forms.SignIn);
-            }}
-          >
-            Back to login
-          </CardLink>
+          <Link to='/'> 
+          <CardLink>Back to login</CardLink>
+          </Link>
+          
         </div>
       </Card>
     </div>

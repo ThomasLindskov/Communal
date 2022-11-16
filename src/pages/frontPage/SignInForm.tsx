@@ -1,17 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardLink } from "../../components/CardLink";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
 import { theme } from "../../theme";
-import { ChangeURL, forms } from "./FormContainer";
 
-export const SignInForm = ({
-  setForm,
-}: {
-  setForm: (value: forms) => void;
-}) => (
+export const SignInForm = () => (
   <Card width="300px">
     <div style={{ width: "100%" }}>
       <CardTitle>Login</CardTitle>
@@ -38,10 +34,16 @@ export const SignInForm = ({
         gap: "10px",
       }}
     >
-      <CardLink onClick={() => { setForm(forms.SignUp); ChangeURL(forms.SignUp) }}>Sign up</CardLink>
-      <CardLink onClick={() => { setForm(forms.ForgotPassword); ChangeURL(forms.ForgotPassword) }}>
-        Forgot Password?
+      <Link to ='/sign-up'>
+      <CardLink>
+        Sign up
       </CardLink>
+      </Link>
+        <Link to='/forgot-password'>
+          <CardLink>
+          Forgot Password?
+          </CardLink>
+          </Link>
     </div>
   </Card>
 );

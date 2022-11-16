@@ -1,15 +1,21 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { FrontPage, MainPage } from "../pages/pages";
+import { forms } from "../pages/frontPage/FormContainer";
+import FrontPage from "../pages/frontPage/FrontPage";
+import MainPage from '../pages/mainPage/MainPage';
+
+
 
 export default function RoutesTable() {
   return (
+
     <Routes>
-      <Route path="/" element={<FrontPage />} />
+    {/* TODO: Add new all new routes here */}
+      <Route path="/" element={<FrontPage form={forms.SignIn}/>} />
       <Route path="/home" element={<MainPage />} />
-      {/* TODO: refactor this */}
-      {/* <Route path="SignIn" element={<SignIn />} /> */}
-      {/* <Route path="SignUp" element={<SignUp />} /> */}
+      <Route path="/sign-up" element={<FrontPage form={forms.SignUp} />} />
+      <Route path="/forgot-password" element={<FrontPage form={forms.ForgotPassword} />}
+      />
     </Routes>
   );
 }

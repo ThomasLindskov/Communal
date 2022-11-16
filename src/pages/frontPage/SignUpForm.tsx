@@ -1,25 +1,18 @@
 import React from "react";
-import { useSignUpMutation } from "src/hooks/useSignUpMutation";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardLink } from "../../components/CardLink";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
+import { useSignUpMutation } from "../../hooks/useSignUpMutation";
 import { theme } from "../../theme";
-import { forms, ChangeURL } from "./FormContainer";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  ISignUpFormInput,
-  signUpSchema,
-} from "src/pages/frontPage/validationSchemas/SignUpForm";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { ISignUpFormInput, signUpSchema } from "./validationSchemas/SignUpForm";
 
-export const SignUpForm = ({
-  setForm,
-}: {
-  setForm: (value: forms) => void;
-}) => {
+export const SignUpForm = () => {
   const { signUp, data, loading, error } = useSignUpMutation();
   const {
     register,
@@ -134,14 +127,9 @@ export const SignUpForm = ({
             gap: "10px",
           }}
         >
-          <CardLink
-            onClick={() => {
-              setForm(forms.SignIn);
-              ChangeURL(forms.SignIn);
-            }}
-          >
-            Back to login
-          </CardLink>
+          <Link to='/'>
+          <CardLink>Back to login</CardLink>
+        </Link>
         </div>
       </Card>
     </form>
