@@ -30,7 +30,6 @@ export const SignInForm = () => {
       variables: { input },
     });
   };
-
   
   useEffect(() => {
     if (data) {

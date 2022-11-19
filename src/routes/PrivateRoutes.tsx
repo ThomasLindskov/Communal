@@ -5,6 +5,9 @@ import { useAuthQuery } from "src/hooks/useAuthQuery";
 
 export const PrivateRoutes = () => {
   const { data, error, loading } = useAuthQuery();
+  if(data){
+    localStorage.setItem("currentUser",data.viewer.user.id);
+  }
   const navbar = useRef(0);
   return !error ? (
     <>

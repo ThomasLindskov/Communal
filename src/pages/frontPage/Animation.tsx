@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 export const Animation = ({

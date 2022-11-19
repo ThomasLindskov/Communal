@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import EditProfilePage from "src/pages/editProfilePage/EditProfilePage";
 import { forms } from "../pages/frontPage/FormContainer";
 import FrontPage from "../pages/frontPage/FrontPage";
 import MainPage from "../pages/mainPage/MainPage";
@@ -21,6 +22,7 @@ export default function RoutesTable() {
       {/* Private routes */}
       <Route element={<PrivateRoutes />}>
         <Route path="/chats" element={<MainPage />} />
+        <Route path="/edit-profile" element={<EditProfilePage />} />
       </Route>
     </Routes>
   );
