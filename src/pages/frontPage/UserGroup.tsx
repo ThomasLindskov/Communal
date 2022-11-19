@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from "styled-components"
 import { UserIconContainer } from './UserIconContainer';
 import './style/css/userGroup.css'; 
+import { Animation } from './Animation.jsx';
 
 const Container = styled.div`
 background-color: ${({ theme }) => theme.colors.primary};
@@ -30,11 +31,13 @@ grid-template-areas:
 export const UserGroup = () => {
 
 const [testimonial, setTestimonial] = useState("Hover over us, to hear our experiences");
+const [show, setShow] = useState(true);
+
 
 return (
         <Container>
-            {Array(5).fill(true).map((_, i) => <UserIconContainer key={'icon'+i} className={'grid-area-'+i} number={i} setTestimonial={setTestimonial}/>)}
-            <div className='grid-area-a'><p>{testimonial}</p></div>
+            {Array(5).fill(true).map((_, i) => <UserIconContainer key={'icon'+i} className={'grid-area-'+i} number={i} setTestimonial={setTestimonial} setShow={setShow}/>)}
+            <div className='grid-area-a'> <Animation show={show} testimonial={testimonial}></Animation></div>
         </Container>
 )}
 

@@ -14,17 +14,21 @@ let random = data.sort(() => .5 - Math.random()).slice(0,5)
 export const UserIconContainer = ({
   number,
   className,
-  setTestimonial
+  setTestimonial,
+  setShow
 }: {
   number: number;
   className: string;
   setTestimonial: Function;
+  setShow: Function;
 }) => {
   const handleMouseEnter = () => {
     setTestimonial(makeQuote(random[number].testimonial, random[number].madeBy));
+    setShow(true)
   };
   const handleMouseLeave = () => {
     setTestimonial("Hover over us, to hear our experiences");
+    setShow(false)
   };
 
   return (

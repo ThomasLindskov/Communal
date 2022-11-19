@@ -63,5 +63,21 @@
 #user-group-container .grid-area-a cite {
   font-size: smaller;
 }
+#user-group-container .fade-enter {
+  opacity: 0;
+}
+#user-group-container .fade-exit {
+  opacity: 1;
+}
+#user-group-container .fade-enter-active {
+  opacity: 1;
+}
+#user-group-container .fade-exit-active {
+  opacity: 0;
+}
+#user-group-container .fade-enter-active,
+#user-group-container .fade-exit-active {
+  transition: opacity 500ms;
+}
 
 /*# sourceMappingURL=userGroup.css.map */
