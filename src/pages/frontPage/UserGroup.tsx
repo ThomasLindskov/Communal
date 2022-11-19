@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from "styled-components"
 import { UserIconContainer } from './UserIconContainer';
 import './style/css/userGroup.css'; 
-import { Animation } from './Animation.jsx';
+import { Animation } from './Animation';
 
 const Container = styled.div`
 background-color: ${({ theme }) => theme.colors.primary};
