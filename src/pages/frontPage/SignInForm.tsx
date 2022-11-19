@@ -14,6 +14,7 @@ import { ISignInFormInput, signInSchema } from "./validationSchemas/SignInForm";
 
 export const SignInForm = () => {
   const { signIn, data, loading, error } = useSignInMutation();
+  console.log(JSON.stringify(error))
   let navigate = useNavigate();
   const {
     register,
@@ -32,6 +33,7 @@ export const SignInForm = () => {
   };
   
   useEffect(() => {
+    localStorage.removeItem("token")
     if (data) {
       console.log(data)
       localStorage.setItem("token", data?.logIn?.viewer?.sessionToken);

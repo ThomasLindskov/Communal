@@ -1,14 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import styled from "styled-components"
 
 //TODO: Use react-router-dom to navigate to home page when Logo is clicked
+const IconFigure = styled.figure`
+width: 100%;
+margin: 0;
+line-height: 0;
+`
 
 
 export default function Logo({ color }: { color: string }) {
   return (
-    <figure
+    <IconFigure
       className="logo-main"
-      style={{ width: "100%", margin: "0", lineHeight: "0" }}
     >
       <svg viewBox="0 0 368 119" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -20,6 +24,6 @@ export default function Logo({ color }: { color: string }) {
           fill={color}
         />
       </svg>
-    </figure>
+    </IconFigure>
   );
 }
