@@ -22,9 +22,9 @@ export const Animation = ({
             // @ts-expect-error: ts thinks noderef and current are never, which they are not
             nodeRef.current.addEventListener("transitionend", done, false);}}
             classNames="fade">
-          <div ref={nodeRef} className="button-container">
+          <div ref={nodeRef}>
             <span>
-              {show ? testimonial : "Hover over us, to hear our experiences"}
+              {testimonial}
             </span>
           </div>
         </CSSTransition>

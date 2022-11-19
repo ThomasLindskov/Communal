@@ -27,7 +27,7 @@ export const UserIconContainer = ({
     setShow(true)
   };
   const handleMouseLeave = () => {
-    setTestimonial("Hover over us, to hear our experiences");
+    setTestimonial(makeQuote("Hover over us, to hear our experiences"));
     setShow(false)
   };
 
@@ -38,12 +38,17 @@ export const UserIconContainer = ({
   );
 }
 
-function makeQuote(testimonial:String, madeBy:String) {
-  return(<blockquote>
-    <p>{testimonial}</p>
-    
-    <cite>— {madeBy}</cite>
-    </blockquote>
-    )
-  
+function makeQuote(testimonial:String, madeBy?:String) {
+  if(madeBy){
+    return(<blockquote>
+      <p>{testimonial}</p>
+      <cite>— {madeBy}</cite>
+      </blockquote>
+      )
+  }else{
+    return(<blockquote>
+      <p>{testimonial}</p>
+      </blockquote>
+      )
+  }
 }
