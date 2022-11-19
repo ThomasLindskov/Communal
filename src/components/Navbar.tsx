@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import useNavbarDropDownToggle from "src/hooks/useNavbarDropDownToggle";
 import styled from "styled-components";
@@ -12,11 +12,12 @@ const NavWrapper = styled.div`
   filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
   padding: 17px 70px;
   position: fixed;
-  left: 10px;
-  top: 10px;
-  right: 10px;
+  left: ${({ theme }) => theme.padding.medium};
+  top: ${({ theme }) => theme.padding.medium};
+  right: ${({ theme }) => theme.padding.medium};
   display: flex;
   gap: 60px;
+  z-index: 999;
 `;
 
 const RoutesWrapper = styled.div`
@@ -43,6 +44,7 @@ const NavDropdownWrapper = styled.div`
   top: 100px;
   color: ${({ theme }) => theme.colors.white};
   font-weight: ${({ theme }) => theme.fontWeight.semibold};
+  z-index: 999;
   > * {
     &: not(: last-child) {
       border-bottom: 1px solid ${({ theme }) => theme.colors.white};
@@ -57,7 +59,14 @@ const NavDropdownItem = styled.div`
   }
 `;
 
+const NavBarDimensionsPlaceholder = styled.div<{ height: number }>`
+  height: ${(props) => props.height}px;
+  padding: ${({ theme }) => theme.padding.medium};
+`;
+
 export const Navbar = () => {
+  const [navbarHeight, setNavbarHeight] = useState(0);
+
   const { ref, isComponentVisible, setIsComponentVisible } =
     useNavbarDropDownToggle(false);
 
@@ -71,37 +80,48 @@ export const Navbar = () => {
     setIsComponentVisible(!isComponentVisible);
   };
 
+  const navbarRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (navbarRef && navbarRef.current) {
+      setNavbarHeight(navbarRef.current.getBoundingClientRect().height);
+    }
+  }, [navbarRef]);
+
   return (
-    <NavWrapper>
-      <div style={{ minWidth: "180px" }}>
-        <Logo color={theme.colors.white} />
-      </div>
-      <RoutesWrapper>
-        <div>Chats</div>
-        <div>Groups</div>
-        <div>Profile</div>
-      </RoutesWrapper>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <Avatar
-          imageUrl="/img/EricCartman.png"
-          altText="user-avatar"
-          size={theme.avatarSize.medium}
-          clickable
-          {...(toggledDisabled && { onClick: toggleDropdown })}
-        />
-        <img
-          src="/icons/Chevron.svg"
-          alt="chevron"
-          style={{ cursor: "pointer" }}
-          {...(toggledDisabled && { onClick: toggleDropdown })}
-        />
-      </div>
-      {isComponentVisible && (
-        <NavDropdownWrapper ref={ref}>
-          <NavDropdownItem>Edit user</NavDropdownItem>
-          <NavDropdownItem>Log out</NavDropdownItem>
-        </NavDropdownWrapper>
-      )}
-    </NavWrapper>
+    <>
+      <NavWrapper ref={navbarRef}>
+        <div style={{ minWidth: "180px" }}>
+          <Logo color={theme.colors.white} />
+        </div>
+        <RoutesWrapper>
+          <div>Chats</div>
+          <div>Groups</div>
+          <div>Profile</div>
+        </RoutesWrapper>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Avatar
+            imageUrl="/img/EricCartman.png"
+            altText="user-avatar"
+            size={theme.avatarSize.medium}
+            clickable
+            {...(toggledDisabled && { onClick: toggleDropdown })}
+          />
+          <img
+            src="/icons/Chevron.svg"
+            alt="chevron"
+            style={{ cursor: "pointer" }}
+            {...(toggledDisabled && { onClick: toggleDropdown })}
+          />
+        </div>
+        {isComponentVisible && (
+          <NavDropdownWrapper ref={ref}>
+            <NavDropdownItem>Edit user</NavDropdownItem>
+            <NavDropdownItem>Log out</NavDropdownItem>
+          </NavDropdownWrapper>
+        )}
+      </NavWrapper>
+      <NavBarDimensionsPlaceholder height={navbarHeight} />
+    </>
   );
 };
