@@ -41,10 +41,9 @@ export const ForgotPassword = () => {
             gap: "10px",
           }}
         >
-          <Link to='/'> 
-          <CardLink>Back to login</CardLink>
+          <Link to="/">
+            <CardLink>Back to login</CardLink>
           </Link>
-          
         </div>
       </Card>
     </div>
