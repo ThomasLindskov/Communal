@@ -8,7 +8,7 @@ import { SignUpForm } from "./SignUpForm";
 export enum forms {
   SignIn,
   SignUp,
-  ForgotPassword
+  ForgotPassword,
 }
 
 const formMap = {

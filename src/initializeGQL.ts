@@ -7,12 +7,12 @@ export const initializeGQL = () => {
   });
 
   const authLink = setContext(() => {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem("token")) {
       return {
         headers: {
           "X-Parse-Application-Id": process.env.REACT_APP_ID,
           "X-Parse-Client-Key": process.env.REACT_APP_Client_Key,
-          "X-Parse-Session-Token": localStorage.getItem('token')
+          "X-Parse-Session-Token": localStorage.getItem("token"),
         },
       };
     } else {
@@ -23,7 +23,6 @@ export const initializeGQL = () => {
         },
       };
     }
-      
   });
 
   const apolloClient = new ApolloClient({
