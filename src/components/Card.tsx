@@ -7,7 +7,7 @@ export const Card = styled.div<{ width?: string }>`
   padding: ${({ theme }) => theme.padding.large};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.padding.medium};
+  gap: ${({ theme }) => theme.flexGap.medium};
   min-width: ${(props) => props?.width || ""};
   width: fit-content;
   align-items: center;

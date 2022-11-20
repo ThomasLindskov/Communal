@@ -47,7 +47,7 @@ export const InputField = ({
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "5px",
+        gap: theme.flexGap.small,
         width: "100%",
         ...style?.div,
       }}

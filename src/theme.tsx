@@ -35,6 +35,11 @@ type themeType = {
     medium: string;
     large: string;
   };
+  flexGap: {
+    small: string;
+    medium: string;
+    large: string;
+  };
 };
 
 export const theme: themeType = {
@@ -72,5 +77,10 @@ export const theme: themeType = {
     small: "2rem",
     medium: "3rem",
     large: "4rem",
+  },
+  flexGap: {
+    small: "5px",
+    medium: "10px",
+    large: "20px",
   },
 };

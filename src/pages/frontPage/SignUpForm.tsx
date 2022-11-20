@@ -91,7 +91,7 @@ export const SignUpForm = () => {
         <div
           style={{
             display: "flex",
-            gap: "10px",
+            gap: theme.flexGap.medium,
             width: "300px",
           }}
         >
@@ -125,7 +125,7 @@ export const SignUpForm = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "10px",
+            gap: theme.flexGap.medium,
           }}
         >
           <Link to="/">

@@ -23,7 +23,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-family: 'SF Pro', sans-serif;
     background-color: ${theme.colors.background};
-  }
+  } 
+
 `;
 
 export default GlobalStyles;

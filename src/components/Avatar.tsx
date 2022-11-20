@@ -6,12 +6,13 @@ const Image = styled.img`
   height: auto;
 `;
 
-const ImgWrapper = styled.div<{ size: string; clickable: boolean }>`
+const ImgWrapper = styled.div<{ size: string; clickable?: boolean }>`
   filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
   box-sizing: border-box;
   border-radius: 50%;
   width: ${(props) => props.size};
-  height: ${(props) => props.size};
+  min-width: ${(props) => props.size};
+  min-height: ${(props) => props.size};
   ${(props) => props.clickable && "cursor: pointer;"}
 `;
 
@@ -28,7 +29,7 @@ const Avatar = ({
   clickable?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) => (
-  <ImgWrapper size={size} clickable onClick={onClick && onClick}>
+  <ImgWrapper size={size} clickable={clickable} onClick={onClick && onClick}>
     <Image src={imageUrl} alt={altText} />
   </ImgWrapper>
 );

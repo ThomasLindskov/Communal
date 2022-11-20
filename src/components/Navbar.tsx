@@ -22,16 +22,12 @@ const NavWrapper = styled.div`
 
 const RoutesWrapper = styled.div`
   display: flex;
-  gap: 20px;
+  gap: ${({ theme }) => theme.flexGap.large};
   align-items: center;
   justify-content: flex-start;
   width: 100%;
   font-weight: ${({ theme }) => theme.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.white};
-`;
-
-const RelativeWrapper = styled.div`
-  position: relative;
 `;
 
 const NavDropdownWrapper = styled.div`
@@ -99,7 +95,13 @@ export const Navbar = () => {
           <div>Groups</div>
           <div>Profile</div>
         </RoutesWrapper>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: theme.flexGap.medium,
+          }}
+        >
           <Avatar
             imageUrl="/img/EricCartman.png"
             altText="user-avatar"

@@ -38,13 +38,12 @@ export const ForgotPassword = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "10px",
+            gap: theme.flexGap.medium,
           }}
         >
-          <Link to='/'> 
-          <CardLink>Back to login</CardLink>
+          <Link to="/">
+            <CardLink>Back to login</CardLink>
           </Link>
-          
         </div>
       </Card>
     </div>

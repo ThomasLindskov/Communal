@@ -14,7 +14,7 @@ import { ISignInFormInput, signInSchema } from "./validationSchemas/SignInForm";
 
 export const SignInForm = () => {
   const { signIn, data, loading, error } = useSignInMutation();
-  console.log(JSON.stringify(error))
+  console.log(JSON.stringify(error));
   let navigate = useNavigate();
   const {
     register,
@@ -24,67 +24,65 @@ export const SignInForm = () => {
 
   const onSubmit: SubmitHandler<ISignInFormInput> = (inputData) => {
     const input = {
-        username: inputData.username,
-        password: inputData.password,
-      }
+      username: inputData.username,
+      password: inputData.password,
+    };
     signIn({
       variables: { input },
     });
   };
-  
+
   useEffect(() => {
-    localStorage.removeItem("token")
+    localStorage.removeItem("token");
     if (data) {
-      console.log(data)
+      console.log(data);
       localStorage.setItem("token", data?.logIn?.viewer?.sessionToken);
       navigate("/chats");
     }
   }, [data]);
-  
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-       <Card width="300px">
-    <div style={{ width: "100%" }}>
-      <CardTitle>Login</CardTitle>
-    </div>
-    <InputField
-      id="username"
-      type="text"
-      placeholder="Username"
-      label="Username"
-      register={register("username")}
-      errorMessage={errors.username?.message}
-    />
-    <InputField
-      id="password"
-      type="password"
-      placeholder="Password"
-      label="Password"
-      register={register("password")}
-      errorMessage={errors.password?.message}
-    />
-    <Button color={theme.colors.cta} type="submit" disabled={loading}>Login</Button>
-    <div
-      style={{
-        padding: `${theme.padding.small} 0`,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "10px",
-      }}
-    >
-      <Link to ='/sign-up'>
-      <CardLink>
-        Sign up
-      </CardLink>
-      </Link>
-        <Link to='/forgot-password'>
-          <CardLink>
-          Forgot Password?
-          </CardLink>
+      <Card width="300px">
+        <div style={{ width: "100%" }}>
+          <CardTitle>Login</CardTitle>
+        </div>
+        <InputField
+          id="username"
+          type="text"
+          placeholder="Username"
+          label="Username"
+          register={register("username")}
+          errorMessage={errors.username?.message}
+        />
+        <InputField
+          id="password"
+          type="password"
+          placeholder="Password"
+          label="Password"
+          register={register("password")}
+          errorMessage={errors.password?.message}
+        />
+        <Button color={theme.colors.cta} type="submit" disabled={loading}>
+          Login
+        </Button>
+        <div
+          style={{
+            padding: `${theme.padding.small} 0`,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: theme.flexGap.medium,
+          }}
+        >
+          <Link to="/sign-up">
+            <CardLink>Sign up</CardLink>
           </Link>
-    </div>
-  </Card>
+          <Link to="/forgot-password">
+            <CardLink>Forgot Password?</CardLink>
+          </Link>
+        </div>
+      </Card>
     </form>
   );
 };

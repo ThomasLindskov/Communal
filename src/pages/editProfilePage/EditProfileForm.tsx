@@ -92,7 +92,7 @@ export const EditProfileForm = () => {
         <div
           style={{
             display: "flex",
-            gap: "10px",
+            gap: theme.flexGap.medium,
             width: "300px",
           }}
         >
