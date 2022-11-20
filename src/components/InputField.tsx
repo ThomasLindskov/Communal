@@ -34,7 +34,7 @@ export const InputField = ({
   id?: string;
   label?: string;
   type: HTMLInputTypeAttribute;
-  placeholder: string;
+  placeholder?: string;
   style?: {
     div?: React.CSSProperties;
     input?: React.CSSProperties;

@@ -23,5 +23,4 @@ export const Button = styled.button`
     disabled
   `} */
   /* TODO: add disabled state */
-  /* TODO: add onClick */
 `;
