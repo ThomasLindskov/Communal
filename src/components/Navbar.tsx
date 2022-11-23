@@ -9,7 +9,7 @@ import { theme } from "../theme";
 import Avatar from "./Avatar";
 import toast, { Toaster } from "react-hot-toast";
 import { CardLink } from "./CardLink";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
@@ -55,28 +55,29 @@ export const Navbar = () => {
     <>
       <NavWrapper ref={navbarRef}>
         <div style={{ minWidth: "180px" }}>
-          <Link to='/chats'>
-          <Logo color={theme.colors.white} />
+          <Link to="/chats">
+            <Logo color={theme.colors.white} />
           </Link>
         </div>
-        <RoutesWrapper style={{marginLeft: 20}}>
-         {location.pathname == "/chats" ? (
+        <RoutesWrapper style={{ marginLeft: 20 }}>
+          {location.pathname == "/chats" ? (
             <Link to="/chats">
-              <CardLink color={theme.colors.white} selected={true} >Chats</CardLink>
+              <CardLink color={theme.colors.white} selected={true}>
+                Chats
+              </CardLink>
             </Link>
           ) : (
             <Link to="/chats">
-                <div style={{color: 'white'}}>Chats</div>
-                </Link>
-            
-          )} 
+              <div style={{ color: "white" }}>Chats</div>
+            </Link>
+          )}
         </RoutesWrapper>
         <div
           style={{
-            display: "flex",  
+            display: "flex",
             alignItems: "center",
             gap: theme.flexGap.medium,
-            cursor: "pointer"
+            cursor: "pointer",
           }}
           onClick={toggleDropdown}
         >
@@ -93,11 +94,11 @@ export const Navbar = () => {
         </div>
         {isComponentVisible && (
           <NavDropdownWrapper ref={ref}>
-          <Link to="/edit-profile">
-            <NavDropdownItem>
+            <Link to="/edit-profile">
+              <NavDropdownItem>
                 <CardLink color={theme.colors.white}>Edit user</CardLink>
               </NavDropdownItem>
-              </Link>
+            </Link>
             <NavDropdownItem onClick={handleLogOut}>Log out</NavDropdownItem>
           </NavDropdownWrapper>
         )}

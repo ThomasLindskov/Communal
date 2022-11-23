@@ -9,7 +9,7 @@ const LOGOUT = gql`
 `;
 
 export const useLogOutMutation = () => {
-  const [logOut, { data, loading, error }] = useMutation(LOGOUT);
+  const [logOut, { loading, error }] = useMutation(LOGOUT);
 
   return {
     logOut,
