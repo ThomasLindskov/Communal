@@ -9,6 +9,7 @@ export const PrivateRoutes = () => {
   const { data, error, loading } = useAuthQuery();
   if (data) {
     localStorage.setItem("currentUser", data.viewer.user.id);
+    localStorage.setItem("currentUserObjectId", data.viewer.user.objectId);
   }
 
   const Container = styled.div`
