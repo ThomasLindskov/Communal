@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { Chat } from "./Chat";
 import Chats from "./Chats";
 
+
 const ChatTypeWrapper = styled.div`
   gap: ${({ theme }) => theme.flexGap.small};
   display: flex;
@@ -99,7 +100,7 @@ export function ChatsPage() {
         </PaddingContainer>
         <InputContainer className="parent" onClick={handleClick}>
           <ChatInput ref={inputRef} />
-          <Button color={theme.colors.cta}>Send</Button>
+          <Button color={theme.colors.cta} >Send</Button>
         </InputContainer>
       </Card>
     </>
