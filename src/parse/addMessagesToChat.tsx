@@ -5,10 +5,12 @@ import { getObject } from './getObject';
 export const addMessagesToChat = async function (chatid: string, text: string) {
     try {
         let chat = await getObject('Chat', chatid)
+        let user = await getObject('User', localStorage.getItem('currentUserObjectId'))
         if(chat){
             let message = new Parse.Object('Message')
             message.set('text', text)
             message.set('chat', chat.toPointer())
+            message.set('chat', user?.toPointer())
             try {
                 await message.save();
                 return true;
