@@ -66,7 +66,6 @@ export function ChatsPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClick = () => {
-    getMessagesInChat('B5LoAjTM1Y')
     if (inputRef && inputRef.current) {
       inputRef.current.focus();
     }
