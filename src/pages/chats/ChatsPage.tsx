@@ -3,6 +3,9 @@ import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
 import { InputField } from "src/components/InputField";
+import { addMessagesToChat } from "src/parse/addMessagesToChat";
+import { getChatsByUserId } from "src/parse/getChatsByUserId";
+import { getMessagesInChat } from "src/parse/getMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { Chat } from "./Chat";
@@ -68,6 +71,7 @@ export function ChatsPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClick = () => {
+    getMessagesInChat('B5LoAjTM1Y')
     if (inputRef && inputRef.current) {
       inputRef.current.focus();
     }

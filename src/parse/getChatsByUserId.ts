@@ -1,11 +1,11 @@
 import Parse from 'parse/dist/parse.min.js';
+import { getObject } from './getObject';
 
 
 export const getChatsByUserId = async function (userid: string) {
     try {
         const parseQuery = new Parse.Query('Chat');
-        const query = new Parse.Query("User");
-        let user = await query.get(userid);
+        let user = await getObject('User', userid)
         parseQuery.equalTo('users', user);
         const chats = await parseQuery.find();
         return chats
