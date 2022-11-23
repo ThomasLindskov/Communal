@@ -1,4 +1,5 @@
 import React from "react";
+import { InputField } from "src/components/InputField";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import Message from "./Message";
@@ -9,8 +10,6 @@ export enum messageType {
 }
 
 const ChatContainer = styled.div`
-  border-top: 1px solid ${theme.colors.tertiary};
-  padding-top: 20px;
   display: flex;
   flex-direction: column;
   gap: ${theme.flexGap.medium};
