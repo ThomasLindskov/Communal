@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogOutMutation } from "src/hooks/useLogOutMutation";
 import useNavbarDropDownToggle from "src/hooks/useNavbarDropDownToggle";
 import styled from "styled-components";
@@ -8,6 +8,8 @@ import Logo from "../assets/svgComponents/Logo";
 import { theme } from "../theme";
 import Avatar from "./Avatar";
 import toast, { Toaster } from "react-hot-toast";
+import { CardLink } from "./CardLink";
+import { useLocation } from 'react-router-dom'
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
@@ -47,20 +49,31 @@ export const Navbar = () => {
     }
   }, [navbarRef]);
 
+  const location = useLocation();
+
   return (
     <>
       <NavWrapper ref={navbarRef}>
         <div style={{ minWidth: "180px" }}>
+          <Link to='/chats'>
           <Logo color={theme.colors.white} />
+          </Link>
         </div>
         <RoutesWrapper>
-          <div>Chats</div>
-          <div>Groups</div>
-          <div>Profile</div>
+         {location.pathname == "/chats" ? (
+            <Link to="/chats">
+              <CardLink color={theme.colors.white} selected={true} >Chats</CardLink>
+            </Link>
+          ) : (
+            <Link to="/chats">
+                <div style={{color: 'white'}}>Chats</div>
+                </Link>
+            
+          )} 
         </RoutesWrapper>
         <div
           style={{
-            display: "flex",
+            display: "flex",  
             alignItems: "center",
             gap: theme.flexGap.medium,
             cursor: "pointer"
@@ -80,7 +93,11 @@ export const Navbar = () => {
         </div>
         {isComponentVisible && (
           <NavDropdownWrapper ref={ref}>
-            <NavDropdownItem>Edit user</NavDropdownItem>
+            <NavDropdownItem>
+              <Link to="/edit-profile">
+                <CardLink color={theme.colors.white}>Edit user</CardLink>
+              </Link>
+              </NavDropdownItem>
             <NavDropdownItem onClick={handleLogOut}>Log out</NavDropdownItem>
           </NavDropdownWrapper>
         )}

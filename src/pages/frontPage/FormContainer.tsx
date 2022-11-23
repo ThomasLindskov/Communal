@@ -5,6 +5,7 @@ import { ForgotPassword } from "./ForgotPassword";
 import { SignInForm } from "./SignInForm";
 import { SignUpForm } from "./SignUpForm";
 import { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export enum forms {
   SignIn,
@@ -30,7 +31,9 @@ export default function FormContainer({ form }: { form: forms }) {
     >
       {/* The height of the logo is 110px ish */}
       <div style={{ marginBottom: "10px" }}>
+        <Link to='/'>
         <Logo color={theme.colors.primary} />
+        </Link>
       </div>
       <div style={{ height: "calc(100% - 120px)", display: "flex" }}>
         <div
