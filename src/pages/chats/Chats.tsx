@@ -12,7 +12,6 @@ const ChatsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.flexGap.medium};
-  overflow-y: scroll;
 `;
 
 export default function Chats({ chatType }: { chatType: chatType }) {
