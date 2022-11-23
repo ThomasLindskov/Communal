@@ -60,7 +60,7 @@ export const Navbar = () => {
           </Link>
         </div>
         <RoutesWrapper style={{ marginLeft: 20 }}>
-          {location.pathname == "/chats" ? (
+          {location.pathname === "/chats" ? (
             <Link to="/chats">
               <CardLink color={theme.colors.white} selected={true}>
                 Chats

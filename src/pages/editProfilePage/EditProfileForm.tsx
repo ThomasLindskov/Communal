@@ -16,6 +16,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { useToggle } from "ahooks";
 import Modal from "react-modal";
 import { DeleteProfileForm } from "src/pages/editProfilePage/DeleteProfileForm";
+import { Select } from "src/components/Select";
+
+const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
 export const EditProfileForm = () => {
   const {
@@ -40,13 +43,14 @@ export const EditProfileForm = () => {
       return;
     }
 
-    const { username, email, address } = inputData;
+    const { username, email, address, neighborhood } = inputData;
     const input = {
       id: localStorage.getItem("currentUser"),
       fields: {
         username,
         email,
         address,
+        neighborhood,
       },
     };
     editProfile({
@@ -149,6 +153,21 @@ export const EditProfileForm = () => {
               errorMessage={errors.address?.city?.message}
             />
           </div>
+          <Select
+            id="neighborhood"
+            register={register("neighborhood")}
+            label={"Preferred area"}
+          >
+            <option key={0} value={0}>
+              No chosen
+            </option>
+            {Object.keys(zipCodes).map((key: string) => (
+              <option key={key} value={key}>
+                {zipCodes[key as any]}
+              </option>
+            ))}
+          </Select>
+          <div style={{ marginTop: "20px" }}></div>
           <Button
             color={theme.colors.cta}
             type="submit"
