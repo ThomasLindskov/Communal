@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+export const Button = styled.button.attrs((props) => ({
+  disabled: props.disabled,
+}))`
   border-radius: ${({ theme }) => theme.utils.buttonBorderRadius};
   color: ${({ theme }) => theme.colors.white};
   background-color: ${(props) => props.color};
@@ -13,14 +15,8 @@ export const Button = styled.button`
   filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
   font-weight: bold;
   &:hover {
-    cursor: pointer;
-    opacity: 0.95; // TODO: improve
+    ${({ disabled }) => !disabled && "cursor: pointer; opacity: 0.90;"}
   }
   width: fit-content;
-  /* ${({ disabled }) =>
-    disabled &&
-    `
-    disabled
-  `} */
-  /* TODO: add disabled state */
+  ${({ disabled }) => disabled && "opacity: 0.3;"}
 `;

@@ -1,7 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 
 const RESET_PASSWORD = gql`
-  # TODO: what is ResetPasswordInput?
   mutation resetPassword($input: ResetPasswordInput!) {
     resetPassword(input: $input) {
       ok
@@ -10,9 +9,10 @@ const RESET_PASSWORD = gql`
 `;
 
 export const useResetPasswordMutation = () => {
-  const [resetPassword] = useMutation(RESET_PASSWORD);
+  const [resetPassword, { loading }] = useMutation(RESET_PASSWORD);
 
   return {
     resetPassword,
+    loading,
   };
 };
