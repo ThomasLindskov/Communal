@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
 import { InputField } from "src/components/InputField";
@@ -26,17 +27,19 @@ const OverflowContainer = styled.div`
   overflow-y: auto;
 `;
 
-const ChatInput = styled.textarea`
-  border: 1px solid ${({ theme }) => theme.colors.risk};
+const ChatInput = styled.input`
+  border: 0;
   color: ${({ theme }) => theme.colors.secondary};
   ::placeholder {
     color: ${({ theme }) => theme.colors.secondary};
     font-size: ${({ theme }) => theme.fontSize.medium};
   }
   resize: none;
-  width: 100%;
   height: 100%;
   box-sizing: border-box;
+  font-family: "SF Pro";
+  flex-grow: 1;
+  outline: none;
 `;
 
 const InputContainer = styled.div`
@@ -44,10 +47,15 @@ const InputContainer = styled.div`
     ${({ theme }) => theme.padding.large};
   line-height: 0;
   width: 100%;
-  min-height: 48px;
   box-sizing: border-box;
   border-radius: ${({ theme }) => theme.utils.borderRadius};
   border: 1px solid ${({ theme }) => theme.colors.tertiary};
+  display: flex;
+  align-content: center;
+  gap: ${({ theme }) => theme.flexGap.medium};
+  &:hover {
+    cursor: text;
+  }
 `;
 
 export enum chatType {
@@ -56,6 +64,13 @@ export enum chatType {
 }
 
 export function ChatsPage() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
   return (
     <>
       <Card>
@@ -82,8 +97,9 @@ export function ChatsPage() {
             <Chat />
           </OverflowContainer>
         </PaddingContainer>
-        <InputContainer>
-          <ChatInput></ChatInput>
+        <InputContainer className="parent" onClick={handleClick}>
+          <ChatInput ref={inputRef} />
+          <Button color={theme.colors.cta}>Send</Button>
         </InputContainer>
       </Card>
     </>
