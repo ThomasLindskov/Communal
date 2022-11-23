@@ -63,20 +63,19 @@ export const Navbar = () => {
             display: "flex",
             alignItems: "center",
             gap: theme.flexGap.medium,
+            cursor: "pointer"
           }}
+          onClick={toggleDropdown}
         >
           <Avatar
             imageUrl="/img/EricCartman.png"
             altText="user-avatar"
             size={theme.avatarSize.medium}
-            clickable
-            {...(toggledDisabled && { onClick: toggleDropdown })}
           />
           <img
             src="/icons/Chevron.svg"
             alt="chevron"
             style={{ cursor: "pointer" }}
-            {...(toggledDisabled && { onClick: toggleDropdown })}
           />
         </div>
         {isComponentVisible && (

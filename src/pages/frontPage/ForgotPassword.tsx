@@ -9,14 +9,15 @@ import { theme } from "../../theme";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { IForgotPasswordInput, forgotPasswordSchema } from "./validationSchemas/ForgotPassword";
 import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 
 
 export const ForgotPassword = () => {
-  const { resetPassword, data, loading, error } = useResetPasswordMutation();
-  console.log(data, loading, error);
+  const { resetPassword } = useResetPasswordMutation();
   const {
     register,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm<IForgotPasswordInput>({ resolver: yupResolver(forgotPasswordSchema) });
 
@@ -27,6 +28,13 @@ export const ForgotPassword = () => {
     resetPassword({
       variables: { input },
     });
+    setTimeout(() => {
+      toast('If an account with that email exists, you will receive an email with instructions on how to reset your password.', {style: {
+        background: theme.colors.background,
+        color: theme.colors.primary,
+      },});
+    setValue("email", "");
+    }, 500);
   };
 
   return (

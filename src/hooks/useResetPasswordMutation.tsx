@@ -10,12 +10,9 @@ const RESET_PASSWORD = gql`
 `;
 
 export const useResetPasswordMutation = () => {
-  const [resetPassword, { data, loading, error }] = useMutation(RESET_PASSWORD);
+  const [resetPassword] = useMutation(RESET_PASSWORD);
 
   return {
     resetPassword,
-    data,
-    loading,
-    error,
   };
 };
