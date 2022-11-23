@@ -29,11 +29,10 @@ export const EditProfileForm = () => {
     resolver: yupResolver(editProfileSchema),
   });
   const { loading, error } = useProfileSettingsQuery(setValue);
-  const notification = (message: string) => toast(message);
 
   const onSubmit: SubmitHandler<IEditProfileFormInput> = (inputData) => {
     if (!isDirty) {
-      notification("No changes made");
+      toast("No changes made");
       return;
     }
 
@@ -50,9 +49,9 @@ export const EditProfileForm = () => {
       variables: { input },
       onCompleted: () => {
         if (submitError) {
-          notification(submitError.message);
+          toast(submitError.message);
         } else {
-          notification("Profile updated successfully");
+          toast.success("Profile updated successfully");
         }
       },
     });
