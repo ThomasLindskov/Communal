@@ -28,6 +28,7 @@ export const SignUpForm = () => {
         password: inputData.password,
         email: inputData.email,
         address: inputData.address,
+        neighborhood: inputData.address.zipCode.toString(),
       },
     };
     signUp({

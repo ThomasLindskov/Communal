@@ -10,9 +10,10 @@ export interface ISignUpFormInput {
     zipCode: number;
     city: string;
   };
+  neighborhood: string;
 }
 
-export const signUpSchema: yup.SchemaOf<ISignUpFormInput> = yup.object({
+export const signUpSchema: yup.SchemaOf<Omit<ISignUpFormInput, 'neighborhood'>> = yup.object({
   username: yup
     .string()
     .min(5, "Username has to be at least 5 characters")
