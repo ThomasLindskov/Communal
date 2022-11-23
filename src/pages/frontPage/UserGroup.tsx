@@ -45,7 +45,6 @@ export const UserGroup = () => {
           />
         ))}
       <div className="grid-area-a">
-        {" "}
         <Animation show={show} testimonial={testimonial} />
       </div>
     </Container>

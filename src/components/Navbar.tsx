@@ -1,67 +1,30 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLogOutMutation } from "src/hooks/useLogOutMutation";
 import useNavbarDropDownToggle from "src/hooks/useNavbarDropDownToggle";
 import styled from "styled-components";
 import Logo from "../assets/svgComponents/Logo";
 import { theme } from "../theme";
 import Avatar from "./Avatar";
-
-const NavWrapper = styled.div`
-  border-radius: ${({ theme }) => theme.utils.borderRadius};
-  background-color: ${({ theme }) => theme.colors.primary};
-  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
-  padding: 17px 70px;
-  position: fixed;
-  left: ${({ theme }) => theme.padding.medium};
-  top: ${({ theme }) => theme.padding.medium};
-  right: ${({ theme }) => theme.padding.medium};
-  display: flex;
-  gap: 60px;
-  z-index: 999;
-`;
-
-const RoutesWrapper = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.flexGap.large};
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.white};
-`;
-
-const NavDropdownWrapper = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  border-radius: ${({ theme }) => theme.utils.borderRadius};
-  background-color: ${({ theme }) => theme.colors.primary};
-  right: 60px;
-  top: 100px;
-  color: ${({ theme }) => theme.colors.white};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  z-index: 999;
-  > * {
-    &: not(: last-child) {
-      border-bottom: 1px solid ${({ theme }) => theme.colors.white};
-    }
-  }
-`;
-
-const NavDropdownItem = styled.div`
-  padding: 1em;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const NavBarDimensionsPlaceholder = styled.div<{ height: number }>`
-  height: ${(props) => props.height}px;
-  padding: ${({ theme }) => theme.padding.medium};
-`;
+import toast, { Toaster } from "react-hot-toast";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
+  const { logOut, error, loading } = useLogOutMutation();
+  let navigate = useNavigate();
+
+  const handleLogOut = () => {
+    logOut();
+    if (error && !loading) {
+      toast(error.message);
+    }
+
+    if (!loading) {
+      localStorage.clear();
+      navigate("/");
+    }
+  };
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useNavbarDropDownToggle(false);
@@ -119,11 +82,66 @@ export const Navbar = () => {
         {isComponentVisible && (
           <NavDropdownWrapper ref={ref}>
             <NavDropdownItem>Edit user</NavDropdownItem>
-            <NavDropdownItem>Log out</NavDropdownItem>
+            <NavDropdownItem onClick={handleLogOut}>Log out</NavDropdownItem>
           </NavDropdownWrapper>
         )}
       </NavWrapper>
       <NavBarDimensionsPlaceholder height={navbarHeight} />
+      <Toaster position="bottom-center" />
     </>
   );
 };
+
+const NavWrapper = styled.div`
+  border-radius: ${({ theme }) => theme.utils.borderRadius};
+  background-color: ${({ theme }) => theme.colors.primary};
+  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
+  padding: 17px 70px;
+  position: fixed;
+  left: ${({ theme }) => theme.padding.medium};
+  top: ${({ theme }) => theme.padding.medium};
+  right: ${({ theme }) => theme.padding.medium};
+  display: flex;
+  gap: 60px;
+  z-index: 999;
+`;
+
+const RoutesWrapper = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.flexGap.large};
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  font-weight: ${({ theme }) => theme.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+const NavDropdownWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: ${({ theme }) => theme.utils.borderRadius};
+  background-color: ${({ theme }) => theme.colors.primary};
+  right: 60px;
+  top: 100px;
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: ${({ theme }) => theme.fontWeight.semibold};
+  z-index: 999;
+  > * {
+    &: not(: last-child) {
+      border-bottom: 1px solid ${({ theme }) => theme.colors.white};
+    }
+  }
+`;
+
+const NavDropdownItem = styled.div`
+  padding: 1em;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const NavBarDimensionsPlaceholder = styled.div<{ height: number }>`
+  height: ${(props) => props.height}px;
+  padding: ${({ theme }) => theme.padding.medium};
+`;

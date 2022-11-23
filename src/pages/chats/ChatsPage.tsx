@@ -10,7 +10,6 @@ const ChatTypeWrapper = styled.div`
   gap: ${({ theme }) => theme.flexGap.small};
   display: flex;
   flex-direction: column;
-}
 `;
 
 export enum chatType {

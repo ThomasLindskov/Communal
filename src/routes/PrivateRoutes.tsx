@@ -10,6 +10,10 @@ export const PrivateRoutes = () => {
     localStorage.setItem("currentUser", data.viewer.user.id);
   }
 
+  if (loading) {
+    return null;
+  }
+
   const Container = styled.div`
     display: flex;
     justify-content: center;

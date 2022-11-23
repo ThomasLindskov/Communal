@@ -13,7 +13,6 @@ export const useLogOutMutation = () => {
 
   return {
     logOut,
-    data,
     loading,
     error,
   };
