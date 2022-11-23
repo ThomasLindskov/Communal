@@ -4,6 +4,7 @@ import { theme } from "../../theme";
 import { ForgotPassword } from "./ForgotPassword";
 import { SignInForm } from "./SignInForm";
 import { SignUpForm } from "./SignUpForm";
+import { Toaster } from "react-hot-toast";
 
 export enum forms {
   SignIn,
@@ -52,6 +53,16 @@ export default function FormContainer({ form }: { form: forms }) {
           </div>
         </div>
       </div>
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          duration: 10000,
+          style: {
+            background: theme.colors.risk,
+            color: theme.colors.white,
+          },
+        }}
+      />
     </div>
   );
 }

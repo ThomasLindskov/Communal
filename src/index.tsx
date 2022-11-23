@@ -15,13 +15,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <ApolloProvider client={apolloClient}>
-          <GlobalStyles />
-          <App />
-        </ApolloProvider>
-      </ThemeProvider>
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <ThemeProvider theme={theme}>
+      <ApolloProvider client={apolloClient}>
+        <GlobalStyles />
+        <App />
+      </ApolloProvider>
+    </ThemeProvider>
+    {/* </React.StrictMode> */}
   </BrowserRouter>
 );

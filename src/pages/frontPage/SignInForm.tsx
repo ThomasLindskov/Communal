@@ -11,6 +11,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { ISignInFormInput, signInSchema } from "./validationSchemas/SignInForm";
+import toast from "react-hot-toast";
 
 export const SignInForm = () => {
   const { signIn, data, loading, error } = useSignInMutation();
@@ -30,6 +31,9 @@ export const SignInForm = () => {
     signIn({
       variables: { input },
     });
+    if (error) {
+      toast(error.message);
+    }
   };
 
   useEffect(() => {
