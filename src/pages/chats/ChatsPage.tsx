@@ -2,15 +2,10 @@ import React, { useRef } from "react";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
-import { InputField } from "src/components/InputField";
-import { addMessagesToChat } from "src/parse/addMessagesToChat";
-import { getChatsByUserId } from "src/parse/getChatsByUserId";
-import { getMessagesInChat } from "src/parse/getMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { Chat } from "./Chat";
 import Chats from "./Chats";
-
 
 const ChatTypeWrapper = styled.div`
   gap: ${({ theme }) => theme.flexGap.small};
@@ -104,7 +99,7 @@ export function ChatsPage() {
         </PaddingContainer>
         <InputContainer className="parent" onClick={handleClick}>
           <ChatInput ref={inputRef} />
-          <Button color={theme.colors.cta} >Send</Button>
+          <Button color={theme.colors.cta}>Send</Button>
         </InputContainer>
       </Card>
     </>

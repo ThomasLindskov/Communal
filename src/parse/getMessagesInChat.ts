@@ -8,7 +8,6 @@ export const getMessagesInChat = async function (chatid: string) {
         const parseQuery = new Parse.Query('Message');
         parseQuery.equalTo('chat', chat);
         let messages = await parseQuery.find();
-        console.log(messages)
         return messages
     } catch (error) {
       // Error can be caused by lack of value selection

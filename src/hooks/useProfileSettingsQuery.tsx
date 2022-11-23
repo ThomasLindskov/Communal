@@ -7,6 +7,7 @@ const fetchUser = gql`
       username
       email
       address
+      neighborhood
     }
   }
 `;
@@ -22,6 +23,8 @@ export const useProfileSettingsQuery = (
     variables: { id: localStorage.getItem("currentUser") },
     onCompleted: (data) => {
       for (const [key, value] of Object.entries(data.user)) {
+        console.log(key, value);
+
         setValue(
           key as keyof IEditProfileFormInput,
           value as unknown as string

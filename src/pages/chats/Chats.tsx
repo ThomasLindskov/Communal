@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { ChatThumbnail } from "src/pages/chats/ChatThumbnail";
 import { theme } from "src/theme";
 import styled from "styled-components";
@@ -19,14 +19,8 @@ export default function Chats({ chatType }: { chatType: chatType }) {
 
   const chatsContainer = useRef<HTMLInputElement | null>(null);
 
-  const [overFlowHeight, setOverFlowHeight] = React.useState<number | null>(
-    null
-  );
-
   return (
-    <OverflowContainer
-      style={{ maxHeight: overFlowHeight !== null ? overFlowHeight : "" }}
-    >
+    <OverflowContainer>
       <ChatsContainer ref={chatsContainer}>
         <ChatThumbnail id="1" selected={true} />
         <ChatThumbnail id="1" selected={false} />
