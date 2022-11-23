@@ -59,7 +59,7 @@ export const Navbar = () => {
           <Logo color={theme.colors.white} />
           </Link>
         </div>
-        <RoutesWrapper>
+        <RoutesWrapper style={{marginLeft: 20}}>
          {location.pathname == "/chats" ? (
             <Link to="/chats">
               <CardLink color={theme.colors.white} selected={true} >Chats</CardLink>
@@ -93,11 +93,11 @@ export const Navbar = () => {
         </div>
         {isComponentVisible && (
           <NavDropdownWrapper ref={ref}>
+          <Link to="/edit-profile">
             <NavDropdownItem>
-              <Link to="/edit-profile">
                 <CardLink color={theme.colors.white}>Edit user</CardLink>
-              </Link>
               </NavDropdownItem>
+              </Link>
             <NavDropdownItem onClick={handleLogOut}>Log out</NavDropdownItem>
           </NavDropdownWrapper>
         )}
