@@ -11,6 +11,10 @@ const LOGOUT = gql`
 export const useLogOutMutation = () => {
   const [logOut, { loading, error }] = useMutation(LOGOUT);
 
+  if (!loading && !error) {
+    localStorage.setItem("loggingOut", "true");
+  }
+
   return {
     logOut,
     loading,

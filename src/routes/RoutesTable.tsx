@@ -10,8 +10,6 @@ import { PublicRoutes } from "./PublicRoutes";
 export default function RoutesTable() {
   return (
     <Routes>
-      {/* TODO: Add new all new routes here */}
-
       {/* Public routes */}
       <Route element={<PublicRoutes />}>
         <Route path="/" element={<FrontPage form={forms.SignIn} />} />

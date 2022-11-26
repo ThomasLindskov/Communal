@@ -23,7 +23,6 @@ export const Navbar = () => {
     }
 
     if (!loading) {
-      localStorage.clear();
       navigate("/");
     }
   };
