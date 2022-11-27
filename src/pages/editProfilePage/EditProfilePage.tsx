@@ -4,9 +4,9 @@ import { UploadImageForm } from "./UploadImageForm";
 
 export default function EditProfilePage() {
   return (
-<div style={{display: 'flex'}}>
+<div style={{display: 'flex', alignItems: 'center'}}>
 <EditProfileForm/>
-{/* <UploadImageForm/> */}
+<UploadImageForm/>
 </div>
   )
 ;

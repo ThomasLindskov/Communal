@@ -66,7 +66,7 @@ export const EditProfileForm = () => {
   };
 
   if (loading) return null;
-  if (error) return <p>{`Error :${error.message}`}(</p>;
+  if (error) return <p>{`Error :${error.message}`}</p>;
 
   return (
     <>
