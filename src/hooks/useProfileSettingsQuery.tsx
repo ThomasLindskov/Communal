@@ -12,6 +12,8 @@ const fetchUser = gql`
   }
 `;
 
+//TODO: Add image to fetchUser query
+
 export const useProfileSettingsQuery = (
   setValue: (key: keyof IEditProfileFormInput, value: string) => void
 ): {
