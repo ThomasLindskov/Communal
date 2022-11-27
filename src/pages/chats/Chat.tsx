@@ -1,9 +1,10 @@
 import React from "react";
 import { useAsync, IfPending, IfFulfilled, IfRejected } from "react-async";
-import { getMessagesInChat } from "src/parse/getMessagesInChat";
+import { getMessagesInChat } from "src/parse/queryToGetMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import Message from "./Message";
+import { useParseQuery } from  "@parse/react";
 
 export enum messageType {
   Sent,
@@ -23,27 +24,42 @@ const Row = styled.div<{ type: messageType }>`
   ${(props) => props.type === messageType.Sent && "align-self: flex-end;"}
 `;
 
+
+
+
 export function Chat(props: any) {
-  const state  = useAsync({ promiseFn: getMessagesInChat, deferFn: getMessagesInChat, chatid: props.id });
+  const parseQuery = getMessagesInChat(props.id);
+
+    //make sure your class is enabled for Real Time Notifications (Live Query) checking the menu -> App Settings -> Server Settings -> Server URL and Live Query
+  const {
+    isLive,
+    isLoading,
+    isSyncing,
+    results,
+    count,
+    error,
+    reload
+  } = useParseQuery(parseQuery);
+
+  
+
+  if (isLoading || isSyncing) {
+    return <div>Loading...</div>
+  }
+   
   return (
     <>
-      <IfPending state={state}>Loading...</IfPending>
-      <IfRejected state={state}>
-        {(error) => `Something went wrong: ${error.message}`}
-      </IfRejected>
-      <IfFulfilled state={state}>
-        {(data) => (
+        {results && (
           <ChatContainer>
-            {data.map((message: any) => {
+            {results.map((message: any) => {
               return (
                 <Row key={message.id} type={messageType.Received}>
-                  <Message type={messageType.Received} />
+                  <Message type={messageType.Received}/>
                 </Row>
               );
             })}
           </ChatContainer>
         )}
-      </IfFulfilled>
     </>
   );
 }

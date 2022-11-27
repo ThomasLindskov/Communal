@@ -5,6 +5,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@hookform/resolvers": "^2.9.10",
+    "@parse/react": "^0.0.1-alpha.18",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
