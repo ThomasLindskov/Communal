@@ -1,4 +1,6 @@
 import React from "react";
+import { useAsync, IfPending, IfFulfilled, IfRejected } from "react-async";
+import { getMessagesInChat } from "src/parse/getMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import Message from "./Message";
@@ -21,33 +23,27 @@ const Row = styled.div<{ type: messageType }>`
   ${(props) => props.type === messageType.Sent && "align-self: flex-end;"}
 `;
 
-export function Chat() {
+export function Chat(props: any) {
+  const state  = useAsync({ promiseFn: getMessagesInChat, deferFn: getMessagesInChat, chatid: props.id });
   return (
-    <ChatContainer>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-    </ChatContainer>
+    <>
+      <IfPending state={state}>Loading...</IfPending>
+      <IfRejected state={state}>
+        {(error) => `Something went wrong: ${error.message}`}
+      </IfRejected>
+      <IfFulfilled state={state}>
+        {(data) => (
+          <ChatContainer>
+            {data.map((message: any) => {
+              return (
+                <Row key={message.id} type={messageType.Received}>
+                  <Message type={messageType.Received} />
+                </Row>
+              );
+            })}
+          </ChatContainer>
+        )}
+      </IfFulfilled>
+    </>
   );
 }
