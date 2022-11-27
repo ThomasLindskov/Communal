@@ -32,6 +32,7 @@ export const Navbar = () => {
 
   // Counter intuitive that it is false by default,
   // but the useEffect hook below toggle it on the initial render
+  // TODO: @pvburleigh have you considered using useToggle hook instead?
   const [isTogglingEnabled, setTogglingEnabled] = useState(false);
 
   useEffect(() => {

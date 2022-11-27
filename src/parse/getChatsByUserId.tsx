@@ -15,7 +15,8 @@ export const getChatsByUserId = async function (
 
     return chats;
   } catch (error) {
-    // Error can be caused by lack of value selection
+    // Error can be caused by lack of value
+    // TODO: potentially add toast to give users visual feedback
     console.log(error);
     return [];
   }

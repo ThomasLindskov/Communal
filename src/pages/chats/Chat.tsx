@@ -10,20 +10,7 @@ export enum messageType {
   Received,
 }
 
-const ChatContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.flexGap.medium};
-  width: 100%;
-`;
-
-const Row = styled.div<{ type: messageType }>`
-  display: flex;
-  flex-grow: 1;
-  ${(props) => props.type === messageType.Sent && "align-self: flex-end;"}
-`;
-
-export function Chat({ id }: { id: string }) {
+export const Chat = ({ id }: { id: string }) => {
   const parseQuery = getMessagesInChat(id);
   const currentUser = localStorage.getItem("currentUserObjectId");
   //make sure your class is enabled for Real Time Notifications (Live Query) checking the menu -> App Settings -> Server Settings -> Server URL and Live Query
@@ -56,7 +43,7 @@ export function Chat({ id }: { id: string }) {
         <ChatContainer>
           {results
             .sort((a: Parse.Object, b: Parse.Object) => {
-              return a.get('createdAt') - b.get('createdAt');
+              return a.get("createdAt") - b.get("createdAt");
             })
             .map((message: Parse.Object) => {
               return (
@@ -76,4 +63,17 @@ export function Chat({ id }: { id: string }) {
       )}
     </>
   );
-}
+};
+
+const ChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.flexGap.medium};
+  width: 100%;
+`;
+
+const Row = styled.div<{ type: messageType }>`
+  display: flex;
+  flex-grow: 1;
+  ${(props) => props.type === messageType.Sent && "align-self: flex-end;"}
+`;

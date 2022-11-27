@@ -4,17 +4,9 @@ import { getChatsByUserId } from "src/parse/getChatsByUserId";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { chatType } from "./ChatsPage";
-const OverflowContainer = styled.div`
-  overflow: auto;
-`;
 
-const ChatsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.flexGap.medium};
-`;
-
-export default function Chats({
+// TODO: should this be renamed to ChatListItem?
+export const Chats = ({
   chatType,
   setChat,
   selectedChat,
@@ -22,7 +14,7 @@ export default function Chats({
   chatType: chatType;
   setChat: Function;
   selectedChat: string;
-}) {
+}) => {
   const chatsContainer = useRef<HTMLInputElement | null>(null);
 
   const [chats, setChats] = React.useState<Parse.Object[]>([]);
@@ -54,4 +46,14 @@ export default function Chats({
       </ChatsContainer>
     </OverflowContainer>
   );
-}
+};
+
+const ChatsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.flexGap.medium};
+`;
+
+const OverflowContainer = styled.div`
+  overflow: auto;
+`;
