@@ -13,6 +13,7 @@ const ChatTypeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(50% - ${({ theme }) => theme.flexGap.small});
+  width: 100%;
 `;
 
 const PaddingContainer = styled.div`

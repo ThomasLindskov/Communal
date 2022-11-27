@@ -30,11 +30,13 @@ export default function Chats({
   useEffect(() => {
     const fetchChats = async () => {
       const currentUser = localStorage.getItem("currentUserObjectId");
-      const data = await getChatsByUserId({ userid: currentUser });
-      setChats(data);
+      if (currentUser) {
+        const data = await getChatsByUserId(currentUser, chatType);
+        setChats(data);
+      }
     };
     fetchChats();
-  }, [selectedChat]);
+  }, [selectedChat, chatType]);
 
   return (
     <OverflowContainer>
