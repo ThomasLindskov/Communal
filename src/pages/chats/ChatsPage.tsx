@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
@@ -18,8 +18,13 @@ const ChatTypeWrapper = styled.div`
 
 const PaddingContainer = styled.div`
   overflow: hidden;
-  border-top: 1px solid ${theme.colors.tertiary};
   padding: ${theme.padding.large} 0;
+  width: 100%;
+`;
+
+const GrowContainer = styled.div`
+  border-top: 1px solid ${theme.colors.tertiary};
+  flex-grow: 1;
   width: 100%;
 `;
 
@@ -74,10 +79,13 @@ export function ChatsPage() {
     }
   };
 
-  const handleSend = (chatid: string) => {
+  const handleSend = async (chatid: string) => {
     if (inputRef && inputRef.current) {
       //TODO: Remove input field value.
-      addMessagesToChat(chatid, inputRef.current.value);
+      const result = await addMessagesToChat(chatid, inputRef.current.value);
+      if (result) {
+        inputRef.current.value = "";
+      }
     }
   };
 
@@ -110,6 +118,7 @@ export function ChatsPage() {
         }}
       >
         <CardTitle style={{ padding: 0 }}>Eric Cartman</CardTitle>
+        <GrowContainer />
         <PaddingContainer>
           <OverflowContainer>
             <Chat id={chat} />

@@ -1,20 +1,17 @@
-import Parse from "parse/dist/parse.min.js";
-import { getObject } from "./getObject";
+import Parse from "parse";
 
 export const createGroupChat = async function (
   name: string,
   neighborhood: number
 ): Promise<boolean> {
   try {
-    let chat: Parse.Object = new Parse.Object("Chat");
+    const chat: Parse.Object = new Parse.Object("Chat");
     chat.set("type", "group");
     chat.set("name", name);
-    let chatRelation = chat.relation("users");
-    //chatRelation.add(userArray);
+    chat.set("neighborhood", neighborhood);
 
     try {
-      let result = await chat.save();
-      console.log(result);
+      const result = await chat.save();
       return true;
     } catch (error) {
       console.log(error);

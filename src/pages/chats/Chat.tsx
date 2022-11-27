@@ -23,8 +23,8 @@ const Row = styled.div<{ type: messageType }>`
   ${(props) => props.type === messageType.Sent && "align-self: flex-end;"}
 `;
 
-export function Chat(props: any) {
-  const parseQuery = getMessagesInChat(props.id);
+export function Chat({ id }: { id: string }) {
+  const parseQuery = getMessagesInChat(id);
   const currentUser = localStorage.getItem("currentUserObjectId");
   //make sure your class is enabled for Real Time Notifications (Live Query) checking the menu -> App Settings -> Server Settings -> Server URL and Live Query
   const { isLive, isLoading, isSyncing, results, count, error, reload } =

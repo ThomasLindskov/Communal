@@ -12,7 +12,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { ISignUpFormInput, signUpSchema } from "./validationSchemas/SignUpForm";
 import toast from "react-hot-toast";
-
+import { getGroupChats } from "src/parse/getGroupChats";
+import { createGroupChat } from "src/parse/createGroupChat";
+import { getObject } from "src/parse/getObject";
 export const SignUpForm = () => {
   const { signUp, data, loading, error } = useSignUpMutation();
   let navigate = useNavigate();
@@ -40,9 +42,34 @@ export const SignUpForm = () => {
     }
   };
 
+  const assignGroupChat = async (userId: string) => {
+    let chats = await getGroupChats();
+    const user = await getObject("User", userId);
+    if (user) {
+      if (chats && chats.length === 0) {
+        const address = user.get("address");
+        const zipCode = address.zipCode;
+        await createGroupChat("General", zipCode);
+        await createGroupChat("Help", zipCode);
+        await createGroupChat("Vacations", zipCode);
+        chats = await getGroupChats();
+      }
+      if (chats) {
+        for (const chat of chats) {
+          const chatRelation = chat.relation("users");
+          chatRelation.add([user]);
+          await chat.save();
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     if (data) {
       localStorage.setItem("token", data?.signUp?.viewer?.sessionToken);
+
+      assignGroupChat(data?.signUp?.user?.id);
+
       navigate("/chats");
     }
   }, [data]);
