@@ -40,6 +40,10 @@ export function Chat(props: any) {
     reload
   } = useParseQuery(parseQuery);
 
+  const isSentByCurrentUser = (sender: any) =>{
+    if(sender.id == currentUser || sender.objectId == currentUser) return messageType.Sent;
+    else return messageType.Received
+  }
   
 
   if (isLoading || isSyncing) {
@@ -56,8 +60,8 @@ export function Chat(props: any) {
               return a.createdAt-b.createdAt})
             .map((message: any) => {
               return (
-                <Row key={message.id} type={currentUser != message.attributes.sender.id ? messageType.Received: messageType.Sent}>
-                  <Message text={message.attributes.text} type={currentUser != message.attributes.sender.id ? messageType.Received: messageType.Sent}/>
+                <Row key={message.id} type={isSentByCurrentUser(message.attributes.sender)}>
+                  <Message text={message.attributes.text} type={isSentByCurrentUser(message.attributes.sender)}/>
                 </Row>
               );
             })}
@@ -66,3 +70,4 @@ export function Chat(props: any) {
     </>
   );
 }
+

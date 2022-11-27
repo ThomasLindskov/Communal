@@ -75,6 +75,7 @@ export function ChatsPage() {
 
   const handleSend = (chatid: string) => {
     if (inputRef && inputRef.current) {
+      //TODO: Remove input field value.
       addMessagesToChat(chatid, inputRef.current.value);
     }
   };
