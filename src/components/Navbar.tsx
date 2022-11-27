@@ -30,10 +30,12 @@ export const Navbar = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useNavbarDropDownToggle(false);
 
-  const [toggledDisabled, setToggledDisabled] = useState(false);
+  // Counter intuitive that it is false by default,
+  // but the useEffect hook below toggle it on the initial render
+  const [isTogglingEnabled, setTogglingEnabled] = useState(false);
 
   useEffect(() => {
-    setToggledDisabled(!toggledDisabled);
+    setTogglingEnabled(!isTogglingEnabled);
   }, [isComponentVisible]);
 
   const toggleDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -78,7 +80,7 @@ export const Navbar = () => {
             gap: theme.flexGap.medium,
             cursor: "pointer",
           }}
-          onClick={toggleDropdown}
+          onClick={isTogglingEnabled ? toggleDropdown : undefined}
         >
           <Avatar
             imageUrl="/img/EricCartman.png"
