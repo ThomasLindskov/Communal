@@ -2,6 +2,32 @@ import { theme } from "src/theme";
 import styled from "styled-components";
 import Avatar from "../../components/Avatar";
 
+export const ChatThumbnail = ({
+  id,
+  selected,
+  onClick,
+}: ChatThumbnailProps) => {
+  // TODO: Get the chat data from the database from id
+
+  return (
+    <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
+      <Avatar
+        imageUrl="/img/EricCartman.png"
+        altText="user-picture"
+        size={theme.avatarSize.medium}
+      />
+      <TextContainer>
+        <UpperTextContainer>
+          <Name selected={selected}>Eric Cartman</Name>
+          <LastMessageTime>Now</LastMessageTime>
+        </UpperTextContainer>
+        <Message>Hello, how are you?</Message>
+      </TextContainer>
+    </ThumbnailContainer>
+  );
+};
+
+// TODO: fix IDE errors
 const ThumbnailContainer = styled.div<{ selected: boolean }>`
   cursor: pointer;
   border-radius: ${({ theme }) => theme.utils.borderRadius};
@@ -59,28 +85,3 @@ const Message = styled.p`
   white-space: nowrap;
   margin: 0;
 `;
-
-export const ChatThumbnail = ({
-  id,
-  selected,
-  onClick,
-}: ChatThumbnailProps) => {
-  // TODO: Get the chat data from the database from id
-
-  return (
-    <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
-      <Avatar
-        imageUrl="/img/EricCartman.png"
-        altText="user-picture"
-        size={theme.avatarSize.medium}
-      />
-      <TextContainer>
-        <UpperTextContainer>
-          <Name selected={selected}>Eric Cartman</Name>
-          <LastMessageTime>Now</LastMessageTime>
-        </UpperTextContainer>
-        <Message>Hello, how are you?</Message>
-      </TextContainer>
-    </ThumbnailContainer>
-  );
-};

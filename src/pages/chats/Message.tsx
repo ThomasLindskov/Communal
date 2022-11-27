@@ -5,6 +5,38 @@ import { theme } from "src/theme";
 import styled from "styled-components";
 import { messageType } from "./Chat";
 
+export const Message = ({
+  type,
+  text,
+}: {
+  type: messageType;
+  text: string;
+}) => {
+  return (
+    <Wrapper type={type}>
+      <Avatar
+        imageUrl="/img/EricCartman.png"
+        altText="user-avatar"
+        size={theme.avatarSize.medium}
+      />
+
+      <MessageContainer type={type}>
+        <SharktoothContainer type={type}>
+          <Sharktooth
+            color={
+              type === messageType.Sent
+                ? theme.colors.primary
+                : theme.colors.white
+            }
+            borderColor={theme.colors.tertiary}
+          />
+        </SharktoothContainer>
+        {text}
+      </MessageContainer>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div<{ type: messageType }>`
   display: flex;
   gap: ${({ theme }) => theme.flexGap.large};
@@ -34,29 +66,3 @@ const SharktoothContainer = styled.div<{ type: messageType }>`
   ${(props) => (props.type === messageType.Sent ? "right" : "left")}: -13px;
   ${(props) => props.type === messageType.Sent && "transform: rotate(180deg);"}
 `;
-
-export default function Message({ type, text }: { type: messageType, text: string }) {
-  return (
-    <Wrapper type={type}>
-      <Avatar
-        imageUrl="/img/EricCartman.png"
-        altText="user-avatar"
-        size={theme.avatarSize.medium}
-      />
-
-      <MessageContainer type={type}>
-        <SharktoothContainer type={type}>
-          <Sharktooth
-            color={
-              type === messageType.Sent
-                ? theme.colors.primary
-                : theme.colors.white
-            }
-            borderColor={theme.colors.tertiary}
-          />
-        </SharktoothContainer>
-       {text}
-      </MessageContainer>
-    </Wrapper>
-  );
-}

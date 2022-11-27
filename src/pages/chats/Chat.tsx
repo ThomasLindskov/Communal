@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { getMessagesInChat } from "src/parse/queryToGetMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
-import Message from "./Message";
 import { useParseQuery } from "@parse/react";
+import { Message } from "src/pages/chats/Message";
 
 export enum messageType {
   Sent,
