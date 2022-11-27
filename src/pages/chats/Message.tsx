@@ -35,7 +35,7 @@ const SharktoothContainer = styled.div<{ type: messageType }>`
   ${(props) => props.type === messageType.Sent && "transform: rotate(180deg);"}
 `;
 
-export default function Message({ type }: { type: messageType }) {
+export default function Message({ type, text }: { type: messageType, text: string }) {
   return (
     <Wrapper type={type}>
       <Avatar
@@ -55,8 +55,7 @@ export default function Message({ type }: { type: messageType }) {
             borderColor={theme.colors.tertiary}
           />
         </SharktoothContainer>
-        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean
-        lacinia bibendum nulla sed consectetur.
+       {text}
       </MessageContainer>
     </Wrapper>
   );

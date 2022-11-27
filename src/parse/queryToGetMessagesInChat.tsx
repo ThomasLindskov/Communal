@@ -1,7 +1,4 @@
-import { parse } from 'node:path/win32';
-import Parse from 'parse/dist/parse.min.js';
-import { Await } from 'react-router-dom';
-import { getObject } from './getObject';
+import Parse from 'parse';
 
 
 export const getMessagesInChat =  function (chatid: any) {

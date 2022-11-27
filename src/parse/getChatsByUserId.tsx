@@ -1,4 +1,4 @@
-import Parse from "parse/dist/parse.min.js";
+import Parse from "parse";
 import { getObject } from "./getObject";
 
 export const getChatsByUserId = async function (payload: any) {

@@ -1,10 +1,10 @@
 import React from "react";
-import { useAsync, IfPending, IfFulfilled, IfRejected } from "react-async";
 import { getMessagesInChat } from "src/parse/queryToGetMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import Message from "./Message";
-import { useParseQuery } from  "@parse/react";
+import { useParseQuery  } from  "@parse/react";
+
 
 export enum messageType {
   Sent,
@@ -26,10 +26,9 @@ const Row = styled.div<{ type: messageType }>`
 
 
 
-
 export function Chat(props: any) {
   const parseQuery = getMessagesInChat(props.id);
-
+  const currentUser = localStorage.getItem('currentUserObjectId');
     //make sure your class is enabled for Real Time Notifications (Live Query) checking the menu -> App Settings -> Server Settings -> Server URL and Live Query
   const {
     isLive,
@@ -46,15 +45,19 @@ export function Chat(props: any) {
   if (isLoading || isSyncing) {
     return <div>Loading...</div>
   }
+  console.log(results)
    
   return (
     <>
         {results && (
           <ChatContainer>
-            {results.map((message: any) => {
+            {results
+            .sort((a: any, b: any) => {
+              return a.createdAt-b.createdAt})
+            .map((message: any) => {
               return (
-                <Row key={message.id} type={messageType.Received}>
-                  <Message type={messageType.Received}/>
+                <Row key={message.id} type={currentUser != message.attributes.sender.id ? messageType.Received: messageType.Sent}>
+                  <Message text={message.attributes.text} type={currentUser != message.attributes.sender.id ? messageType.Received: messageType.Sent}/>
                 </Row>
               );
             })}
