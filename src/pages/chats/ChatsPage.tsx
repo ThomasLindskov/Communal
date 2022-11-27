@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
+import { addMessagesToChat } from "src/parse/addMessagesToChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { Chat } from "./Chat";
@@ -72,9 +73,9 @@ export function ChatsPage() {
     }
   };
 
-  const handleSend = () => {
+  const handleSend = (chatid: string) => {
     if (inputRef && inputRef.current) {
-      console.log(inputRef.current.value);
+      addMessagesToChat(chatid, inputRef.current.value);
     }
   };
 
@@ -114,7 +115,7 @@ export function ChatsPage() {
         </PaddingContainer>
         <InputContainer className="parent" onClick={handleClick}>
           <ChatInput ref={inputRef} />
-          <Button color={theme.colors.cta} onClick={handleSend}>
+          <Button color={theme.colors.cta} onClick={() => handleSend(chat)}>
             Send
           </Button>
         </InputContainer>

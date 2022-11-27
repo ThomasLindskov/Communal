@@ -2,15 +2,15 @@ import Parse from 'parse';
 import { getObject } from './getObject';
 
 
-export const addMessagesToChat = async function (payload: any) {
+export const addMessagesToChat = async function (chatid: string, text: string) {
     try {
-        let chat = await getObject('Chat', payload.chatid)
+        let chat = await getObject('Chat', chatid)
         let user = await getObject('User', localStorage.getItem('currentUserObjectId'))
         if(chat){
             let message = new Parse.Object('Message')
-            message.set('text', payload.text)
+            message.set('text', text)
             message.set('chat', chat.toPointer())
-            message.set('chat', user?.toPointer())
+            message.set('sender', user?.toPointer())
             try {
                 await message.save();
                 return true;
