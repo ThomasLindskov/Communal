@@ -1,6 +1,6 @@
 import Parse from "parse";
 
-export const getMessagesInChat = function (chatid: any) {
+export const getMessagesInChat = function (chatid: string) {
   const parseQuery = new Parse.Query("Message");
   const chat = new Parse.Object("Chat");
   chat.id = chatid;

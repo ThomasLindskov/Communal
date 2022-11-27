@@ -2,12 +2,12 @@ import Parse from 'parse';
 import { getObject } from './getObject';
 
 
-export const createPrivateChat = async function (payload: any): Promise<boolean> {
+export const createPrivateChat = async function (userids: string[]): Promise<boolean> {
     try {
         let userArray: Parse.Object<Parse.Attributes>[] = []; 
         let name = '';
-        for (let index = 0; index < payload.userids.length; index++) {
-            let user = await getObject('User', payload.userids[index])
+        for (let index = 0; index < userids.length; index++) {
+            let user = await getObject('User', userids[index])
             if(user){
               name += user?.attributes.username + " ";
               userArray.push(user)

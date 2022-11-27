@@ -1,6 +1,6 @@
 import Parse from "parse";
 
-export const getObject = async function (className: string, id: any) {
+export const getObject = async function (className: string, id: string) {
   if (!id) {
     return;
   }
