@@ -1,7 +1,8 @@
 import React from "react";
 import RoutesTable from "./routes/RoutesTable";
-import {initializeParse} from "./parse/initializeParse";
-initializeParse();
+import { initParse } from "./parse/initializeParse";
+
+initParse();
 
 function App() {
   return <RoutesTable />;

@@ -1,10 +1,10 @@
-import Parse from 'parse/dist/parse.min.js';
+import Parse from 'parse';
 import { getObject } from './getObject';
 
 
 export const getChatMembers = async function (chatid: string) {
     try {
-        let chat = await getObject('chat', chatid)
+        let chat = await getObject('Chat', chatid)
         if(chat){
           let chatUsersRelation = chat.relation('users');
           let relationQuery = chatUsersRelation.query()

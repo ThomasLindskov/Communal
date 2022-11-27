@@ -1,7 +1,10 @@
 import React from "react";
+import { getMessagesInChat } from "src/parse/queryToGetMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import Message from "./Message";
+import { useParseQuery  } from  "@parse/react";
+
 
 export enum messageType {
   Sent,
@@ -21,33 +24,45 @@ const Row = styled.div<{ type: messageType }>`
   ${(props) => props.type === messageType.Sent && "align-self: flex-end;"}
 `;
 
-export function Chat() {
+
+
+export function Chat(props: any) {
+  const parseQuery = getMessagesInChat(props.id);
+  const currentUser = localStorage.getItem('currentUserObjectId');
+    //make sure your class is enabled for Real Time Notifications (Live Query) checking the menu -> App Settings -> Server Settings -> Server URL and Live Query
+  const {
+    isLive,
+    isLoading,
+    isSyncing,
+    results,
+    count,
+    error,
+    reload
+  } = useParseQuery(parseQuery);
+
+  
+
+  if (isLoading || isSyncing) {
+    return <div>Loading...</div>
+  }
+  console.log(results)
+   
   return (
-    <ChatContainer>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-      <Row type={messageType.Sent}>
-        <Message type={messageType.Sent} />
-      </Row>
-      <Row type={messageType.Received}>
-        <Message type={messageType.Received} />
-      </Row>
-    </ChatContainer>
+    <>
+        {results && (
+          <ChatContainer>
+            {results
+            .sort((a: any, b: any) => {
+              return a.createdAt-b.createdAt})
+            .map((message: any) => {
+              return (
+                <Row key={message.id} type={currentUser != message.attributes.sender.id ? messageType.Received: messageType.Sent}>
+                  <Message text={message.attributes.text} type={currentUser != message.attributes.sender.id ? messageType.Received: messageType.Sent}/>
+                </Row>
+              );
+            })}
+          </ChatContainer>
+        )}
+    </>
   );
 }

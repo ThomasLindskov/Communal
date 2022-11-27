@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Avatar from "../../components/Avatar";
 
 const ThumbnailContainer = styled.div<{ selected: boolean }>`
+  cursor: pointer;
   border-radius: ${({ theme }) => theme.utils.borderRadius};
   border: 1px solid ${({ theme }) => theme.colors.tertiary};
   padding: ${({ theme }) => theme.padding.medium}
@@ -30,6 +31,7 @@ const UpperTextContainer = styled.div`
 interface ChatThumbnailProps {
   id: string;
   selected: boolean;
+  onClick: () => void;
 }
 
 const Name = styled.p<{ selected: boolean }>`
@@ -58,11 +60,15 @@ const Message = styled.p`
   margin: 0;
 `;
 
-export const ChatThumbnail = ({ id, selected }: ChatThumbnailProps) => {
+export const ChatThumbnail = ({
+  id,
+  selected,
+  onClick,
+}: ChatThumbnailProps) => {
   // TODO: Get the chat data from the database from id
 
   return (
-    <ThumbnailContainer selected={selected}>
+    <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
       <Avatar
         imageUrl="/img/EricCartman.png"
         altText="user-picture"
