@@ -4,7 +4,7 @@ import { getObject } from './getObject';
 
 export const getChatMembers = async function (chatid: string) {
     try {
-        let chat = await getObject('chat', chatid)
+        let chat = await getObject('Chat', chatid)
         if(chat){
           let chatUsersRelation = chat.relation('users');
           let relationQuery = chatUsersRelation.query()
