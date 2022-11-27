@@ -1,6 +1,6 @@
-// Import Parse minified version
 import Parse from 'parse';
 import { initializeParse } from  '@parse/react';
+
 
 
 export async function initParse() {

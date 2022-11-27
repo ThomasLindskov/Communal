@@ -17,7 +17,7 @@ export const Animation = ({
         {/*@ts-ignore: do not remove or change the line under this. the key value confuses TS*/}
         <CSSTransition key={show}
           nodeRef={nodeRef}
-          addEndListener={(done: any) => {
+          addEndListener={(done: Event) => {
             // @ts-expect-error: ts thinks noderef and current are never, which they are not
             nodeRef.current.addEventListener("transitionend", done, false);
           }}

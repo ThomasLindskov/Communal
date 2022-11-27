@@ -25,7 +25,7 @@ export default function Chats({
 }) {
   const chatsContainer = useRef<HTMLInputElement | null>(null);
 
-  const [chats, setChats] = React.useState<any[]>([]);
+  const [chats, setChats] = React.useState<Parse.Object[]>([]);
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -41,7 +41,7 @@ export default function Chats({
   return (
     <OverflowContainer>
       <ChatsContainer ref={chatsContainer}>
-        {chats.map((chat: any) => {
+        {chats.map((chat: Parse.Object) => {
           return (
             <ChatThumbnail
               id={chat.id}

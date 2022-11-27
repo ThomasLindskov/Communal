@@ -55,10 +55,10 @@ export function Chat({ id }: { id: string }) {
       {results && (
         <ChatContainer>
           {results
-            .sort((a: any, b: any) => {
-              return a.createdAt - b.createdAt;
+            .sort((a: Parse.Object, b: Parse.Object) => {
+              return a.get('createdAt') - b.get('createdAt');
             })
-            .map((message: any) => {
+            .map((message: Parse.Object) => {
               return (
                 <Row
                   key={message.id}
