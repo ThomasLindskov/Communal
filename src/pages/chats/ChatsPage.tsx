@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
@@ -64,22 +64,30 @@ export enum chatType {
 
 export function ChatsPage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [chat, setChat] = useState("B5LoAjTM1Y");
 
   const handleClick = () => {
     if (inputRef && inputRef.current) {
       inputRef.current.focus();
     }
   };
+
+  const handleSend = () => {
+    if (inputRef && inputRef.current) {
+      console.log(inputRef.current.value);
+    }
+  };
+
   return (
     <>
       <Card>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Common</CardTitle>
-          <Chats chatType={chatType.Group} />
+          <Chats chatType={chatType.Group} setChat={setChat} />
         </ChatTypeWrapper>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Private</CardTitle>
-          <Chats chatType={chatType.Private} />
+          <Chats chatType={chatType.Private} setChat={setChat} />
         </ChatTypeWrapper>
       </Card>
       <Card
@@ -93,12 +101,14 @@ export function ChatsPage() {
         <CardTitle style={{ padding: 0 }}>Eric Cartman</CardTitle>
         <PaddingContainer>
           <OverflowContainer>
-            <Chat />
+            <Chat id={chat} />
           </OverflowContainer>
         </PaddingContainer>
         <InputContainer className="parent" onClick={handleClick}>
           <ChatInput ref={inputRef} />
-          <Button color={theme.colors.cta}>Send</Button>
+          <Button color={theme.colors.cta} onClick={handleSend}>
+            Send
+          </Button>
         </InputContainer>
       </Card>
     </>
