@@ -23,8 +23,12 @@ const Row = styled.div<{ type: messageType }>`
   ${(props) => props.type === messageType.Sent && "align-self: flex-end;"}
 `;
 
-export function Chat(props: any) {
-  const state  = useAsync({ promiseFn: getMessagesInChat, deferFn: getMessagesInChat, chatid: props.id });
+export function Chat(props: { id: string }) {
+  const state = useAsync({
+    promiseFn: getMessagesInChat,
+    deferFn: getMessagesInChat,
+    chatid: props.id,
+  });
   return (
     <>
       <IfPending state={state}>Loading...</IfPending>

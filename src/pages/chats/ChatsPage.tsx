@@ -83,11 +83,19 @@ export function ChatsPage() {
       <Card>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Common</CardTitle>
-          <Chats chatType={chatType.Group} setChat={setChat} />
+          <Chats
+            chatType={chatType.Group}
+            selectedChat={chat}
+            setChat={setChat}
+          />
         </ChatTypeWrapper>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Private</CardTitle>
-          <Chats chatType={chatType.Private} setChat={setChat} />
+          <Chats
+            chatType={chatType.Private}
+            selectedChat={chat}
+            setChat={setChat}
+          />
         </ChatTypeWrapper>
       </Card>
       <Card

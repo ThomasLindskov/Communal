@@ -1,11 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { ChatThumbnail } from "src/pages/chats/ChatThumbnail";
 import { getChatsByUserId } from "src/parse/getChatsByUserId";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { chatType } from "./ChatsPage";
-import { useAsync, IfPending, IfFulfilled, IfRejected } from "react-async";
-
 const OverflowContainer = styled.div`
   overflow: auto;
 `;
@@ -19,43 +17,39 @@ const ChatsContainer = styled.div`
 export default function Chats({
   chatType,
   setChat,
+  selectedChat,
 }: {
   chatType: chatType;
   setChat: Function;
+  selectedChat: string;
 }) {
-  // TODO: Fetch chats from backend
-  let currentUser = localStorage.getItem("currentUserObjectId");
-  const state = useAsync({ promiseFn: getChatsByUserId, userid: currentUser });
   const chatsContainer = useRef<HTMLInputElement | null>(null);
 
-  const handleChange = (chatid: string) => {
-    setChat(chatid);
-  };
+  const [chats, setChats] = React.useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchChats = async () => {
+      const currentUser = localStorage.getItem("currentUserObjectId");
+      const data = await getChatsByUserId({ userid: currentUser });
+      setChats(data);
+    };
+    fetchChats();
+  }, [selectedChat]);
 
   return (
-    <>
-      <IfPending state={state}>Loading...</IfPending>
-      <IfRejected state={state}>
-        {(error) => `Something went wrong: ${error.message}`}
-      </IfRejected>
-      <IfFulfilled state={state}>
-        {(data) => (
-          <OverflowContainer>
-            <ChatsContainer ref={chatsContainer}>
-              {data.map((chat: any) => {
-                return (
-                  <div onClick={() => handleChange(chat.id)} key={chat.id}>
-                    <ChatThumbnail
-                      id={chat.id}
-                      selected={false}
-                    />
-                  </div>
-                );
-              })}
-            </ChatsContainer>
-          </OverflowContainer>
-        )}
-      </IfFulfilled>
-    </>
+    <OverflowContainer>
+      <ChatsContainer ref={chatsContainer}>
+        {chats.map((chat: any) => {
+          return (
+            <ChatThumbnail
+              id={chat.id}
+              selected={chat.id === selectedChat}
+              onClick={() => setChat(chat.id)}
+              key={chat.id}
+            />
+          );
+        })}
+      </ChatsContainer>
+    </OverflowContainer>
   );
 }
