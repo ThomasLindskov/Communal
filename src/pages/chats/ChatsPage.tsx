@@ -121,8 +121,7 @@ const ChatInput = styled.input`
 
 // TODO: fix below IDE errors
 const InputContainer = styled.div`
-  padding: ${({ theme }) => theme.padding.medium}
-    ${({ theme }) => theme.padding.large};
+  padding: ${({ theme }) => `${theme.padding.medium} ${theme.padding.large}`};
   line-height: 0;
   width: 100%;
   box-sizing: border-box;
