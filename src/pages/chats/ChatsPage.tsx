@@ -8,8 +8,8 @@ import { getPrivateChats } from "src/parse/getPrivateChatsByUserId";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { useToggle } from "ahooks";
-import { NewChatModal } from "src/pages/chats/NewChatModal";
 import { getGroupChats } from "src/parse/getGroupChats";
+import { NewChatModal } from "src/pages/chats/NewChat/NewChatModal";
 
 export enum chatType {
   Private,

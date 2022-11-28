@@ -10,6 +10,7 @@ export const PrivateRoutes = () => {
   if (data) {
     localStorage.setItem("currentUser", data.viewer.user.id);
     localStorage.setItem("currentUserObjectId", data.viewer.user.objectId);
+    localStorage.setItem("neighborhood", data.viewer.user.neighborhood);
   }
 
   const Container = styled.div`
