@@ -11,7 +11,7 @@ export const getPrivateChats = async function (userId: string) {
     const chats = await parseQuery.find();
 
     for (let i = 0; i < chats.length; i++) {
-      chats[i]
+      await chats[i]
         .relation("users")
         .query()
         .each(function (user) {
