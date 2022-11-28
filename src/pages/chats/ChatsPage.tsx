@@ -65,6 +65,8 @@ export const ChatsPage = () => {
                 groupChats.map((chat: Parse.Object) => (
                   <ChatThumbnail
                     id={chat.id}
+                    avatarUrl={"/img/EricCartman.png"}
+                    name={chat.get("name")}
                     selected={chat.id === selectedChat}
                     onClick={() => setSelectedChat(chat.id)}
                     key={chat.id}
@@ -88,6 +90,8 @@ export const ChatsPage = () => {
               {privateChats &&
                 privateChats.map((chat: Parse.Object) => (
                   <ChatThumbnail
+                    name={chat.get("receiver").get("username")}
+                    avatarUrl={"/img/EricCartman.png"}
                     id={chat.id}
                     selected={chat.id === selectedChat}
                     onClick={() => setSelectedChat(chat.id)}

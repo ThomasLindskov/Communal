@@ -6,19 +6,21 @@ export const ChatThumbnail = ({
   id,
   selected,
   onClick,
+  name,
+  avatarUrl,
 }: ChatThumbnailProps) => {
   // TODO: Get the chat data from the database from id
 
   return (
     <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
       <Avatar
-        imageUrl="/img/EricCartman.png"
+        imageUrl={avatarUrl}
         altText="user-picture"
         size={theme.avatarSize.medium}
       />
       <TextContainer>
         <UpperTextContainer>
-          <Name selected={selected}>Eric Cartman</Name>
+          <Name selected={selected}>{name}</Name>
           <LastMessageTime>Now</LastMessageTime>
         </UpperTextContainer>
         <Message>Hello, how are you?</Message>
@@ -58,6 +60,8 @@ interface ChatThumbnailProps {
   id: string;
   selected: boolean;
   onClick: () => void;
+  name: string;
+  avatarUrl: string;
 }
 
 const Name = styled.p<{ selected: boolean }>`
