@@ -4,6 +4,7 @@ import { CardTitle } from "src/components/CardTitle";
 import { ChatCard } from "src/pages/chats/ChatCard";
 import { ChatThumbnail } from "src/pages/chats/ChatThumbnail";
 import { getChatsByUserId } from "src/parse/getChatsByUserId";
+import { getGroupChats } from "src/parse/getGroupChats";
 import { theme } from "src/theme";
 import styled from "styled-components";
 
@@ -28,18 +29,19 @@ export const ChatsPage = () => {
   };
 
   const fetchGroupChats = async (
-    setHandler: (data: Parse.Object[]) => void,
-    userId: string
+    setHandler: (data: Parse.Object[]) => void
   ) => {
-    const data = await getChatsByUserId(userId, chatType.Private);
-    setHandler(data);
+    const data = await getGroupChats();
+    if (data) {
+      setHandler(data);
+    }
   };
 
   useEffect(() => {
     const currentUser = localStorage.getItem("currentUserObjectId");
     if (currentUser) {
       fetchPrivateChats(setPrivateChats, currentUser);
-      fetchGroupChats(setGroupChats, currentUser);
+      fetchGroupChats(setGroupChats);
     }
   }, []);
 
@@ -48,14 +50,6 @@ export const ChatsPage = () => {
       <Card>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Common</CardTitle>
-          {/* <ChatsWrapper
-            type={chatType.Group}
-            chatId={selectedChat}
-            setSelectedChat={setSelectedChat}
-          /> */}
-        </ChatTypeWrapper>
-        <ChatTypeWrapper>
-          <CardTitle style={{ padding: 0 }}>Private</CardTitle>
           <OverflowContainer>
             <ChatsContainer ref={groupChatsContainer}>
               {groupChats &&
@@ -69,6 +63,9 @@ export const ChatsPage = () => {
                 ))}
             </ChatsContainer>
           </OverflowContainer>
+        </ChatTypeWrapper>
+        <ChatTypeWrapper>
+          <CardTitle style={{ padding: 0 }}>Private</CardTitle>
           <OverflowContainer>
             <ChatsContainer ref={privateChatsContainer}>
               {privateChats &&

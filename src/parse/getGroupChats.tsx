@@ -9,9 +9,12 @@ export const getGroupChats = async () => {
     if (user) {
       const address = user.get("address");
       const zipCode = address.zipCode;
-
-      parseQuery.equalTo("type", "group");
-      parseQuery.equalTo("neighborhood", zipCode);
+      const neighborhood = user.get("neighborhood");
+      if (neighborhood) {
+        parseQuery.equalTo("neighborhood", neighborhood);
+      } else {
+        parseQuery.equalTo("zipCode", zipCode);
+      }
       return await parseQuery.find();
     }
   } catch (error) {
