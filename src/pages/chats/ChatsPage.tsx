@@ -90,7 +90,7 @@ export const ChatsPage = () => {
               {privateChats &&
                 privateChats.map((chat: Parse.Object) => (
                   <ChatThumbnail
-                    name={chat.get("receiver").get("username")}
+                    name={"test"}
                     avatarUrl={"/img/EricCartman.png"}
                     id={chat.id}
                     selected={chat.id === selectedChat}

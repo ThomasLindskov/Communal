@@ -7,6 +7,7 @@ export const getPrivateChats = async function (userId: string) {
     let user = await getObject("User", userId);
     parseQuery.equalTo("type", "private");
     parseQuery.equalTo("users", user);
+    //parseQuery.include("users");
     const chats = await parseQuery.find();
 
     for (let i = 0; i < chats.length; i++) {
