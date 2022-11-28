@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -12,7 +12,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { ISignUpFormInput, signUpSchema } from "./validationSchemas/SignUpForm";
 import toast from "react-hot-toast";
+import { getGroupChats } from "src/parse/getGroupChats";
+import { createGroupChat } from "src/parse/createGroupChat";
+import { getObject } from "src/parse/getObject";
+import { Select } from "src/components/Select";
+
+const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
+
 export const SignUpForm = () => {
+  let [zip, setZip] = useState("");
   const { signUp, data, loading, error } = useSignUpMutation();
   let navigate = useNavigate();
   const {
@@ -38,6 +46,37 @@ export const SignUpForm = () => {
       toast(error.message);
     }
   };
+
+  const assignGroupChat = async (userId: string) => {
+    let chats = await getGroupChats();
+    const user = await getObject("User", userId);
+    if (user) {
+      if (chats && chats.length === 0) {
+        const address = user.get("address");
+        const zipCode = address.zipCode;
+        await createGroupChat("General", zipCode);
+        await createGroupChat("Help", zipCode);
+        await createGroupChat("Vacations", zipCode);
+        chats = await getGroupChats();
+      }
+      if (chats) {
+        for (const chat of chats) {
+          const chatRelation = chat.relation("users");
+          chatRelation.add([user]);
+          await chat.save();
+        }
+      }
+    }
+  };
+ 
+  const changeZip = (e: any) => {
+    setZip(e.target.value);
+  };
+
+  const getCity = (zip: string) => {
+    return zipCodes[zip];
+  };
+
 
   useEffect(() => {
     if (data) {
@@ -99,22 +138,33 @@ export const SignUpForm = () => {
             width: "300px",
           }}
         >
-          <InputField
+          <Select
             label="Zip code"
             id="zip"
-            type="number"
-            placeholder="Zip code"
             style={{ div: { width: "30%" } }}
             register={register("address.zipCode")}
-            errorMessage={errors.address?.zipCode?.message}
-          />
+            errorMessage={errors.address?.zipCode?.message} 
+            onChange={changeZip}          
+            >
+            <option key={0} value={0}>
+              Zip
+            </option>
+            {Object.keys(zipCodes).map((key: string) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
+          </Select>
+
           <InputField
             label="City"
             id="city"
             type="text"
-            placeholder="City"
+            placeholder={getCity(zip)}
+            value={getCity(zip)}
             style={{ div: { width: "100%" } }}
             register={register("address.city")}
+            readOnly={true}
             errorMessage={errors.address?.city?.message}
           />
         </div>

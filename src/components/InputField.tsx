@@ -30,6 +30,8 @@ export const InputField = ({
   style,
   register,
   errorMessage,
+  value,
+  readOnly,
 }: {
   id?: string;
   label?: string;
@@ -41,6 +43,8 @@ export const InputField = ({
   };
   register?: UseFormRegisterReturn;
   errorMessage?: string;
+  value?: string;
+  readOnly?: boolean;
 }) => (
   <>
     <div
@@ -66,6 +70,8 @@ export const InputField = ({
           ...(errorMessage && { borderColor: theme.colors.risk }),
         }}
         {...register}
+        value={value}
+        readOnly={readOnly}
       />
       {errorMessage && (
         <Label htmlFor={id} color={theme.colors.risk}>

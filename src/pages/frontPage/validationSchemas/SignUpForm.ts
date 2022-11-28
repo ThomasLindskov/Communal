@@ -8,7 +8,7 @@ export interface ISignUpFormInput {
   address: {
     street: string;
     zipCode: number;
-    city: string;
+    city?: string;
   };
   neighborhood: number;
 }
@@ -42,6 +42,6 @@ export const signUpSchema: yup.SchemaOf<
       .number()
       .typeError("Zip code is required")
       .required("Zip code is required"),
-    city: yup.string().required("City is required"),
+    city: yup.string()
   }),
 });

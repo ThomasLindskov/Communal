@@ -29,6 +29,7 @@ export const Select = ({
   register,
   errorMessage,
   children,
+  onChange,
 }: {
   id?: string;
   label?: string;
@@ -39,6 +40,7 @@ export const Select = ({
   register?: UseFormRegisterReturn;
   errorMessage?: string;
   children?: ReactNode[];
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }) => (
   <>
     <div
@@ -62,6 +64,7 @@ export const Select = ({
           ...(errorMessage && { borderColor: theme.colors.risk }),
         }}
         {...register}
+        onChange={onChange}
       >
         {children && children}
       </SelectElements>
