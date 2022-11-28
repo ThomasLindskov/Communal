@@ -5,30 +5,29 @@ import { theme } from "src/theme";
 import styled from "styled-components";
 import { chatType } from "./ChatsPage";
 
-// TODO: should this be renamed to ChatListItem?
-export const Chats = ({
-  chatType,
-  setChat,
-  selectedChat,
+export const ChatsWrapper = ({
+  type,
+  setSelectedChat,
+  chatId,
 }: {
-  chatType: chatType;
-  setChat: Function;
-  selectedChat: string;
+  type: chatType;
+  setSelectedChat: (id: string) => void;
+  chatId: string;
 }) => {
   const chatsContainer = useRef<HTMLInputElement | null>(null);
-
   const [chats, setChats] = React.useState<Parse.Object[]>([]);
+  const privateChats = ["fisk", "torsk"];
 
   useEffect(() => {
     const fetchChats = async () => {
       const currentUser = localStorage.getItem("currentUserObjectId");
       if (currentUser) {
-        const data = await getChatsByUserId(currentUser, chatType);
+        const data = await getChatsByUserId(currentUser, type);
         setChats(data);
       }
     };
     fetchChats();
-  }, [selectedChat, chatType]);
+  }, [chatId, type]);
 
   return (
     <OverflowContainer>
@@ -37,8 +36,8 @@ export const Chats = ({
           return (
             <ChatThumbnail
               id={chat.id}
-              selected={chat.id === selectedChat}
-              onClick={() => setChat(chat.id)}
+              selected={chat.id === chatId}
+              onClick={() => setSelectedChat(chat.id)}
               key={chat.id}
             />
           );

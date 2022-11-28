@@ -3,7 +3,7 @@ import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
 import { Chat } from "src/pages/chats/Chat";
-import { Chats } from "src/pages/chats/Chats";
+import { ChatsWrapper } from "src/pages/chats/ChatsWrapper";
 import { addMessagesToChat } from "src/parse/addMessagesToChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
@@ -15,7 +15,7 @@ export enum chatType {
 
 export const ChatsPage = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [chat, setChat] = useState("B5LoAjTM1Y");
+  const [selectedChat, setSelectedChat] = useState<string>("B5LoAjTM1Y");
 
   const handleClick = () => {
     if (inputRef && inputRef.current) {
@@ -25,7 +25,6 @@ export const ChatsPage = () => {
 
   const handleSend = async (chatid: string) => {
     if (inputRef && inputRef.current) {
-      //TODO: Remove input field value.
       const result = await addMessagesToChat(chatid, inputRef.current.value);
       if (result) {
         inputRef.current.value = "";
@@ -38,18 +37,18 @@ export const ChatsPage = () => {
       <Card>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Common</CardTitle>
-          <Chats
-            chatType={chatType.Group}
-            selectedChat={chat}
-            setChat={setChat}
+          <ChatsWrapper
+            type={chatType.Group}
+            chatId={selectedChat}
+            setSelectedChat={setSelectedChat}
           />
         </ChatTypeWrapper>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Private</CardTitle>
-          <Chats
-            chatType={chatType.Private}
-            selectedChat={chat}
-            setChat={setChat}
+          <ChatsWrapper
+            type={chatType.Private}
+            chatId={selectedChat}
+            setSelectedChat={setSelectedChat}
           />
         </ChatTypeWrapper>
       </Card>
@@ -61,16 +60,20 @@ export const ChatsPage = () => {
           maxWidth: "750px",
         }}
       >
+        {/* Make below dynamic (chat name) */}
         <CardTitle style={{ padding: 0 }}>Eric Cartman</CardTitle>
         <GrowContainer />
         <PaddingContainer>
           <OverflowContainer>
-            <Chat id={chat} />
+            <Chat id={selectedChat} />
           </OverflowContainer>
         </PaddingContainer>
         <InputContainer className="parent" onClick={handleClick}>
           <ChatInput ref={inputRef} />
-          <Button color={theme.colors.cta} onClick={() => handleSend(chat)}>
+          <Button
+            color={theme.colors.cta}
+            onClick={() => handleSend(selectedChat)}
+          >
             Send
           </Button>
         </InputContainer>
@@ -119,7 +122,6 @@ const ChatInput = styled.input`
   outline: none;
 `;
 
-// TODO: fix below IDE errors
 const InputContainer = styled.div`
   padding: ${({ theme }) => `${theme.padding.medium} ${theme.padding.large}`};
   line-height: 0;

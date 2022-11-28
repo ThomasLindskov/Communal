@@ -34,7 +34,7 @@ export const Chat = ({ id }: { id: string }) => {
   }, [results]);
 
   if (isLoading || isSyncing) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (

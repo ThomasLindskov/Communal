@@ -147,7 +147,7 @@ const NavDropdownWrapper = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.semibold};
   z-index: 999;
   > * {
-    &: not(: last-child) {
+    &:not(:last-child) {
       border-bottom: 1px solid ${({ theme }) => theme.colors.white};
     }
   }
