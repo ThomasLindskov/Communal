@@ -12,7 +12,7 @@ export const ChatsWrapper = ({
 }: {
   type: chatType;
   setSelectedChat: (id: string) => void;
-  chatId: string;
+  chatId: string | null;
 }) => {
   const chatsContainer = useRef<HTMLInputElement | null>(null);
   const [chats, setChats] = React.useState<Parse.Object[]>([]);

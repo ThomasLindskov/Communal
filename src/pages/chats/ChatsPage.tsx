@@ -15,7 +15,7 @@ export enum chatType {
 
 export const ChatsPage = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedChat, setSelectedChat] = useState<string>("B5LoAjTM1Y");
+  const [selectedChat, setSelectedChat] = useState<string | null>(null);
 
   const handleClick = () => {
     if (inputRef && inputRef.current) {
@@ -61,22 +61,28 @@ export const ChatsPage = () => {
         }}
       >
         {/* Make below dynamic (chat name) */}
-        <CardTitle style={{ padding: 0 }}>Eric Cartman</CardTitle>
-        <GrowContainer />
-        <PaddingContainer>
-          <OverflowContainer>
-            <Chat id={selectedChat} />
-          </OverflowContainer>
-        </PaddingContainer>
-        <InputContainer className="parent" onClick={handleClick}>
-          <ChatInput ref={inputRef} />
-          <Button
-            color={theme.colors.cta}
-            onClick={() => handleSend(selectedChat)}
-          >
-            Send
-          </Button>
-        </InputContainer>
+        {selectedChat ? (
+          <>
+            <CardTitle style={{ padding: 0 }}>Eric Cartman</CardTitle>
+            <GrowContainer />
+            <PaddingContainer>
+              <OverflowContainer>
+                <Chat id={selectedChat} />
+              </OverflowContainer>
+            </PaddingContainer>
+            <InputContainer className="parent" onClick={handleClick}>
+              <ChatInput ref={inputRef} />
+              <Button
+                color={theme.colors.cta}
+                onClick={() => handleSend(selectedChat)}
+              >
+                Send
+              </Button>
+            </InputContainer>
+          </>
+        ) : (
+          <CardTitle>Please select a chat on the left</CardTitle>
+        )}
       </Card>
     </>
   );
