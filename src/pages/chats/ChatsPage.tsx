@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
 import { ChatCard } from "src/pages/chats/ChatCard";
 import { ChatThumbnail } from "src/pages/chats/ChatThumbnail";
-import { getChatsByUserId } from "src/parse/getChatsByUserId";
-import { getGroupChats } from "src/parse/getGroupChats";
+import { getPrivateChats } from "src/parse/getPrivateChatsByUserId";
 import { theme } from "src/theme";
 import styled from "styled-components";
+import { useToggle } from "ahooks";
+import { NewChatModal } from "src/pages/chats/NewChatModal";
+import { getGroupChats } from "src/parse/getGroupChats";
 
 export enum chatType {
   Private,
@@ -19,13 +22,15 @@ export const ChatsPage = () => {
   const [groupChats, setGroupChats] = useState<Parse.Object[]>([]);
   const privateChatsContainer = useRef<HTMLInputElement | null>(null);
   const groupChatsContainer = useRef<HTMLInputElement | null>(null);
+  const [isNewPrivateChatOpen, { toggle: toggleIsNewPrivateChatOpen }] =
+    useToggle();
 
   const fetchPrivateChats = async (
     setHandler: (data: Parse.Object[]) => void,
     userId: string
   ) => {
-    const data = await getChatsByUserId(userId, chatType.Private);
-    setHandler(data);
+    const data = await getPrivateChats(userId);
+    setHandler(data as Parse.Object[]);
   };
 
   const fetchGroupChats = async (
@@ -47,6 +52,10 @@ export const ChatsPage = () => {
 
   return (
     <>
+      <NewChatModal
+        isOpen={isNewPrivateChatOpen}
+        toggle={toggleIsNewPrivateChatOpen}
+      />
       <Card>
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Common</CardTitle>
@@ -65,7 +74,15 @@ export const ChatsPage = () => {
           </OverflowContainer>
         </ChatTypeWrapper>
         <ChatTypeWrapper>
-          <CardTitle style={{ padding: 0 }}>Private</CardTitle>
+          <div style={{ display: "flex", gap: "44px" }}>
+            <CardTitle style={{ padding: 0 }}>Private</CardTitle>
+            <Button
+              color={theme.colors.cta}
+              onClick={toggleIsNewPrivateChatOpen}
+            >
+              New private chat
+            </Button>
+          </div>
           <OverflowContainer>
             <ChatsContainer ref={privateChatsContainer}>
               {privateChats &&
