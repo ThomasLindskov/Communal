@@ -35,7 +35,14 @@ export const ChatCard = ({ selectedChat }: { selectedChat: string }) => {
         </OverflowContainer>
       </PaddingContainer>
       <InputContainer className="parent" onClick={handleClick}>
-        <ChatInput ref={inputRef} />
+      <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSend(selectedChat);
+        }}
+        style={{ width: "100%" }}
+        >
+        <ChatInput ref={inputRef} />  
+        </form>
         <Button
           color={theme.colors.cta}
           onClick={() => handleSend(selectedChat)}
