@@ -2,6 +2,7 @@ import Parse from "parse";
 import { getObject } from "./getObject";
 import { chatType } from "src/pages/chats/ChatsPage";
 
+// TODO: refactor to only fetch private chats
 export const getChatsByUserId = async function (
   userid: string,
   type: chatType
