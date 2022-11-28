@@ -15,18 +15,33 @@ export enum chatType {
 export const ChatsPage = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [privateChats, setPrivateChats] = useState<Parse.Object[]>([]);
-  const chatsContainer = useRef<HTMLInputElement | null>(null);
+  const [groupChats, setGroupChats] = useState<Parse.Object[]>([]);
+  const privateChatsContainer = useRef<HTMLInputElement | null>(null);
+  const groupChatsContainer = useRef<HTMLInputElement | null>(null);
+
+  const fetchPrivateChats = async (
+    setHandler: (data: Parse.Object[]) => void,
+    userId: string
+  ) => {
+    const data = await getChatsByUserId(userId, chatType.Private);
+    setHandler(data);
+  };
+
+  const fetchGroupChats = async (
+    setHandler: (data: Parse.Object[]) => void,
+    userId: string
+  ) => {
+    const data = await getChatsByUserId(userId, chatType.Private);
+    setHandler(data);
+  };
 
   useEffect(() => {
-    const fetchPrivateChats = async () => {
-      const currentUser = localStorage.getItem("currentUserObjectId");
-      if (currentUser) {
-        const data = await getChatsByUserId(currentUser, chatType.Private);
-        setPrivateChats(data);
-      }
-    };
-    fetchPrivateChats();
-  }, [selectedChat]);
+    const currentUser = localStorage.getItem("currentUserObjectId");
+    if (currentUser) {
+      fetchPrivateChats(setPrivateChats, currentUser);
+      fetchGroupChats(setGroupChats, currentUser);
+    }
+  }, []);
 
   return (
     <>
@@ -42,7 +57,20 @@ export const ChatsPage = () => {
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Private</CardTitle>
           <OverflowContainer>
-            <ChatsContainer ref={chatsContainer}>
+            <ChatsContainer ref={groupChatsContainer}>
+              {groupChats &&
+                groupChats.map((chat: Parse.Object) => (
+                  <ChatThumbnail
+                    id={chat.id}
+                    selected={chat.id === selectedChat}
+                    onClick={() => setSelectedChat(chat.id)}
+                    key={chat.id}
+                  />
+                ))}
+            </ChatsContainer>
+          </OverflowContainer>
+          <OverflowContainer>
+            <ChatsContainer ref={privateChatsContainer}>
               {privateChats &&
                 privateChats.map((chat: Parse.Object) => (
                   <ChatThumbnail
