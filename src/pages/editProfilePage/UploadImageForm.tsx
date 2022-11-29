@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUploadImageMutation } from "src/hooks/useUploadImageMutation";
 import Parse from "parse";
+import { useAvatarQuery } from "src/hooks/useAvatarQuery";
 
 interface IUploadImageInput {
   image: File[];
@@ -21,6 +22,7 @@ export const UploadImageForm = () => {
     loading: submitLoading,
     error: submitError,
   } = useUploadImageMutation();
+  const { data, loading } = useAvatarQuery();
   const {
     register,
     formState: { errors, isDirty },
@@ -43,7 +45,6 @@ export const UploadImageForm = () => {
         image_url: responseFile._url,
       },
     };
-
     uploadImage({
       variables: { input },
       onCompleted: () => {
@@ -56,41 +57,9 @@ export const UploadImageForm = () => {
     });
   };
 
-  // if (loading) return null;
-  // if (error) return <p>{`Error :${error.message}`}</p>;
-
-  // async function retriveImages() {
-  //   const query = new Parse.Query("Image");
-  //   let results = await query.find();
-
-  //   for(let i = 0; i < results.length; i++) {
-  //     let object = results[i];
-  //     console.log(object.id + ' - ' + object.get('image') + " ") + JSON.stringify(object.get('image'));
-
-  //   }
-  // }
-
-  // retriveImages();
-
-  // TODO: add fetch image functionality
-  // const fetchImage = gql`
-  //   query GetUser($id: ID!) {
-  //     user(id: $id) {
-  //       image
-  //     }
-  //   }
-  // `;
-
-  // console.log(fetchImage);
-
-  // useEffect(() => {
-  //   const loadedimages = async () => {
-  //     let query = new Parse.Query("Image");
-  //     const results = await query.find();
-  //     setImages(results);
-  // };
-  // loadedimages();
-  //  }, []);
+  if (loading) {
+    return null;
+  }
 
   return (
     <form
@@ -108,6 +77,15 @@ export const UploadImageForm = () => {
         </div>
         <div>
           <p>this is where an image should be displayed</p>
+          {data && (
+            <img
+              src={data.user.image_url}
+              alt="avatar"
+              height="100px"
+              width="100px"
+              style={{ borderRadius: "50%" }}
+            />
+          )}
         </div>
         <div>
           <img src="" alt="" />

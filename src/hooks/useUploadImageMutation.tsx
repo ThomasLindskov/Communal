@@ -11,7 +11,9 @@ const UploadImage = gql`
 `;
 
 export const useUploadImageMutation = () => {
-  const [uploadImage, { data, loading, error }] = useMutation(UploadImage);
+  const [uploadImage, { data, loading, error }] = useMutation(UploadImage, {
+    refetchQueries: ["GetUser"],
+  });
   return {
     uploadImage,
     data,
