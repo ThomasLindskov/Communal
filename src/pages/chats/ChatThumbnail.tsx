@@ -1,3 +1,4 @@
+import GroupChatAvatar from "src/components/GroupChatAvatar";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import Avatar from "../../components/Avatar";
@@ -9,20 +10,31 @@ export const ChatThumbnail = ({
   name,
   avatarUrl,
   lastMessage,
+  timeString,
+  group,
 }: ChatThumbnailProps) => {
   // TODO: Get the chat data from the database from id
 
   return (
     <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
-      <Avatar
-        imageUrl={avatarUrl}
-        altText="user-picture"
-        size={theme.avatarSize.medium}
-      />
+      {!group && (
+        <Avatar
+          imageUrl={avatarUrl}
+          altText="user-picture"
+          size={theme.avatarSize.medium}
+        />
+      )}
+      {group && (
+        <GroupChatAvatar
+          color={selected ? theme.colors.tertiary : theme.colors.primary}
+          name={name}
+        />
+      )}
+
       <TextContainer>
         <UpperTextContainer>
           <Name selected={selected}>{name}</Name>
-          <LastMessageTime>Now</LastMessageTime>
+          <LastMessageTime>{timeString}</LastMessageTime>
         </UpperTextContainer>
         <Message>{lastMessage}</Message>
       </TextContainer>
@@ -30,7 +42,6 @@ export const ChatThumbnail = ({
   );
 };
 
-// TODO: fix IDE errors
 const ThumbnailContainer = styled.div<{ selected: boolean }>`
   cursor: pointer;
   border-radius: ${({ theme }) => theme.utils.borderRadius};
@@ -54,7 +65,7 @@ const TextContainer = styled.div`
 const UpperTextContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 interface ChatThumbnailProps {
@@ -64,6 +75,8 @@ interface ChatThumbnailProps {
   name: string;
   avatarUrl: string;
   lastMessage: string;
+  timeString: string;
+  group?: boolean;
 }
 
 const Name = styled.p<{ selected: boolean }>`
@@ -76,8 +89,8 @@ const Name = styled.p<{ selected: boolean }>`
 `;
 
 const LastMessageTime = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.medium};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
+  font-size: ${({ theme }) => theme.fontSize.small};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
   color: ${({ theme }) => theme.colors.tertiary};
   margin: 0;
 `;
