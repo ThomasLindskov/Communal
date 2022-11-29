@@ -11,10 +11,13 @@ export const getLastChatMessage = async (
     message.get("createdAt");
     const lastMessageTimeStamp = moment(message.get("createdAt")).fromNow();
     message.set("timeAsString", lastMessageTimeStamp);
+
     return message;
   } else {
     const emptyMessage = new Parse.Object("Message");
     emptyMessage.set("timeAsString", "");
+    emptyMessage.set("createdAt", new Date(0));
+
     emptyMessage.set("text", "");
     return emptyMessage;
   }

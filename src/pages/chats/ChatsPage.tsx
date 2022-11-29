@@ -58,19 +58,26 @@ export const ChatsPage = () => {
           <OverflowContainer>
             <ChatsContainer ref={groupChatsContainer}>
               {groupChats &&
-                groupChats.map((chat: Parse.Object) => (
-                  <ChatThumbnail
-                    id={chat.id}
-                    avatarUrl={""}
-                    group
-                    name={chat.get("name")}
-                    timeString={chat.get("lastMessage").get("timeAsString")}
-                    lastMessage={chat.get("lastMessage").get("text")}
-                    selected={chat.id === selectedChat}
-                    onClick={() => setSelectedChat(chat.id)}
-                    key={chat.id}
-                  />
-                ))}
+                groupChats
+                  .sort((a, b) => {
+                    return (
+                      new Date(b.get("createdAt")).getTime() -
+                      new Date(a.get("createdAt")).getTime()
+                    );
+                  })
+                  .map((chat: Parse.Object) => (
+                    <ChatThumbnail
+                      id={chat.id}
+                      avatarUrl={""}
+                      group
+                      name={chat.get("name")}
+                      timeString={chat.get("lastMessage").get("timeAsString")}
+                      lastMessage={chat.get("lastMessage").get("text")}
+                      selected={chat.id === selectedChat}
+                      onClick={() => setSelectedChat(chat.id)}
+                      key={chat.id}
+                    />
+                  ))}
             </ChatsContainer>
           </OverflowContainer>
         </ChatTypeWrapper>
@@ -87,18 +94,25 @@ export const ChatsPage = () => {
           <OverflowContainer>
             <ChatsContainer ref={privateChatsContainer}>
               {privateChats &&
-                privateChats.map((chat: Parse.Object) => (
-                  <ChatThumbnail
-                    name={chat.get("receiver").get("username")}
-                    avatarUrl={"/img/EricCartman.png"}
-                    id={chat.id}
-                    timeString={chat.get("lastMessage").get("timeAsString")}
-                    lastMessage={chat.get("lastMessage").get("text")}
-                    selected={chat.id === selectedChat}
-                    onClick={() => setSelectedChat(chat.id)}
-                    key={chat.id}
-                  />
-                ))}
+                privateChats
+                  .sort((a, b) => {
+                    return (
+                      new Date(b.get("createdAt")).getTime() -
+                      new Date(a.get("createdAt")).getTime()
+                    );
+                  })
+                  .map((chat: Parse.Object) => (
+                    <ChatThumbnail
+                      name={chat.get("receiver").get("username")}
+                      avatarUrl={"/img/EricCartman.png"}
+                      id={chat.id}
+                      timeString={chat.get("lastMessage").get("timeAsString")}
+                      lastMessage={chat.get("lastMessage").get("text")}
+                      selected={chat.id === selectedChat}
+                      onClick={() => setSelectedChat(chat.id)}
+                      key={chat.id}
+                    />
+                  ))}
             </ChatsContainer>
           </OverflowContainer>
         </ChatTypeWrapper>
