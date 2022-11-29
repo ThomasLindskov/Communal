@@ -20,17 +20,21 @@ const Avatar = ({
   imageUrl,
   altText,
   size,
+  name,
+  tooltipClasses,
   clickable,
   onClick,
 }: {
   imageUrl: string | undefined;
   altText: string;
   size: string;
+  tooltipClasses?: string
+  name?: string;
   clickable?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) => (
-  <ImgWrapper size={size} clickable={clickable} onClick={onClick && onClick}>
-    <Image src={imageUrl ? imageUrl : "/img/EricCartman.png"} alt={altText} />
+  <ImgWrapper size={size} clickable={clickable} onClick={onClick && onClick} className={tooltipClasses} data-text={name}>
+    <Image src={imageUrl ? imageUrl : "/img/EricCartman.png"} alt={altText}/>
   </ImgWrapper>
 );
 

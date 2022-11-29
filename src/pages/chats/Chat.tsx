@@ -55,6 +55,8 @@ export const Chat = ({ id }: { id: string }) => {
                     text={message.attributes.text}
                     type={isSentByCurrentUser(message.get('sender'))}
                     avatarUrl = {message.get('sender').get('image_url')}
+                    createdAt = {message.get('sender').get('createdAt')}
+                    senderName = {message.get('sender').get('username')}
                   />
                 </Row>
               );

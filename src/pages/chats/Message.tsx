@@ -4,15 +4,32 @@ import Sharktooth from "src/components/Sharktooth";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { messageType } from "./Chat";
+import moment from "moment";
+import "./style/css/tooltip.css";
+
+const getTooltipClassNames = (type: messageType) => {
+  if(type === messageType.Sent){
+    return 'tooltip left'
+  }
+  if(type === messageType.Received){
+    return 'tooltip';
+  }
+
+}
+
 
 export const Message = ({
   type,
   text,
-  avatarUrl
+  avatarUrl, 
+  createdAt,
+  senderName
 }: {
   type: messageType;
   text: string;
   avatarUrl: string;
+  createdAt: Date;
+  senderName: string; 
 }) => {
   return (
     <Wrapper type={type}>
@@ -20,9 +37,11 @@ export const Message = ({
         imageUrl={avatarUrl}
         altText="user-avatar"
         size={theme.avatarSize.medium}
+        name={senderName}
+        tooltipClasses = {getTooltipClassNames(type)}
       />
-
-      <MessageContainer type={type}>
+      
+      <MessageContainer type={type} className={`${getTooltipClassNames(type)} message`} data-text={moment(createdAt).fromNow()}>
         <SharktoothContainer type={type}>
           <Sharktooth
             color={
