@@ -10,10 +10,12 @@ import Avatar from "./Avatar";
 import toast, { Toaster } from "react-hot-toast";
 import { CardLink } from "./CardLink";
 import { useLocation } from "react-router-dom";
+import { useAvatarQuery } from "src/hooks/useAvatarQuery";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
   const { logOut, error, loading } = useLogOutMutation();
+  const { data: avatar, loading: avatarLoading } = useAvatarQuery();
   let navigate = useNavigate();
 
   const handleLogOut = () => {
@@ -52,6 +54,8 @@ export const Navbar = () => {
   }, [navbarRef]);
 
   const location = useLocation();
+  // TODO: change default avatar to something more appropriate
+  const avatarUrl = avatar?.user?.image_url || "/img/EricCartman.png";
 
   return (
     <>
@@ -84,7 +88,7 @@ export const Navbar = () => {
           onClick={isTogglingEnabled ? toggleDropdown : undefined}
         >
           <Avatar
-            imageUrl="/img/EricCartman.png"
+            imageUrl={avatarUrl}
             altText="user-avatar"
             size={theme.avatarSize.medium}
           />

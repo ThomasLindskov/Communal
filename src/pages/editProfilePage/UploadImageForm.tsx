@@ -9,6 +9,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useUploadImageMutation } from "src/hooks/useUploadImageMutation";
 import Parse from "parse";
 import { useAvatarQuery } from "src/hooks/useAvatarQuery";
+import Avatar from "src/components/Avatar";
 
 interface IUploadImageInput {
   image: File[];
@@ -73,23 +74,19 @@ export const UploadImageForm = () => {
     >
       <Card width="200px">
         <div style={{ width: "100%" }}>
-          <CardTitle children="Edit Profile" />
+          <CardTitle children="Edit Profile Picture" />
         </div>
-        <div>
-          <p>this is where an image should be displayed</p>
+        <div style={{ display: "flex", alignItems: "center" }}>
           {data && (
-            <img
-              src={data.user.image_url}
-              alt="avatar"
-              height="100px"
-              width="100px"
-              style={{ borderRadius: "50%" }}
+            <Avatar
+              imageUrl={data.user.image_url}
+              altText="user-avatar"
+              size={theme.avatarSize.medium}
             />
           )}
         </div>
         <div>
           <img src="" alt="" />
-          <p>this is where u can upload new image</p>
           <InputField
             label="Image"
             id="image"
