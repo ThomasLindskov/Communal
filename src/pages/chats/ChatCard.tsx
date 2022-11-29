@@ -81,7 +81,11 @@ const ChatInput = styled.input`
   resize: none;
   height: 100%;
   box-sizing: border-box;
-  font-family: "SF Pro";
+  @font-face {
+    font-family: SF Pro;
+    src: url("/fonts/SF-Pro-Display-Regular.otf");
+    format('truetype');
+  }
   flex-grow: 1;
   outline: none;
 `;

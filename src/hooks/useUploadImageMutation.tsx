@@ -1,8 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 
 //TODO: Figure out how to do the mutation to add a file to a user
-
-
 const UploadImage = gql`
   mutation UpdateObject($input: UpdateUserInput!) {
     updateUser(input: $input) {
@@ -22,5 +20,3 @@ export const useUploadImageMutation = () => {
     error,
   };
 };
-
-//xx

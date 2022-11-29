@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-//TODO: Use react-router-dom to navigate to home page when Logo is clicked
 const SharktoothFigure = styled.figure`
   margin: 0;
 `;

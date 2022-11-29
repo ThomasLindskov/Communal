@@ -12,7 +12,7 @@ const fetchUser = gql`
   }
 `;
 
-//TODO: Add image to fetchUser query
+//TODO: Add image to fetchUser query or create a new query to fetch image in that card
 
 export const useProfileSettingsQuery = (
   setValue: (key: keyof IEditProfileFormInput, value: string) => void
@@ -23,6 +23,7 @@ export const useProfileSettingsQuery = (
 } => {
   const { data, loading, error } = useQuery(fetchUser, {
     variables: { id: localStorage.getItem("currentUser") },
+    fetchPolicy: "network-only", // To force reload of data when returning to page
     onCompleted: (data) => {
       for (const [key, value] of Object.entries(data.user)) {
         setValue(
