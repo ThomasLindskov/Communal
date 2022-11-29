@@ -14,7 +14,6 @@ export const ChatThumbnail = ({
   group,
 }: ChatThumbnailProps) => {
   // TODO: Get the chat data from the database from id
-
   return (
     <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
       {!group && (
@@ -73,7 +72,7 @@ interface ChatThumbnailProps {
   selected: boolean;
   onClick: () => void;
   name: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   lastMessage: string;
   timeString: string;
   group?: boolean;

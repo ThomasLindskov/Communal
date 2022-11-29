@@ -8,14 +8,16 @@ import { messageType } from "./Chat";
 export const Message = ({
   type,
   text,
+  avatarUrl
 }: {
   type: messageType;
   text: string;
+  avatarUrl: string;
 }) => {
   return (
     <Wrapper type={type}>
       <Avatar
-        imageUrl="/img/EricCartman.png"
+        imageUrl={avatarUrl}
         altText="user-avatar"
         size={theme.avatarSize.medium}
       />

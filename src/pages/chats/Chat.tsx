@@ -49,11 +49,12 @@ export const Chat = ({ id }: { id: string }) => {
               return (
                 <Row
                   key={message.id}
-                  type={isSentByCurrentUser(message.attributes.sender)}
+                  type={isSentByCurrentUser(message.get('sender'))}
                 >
                   <Message
                     text={message.attributes.text}
-                    type={isSentByCurrentUser(message.attributes.sender)}
+                    type={isSentByCurrentUser(message.get('sender'))}
+                    avatarUrl = {message.get('sender').get('image_url')}
                   />
                 </Row>
               );

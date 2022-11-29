@@ -23,14 +23,14 @@ const Avatar = ({
   clickable,
   onClick,
 }: {
-  imageUrl: string;
+  imageUrl: string | undefined;
   altText: string;
   size: string;
   clickable?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) => (
   <ImgWrapper size={size} clickable={clickable} onClick={onClick && onClick}>
-    <Image src={imageUrl} alt={altText} />
+    <Image src={imageUrl ? imageUrl : "/img/EricCartman.png"} alt={altText} />
   </ImgWrapper>
 );
 

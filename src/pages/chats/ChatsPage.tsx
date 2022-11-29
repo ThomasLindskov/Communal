@@ -68,7 +68,6 @@ export const ChatsPage = () => {
                   .map((chat: Parse.Object) => (
                     <ChatThumbnail
                       id={chat.id}
-                      avatarUrl={""}
                       group
                       name={chat.get("name")}
                       timeString={chat.get("lastMessage").get("timeAsString")}
@@ -104,7 +103,7 @@ export const ChatsPage = () => {
                   .map((chat: Parse.Object) => (
                     <ChatThumbnail
                       name={chat.get("receiver").get("username")}
-                      avatarUrl={"/img/EricCartman.png"}
+                      avatarUrl={chat.get("receiver").get('image_url')}
                       id={chat.id}
                       timeString={chat.get("lastMessage").get("timeAsString")}
                       lastMessage={chat.get("lastMessage").get("text")}

@@ -55,7 +55,7 @@ export const Navbar = () => {
 
   const location = useLocation();
   // TODO: change default avatar to something more appropriate
-  const avatarUrl = avatar?.user?.image_url || "/img/EricCartman.png";
+  const avatarUrl = avatar?.user?.image_url;
 
   return (
     <>
