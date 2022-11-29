@@ -1,4 +1,5 @@
 import Parse from "parse";
+import { getLastChatMessage } from "./getLastChatMessage";
 import { getObject } from "./getObject";
 
 export const getGroupChats = async () => {
@@ -15,7 +16,13 @@ export const getGroupChats = async () => {
       } else {
         parseQuery.equalTo("zipCode", zipCode);
       }
-      return await parseQuery.find();
+      const chats = await parseQuery.find();
+
+      for (let i = 0; i < chats.length; i++) {
+        const lastMessage = await getLastChatMessage(chats[i]);
+        chats[i].set("lastMessage", lastMessage);
+      }
+      return chats;
     }
   } catch (error) {
     // Error can be caused by lack of value selection

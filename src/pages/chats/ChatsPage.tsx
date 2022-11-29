@@ -4,7 +4,7 @@ import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
 import { ChatCard } from "src/pages/chats/ChatCard";
 import { ChatThumbnail } from "src/pages/chats/ChatThumbnail";
-import { getPrivateChats } from "src/parse/getPrivateChatsByUserId";
+import { getPrivateChats } from "src/parse/getPrivateChats";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { useToggle } from "ahooks";
@@ -26,10 +26,9 @@ export const ChatsPage = () => {
     useToggle();
 
   const fetchPrivateChats = async (
-    setHandler: (data: Parse.Object[]) => void,
-    userId: string
+    setHandler: (data: Parse.Object[]) => void
   ) => {
-    const data = await getPrivateChats(userId);
+    const data = await getPrivateChats();
     setHandler(data as Parse.Object[]);
   };
 
@@ -43,11 +42,8 @@ export const ChatsPage = () => {
   };
 
   useEffect(() => {
-    const currentUser = localStorage.getItem("currentUserObjectId");
-    if (currentUser) {
-      fetchPrivateChats(setPrivateChats, currentUser);
-      fetchGroupChats(setGroupChats);
-    }
+    fetchPrivateChats(setPrivateChats);
+    fetchGroupChats(setGroupChats);
   }, []);
 
   return (
@@ -67,6 +63,7 @@ export const ChatsPage = () => {
                     id={chat.id}
                     avatarUrl={"/img/EricCartman.png"}
                     name={chat.get("name")}
+                    lastMessage={chat.get("lastMessage").get("text")}
                     selected={chat.id === selectedChat}
                     onClick={() => setSelectedChat(chat.id)}
                     key={chat.id}
@@ -93,6 +90,7 @@ export const ChatsPage = () => {
                     name={chat.get("receiver").get("username")}
                     avatarUrl={"/img/EricCartman.png"}
                     id={chat.id}
+                    lastMessage={chat.get("lastMessage").get("text")}
                     selected={chat.id === selectedChat}
                     onClick={() => setSelectedChat(chat.id)}
                     key={chat.id}
