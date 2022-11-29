@@ -82,6 +82,7 @@ export const UploadImageForm = () => {
               imageUrl={data.user.image_url}
               altText="user-avatar"
               size={theme.avatarSize.medium}
+              large={true}
             />
           )}
         </div>
