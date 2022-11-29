@@ -43,7 +43,7 @@ export const UserIconContainer = ({
   );
 };
 
-function makeQuote(testimonial: String, madeBy?: String) {
+function makeQuote(testimonial: String, madeBy?: String): JSX.Element {
   if (madeBy) {
     return (
       <blockquote>

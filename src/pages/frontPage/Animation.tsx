@@ -6,7 +6,7 @@ export const Animation = ({
   testimonial,
 }: {
   show: boolean;
-  testimonial: String;
+  testimonial: JSX.Element;
 }) => {
   const helloRef = useRef(null);
   const goodbyeRef = useRef(null);
