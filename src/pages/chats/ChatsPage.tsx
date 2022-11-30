@@ -61,8 +61,8 @@ export const ChatsPage = () => {
                 groupChats
                   .sort((a, b) => {
                     return (
-                      new Date(b.get("createdAt")).getTime() -
-                      new Date(a.get("createdAt")).getTime()
+                      b.get("name") -
+                      a.get("name")
                     );
                   })
                   .map((chat: Parse.Object) => (
@@ -95,9 +95,10 @@ export const ChatsPage = () => {
               {privateChats &&
                 privateChats
                   .sort((a, b) => {
+                    console.log(a)
                     return (
-                      new Date(b.get("createdAt")).getTime() -
-                      new Date(a.get("createdAt")).getTime()
+                      b.get("lastMessage").get("createdAt") -
+                      a.get("lastMessage").get("createdAt")
                     );
                   })
                   .map((chat: Parse.Object) => (
