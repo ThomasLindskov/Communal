@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "src/components/Avatar";
 import Sharktooth from "src/components/Sharktooth";
 import { theme } from "src/theme";
@@ -6,55 +6,75 @@ import styled from "styled-components";
 import { messageType } from "./Chat";
 import moment from "moment";
 import "./style/css/tooltip.css";
+import { getObject } from "src/parse/getObject";
 
 const getTooltipClassNames = (type: messageType) => {
-  if(type === messageType.Sent){
-    return 'tooltip left'
+  if (type === messageType.Sent) {
+    return "tooltip left";
   }
-  if(type === messageType.Received){
-    return 'tooltip';
+  if (type === messageType.Received) {
+    return "tooltip";
   }
-
-}
-
+};
 
 export const Message = ({
   type,
   text,
-  avatarUrl, 
-  createdAt,
-  senderName
+  sender
 }: {
   type: messageType;
   text: string;
-  avatarUrl: string;
-  createdAt: Date;
-  senderName: string; 
+  sender: any;
 }) => {
+  const [user, setUser] = useState<Parse.Object>();
+  const fetchUser = async (
+    setHandler: (data: Parse.Object) => void,
+    sender: any
+  ) => {
+    if (sender.objectId) {
+      const data = await getObject("User", sender.objectId);
+      setHandler(data as Parse.Object);
+    } else {
+      setHandler(sender);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser(setUser, sender);
+  }, [sender]);
+
   return (
-    <Wrapper type={type}>
-      <Avatar
-        imageUrl={avatarUrl}
-        altText="user-avatar"
-        size={theme.avatarSize.medium}
-        name={senderName}
-        tooltipClasses = {getTooltipClassNames(type)}
-      />
-      
-      <MessageContainer type={type} className={`${getTooltipClassNames(type)} message`} data-text={moment(createdAt).fromNow()}>
-        <SharktoothContainer type={type}>
-          <Sharktooth
-            color={
-              type === messageType.Sent
-                ? theme.colors.primary
-                : theme.colors.white
-            }
-            borderColor={theme.colors.tertiary}
+    <>
+      {user && (
+        <Wrapper type={type}>
+          <Avatar
+            imageUrl={user.get("image_url")}
+            altText="user-avatar"
+            size={theme.avatarSize.medium}
+            name={user.get('username')}
+            tooltipClasses={getTooltipClassNames(type)}
           />
-        </SharktoothContainer>
-        {text}
-      </MessageContainer>
-    </Wrapper>
+
+          <MessageContainer
+            type={type}
+            className={`${getTooltipClassNames(type)} message`}
+            data-text={moment(user.get("createdAt")).fromNow()}
+          >
+            <SharktoothContainer type={type}>
+              <Sharktooth
+                color={
+                  type === messageType.Sent
+                    ? theme.colors.primary
+                    : theme.colors.white
+                }
+                borderColor={theme.colors.tertiary}
+              />
+            </SharktoothContainer>
+            {text}
+          </MessageContainer>
+        </Wrapper>
+      )}
+    </>
   );
 };
 

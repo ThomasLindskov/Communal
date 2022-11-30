@@ -46,7 +46,6 @@ export const Chat = ({ id }: { id: string }) => {
               return a.get("createdAt") - b.get("createdAt");
             })
             .map((message: Parse.Object) => {
-              let sender = message.get('sender')
               return (
                 <Row
                   key={message.id}
@@ -55,9 +54,7 @@ export const Chat = ({ id }: { id: string }) => {
                   <Message
                     text={message.attributes.text}
                     type={isSentByCurrentUser(message.get('sender'))}
-                    avatarUrl = {sender.objectId ? '': sender.get('image_url') }
-                    createdAt = {sender.objectId ? '': sender.get('createdAt')}
-                    senderName = {sender.objectId ? '': sender.get('username')}
+                    sender = {message.get('sender')}
                   />
                 </Row>
               );
