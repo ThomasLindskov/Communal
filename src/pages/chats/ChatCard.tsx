@@ -6,7 +6,7 @@ import { addMessagesToChat } from "src/parse/addMessagesToChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 
-export const ChatCard = ({ selectedChat }: { selectedChat: string }) => {
+export const ChatCard = ({ selectedChat, chatTitle }: { selectedChat: string, chatTitle: string }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClick = () => {
@@ -27,7 +27,7 @@ export const ChatCard = ({ selectedChat }: { selectedChat: string }) => {
   return (
     <>
       {/* Make below dynamic (chat name) */}
-      <CardTitle style={{ padding: 0 }}>Eric Cartman</CardTitle>
+      <CardTitle style={{ padding: 0 }}>{chatTitle}</CardTitle>
       <GrowContainer />
       <PaddingContainer>
         <OverflowContainer>

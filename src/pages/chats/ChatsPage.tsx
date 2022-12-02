@@ -41,10 +41,28 @@ export const ChatsPage = () => {
     }
   };
 
+  const handleChatTitle = () => {
+    if (selectedChat) {
+      const groupchat = groupChats.find((chat) => chat.id === selectedChat);
+      const privatechat = privateChats.find((chat) => chat.id === selectedChat);
+        if (groupchat) {
+          return groupchat.get("name");
+        } 
+        else if (privatechat) {
+          
+          const chatName = privatechat.get("name");
+    
+          return "Chat with " + chatName;
+        }
+    }
+
+  };
+
   useEffect(() => {
     fetchPrivateChats(setPrivateChats);
     fetchGroupChats(setGroupChats);
   }, []);
+  
 
   return (
     <>
@@ -125,8 +143,8 @@ export const ChatsPage = () => {
           maxWidth: "750px",
         }}
       >
-        {selectedChat ? (
-          <ChatCard selectedChat={selectedChat} />
+       {selectedChat ? (
+          <ChatCard selectedChat={selectedChat} chatTitle={handleChatTitle()} />
         ) : (
           <CardTitle>Please select a chat on the left</CardTitle>
         )}
