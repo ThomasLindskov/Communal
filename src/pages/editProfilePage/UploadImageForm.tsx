@@ -9,7 +9,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useUploadImageMutation } from "src/hooks/useUploadImageMutation";
 import Parse from "parse";
 import { useAvatarQuery } from "src/hooks/useAvatarQuery";
-import Avatar from "src/components/Avatar";
+import { Avatar } from "src/components/Avatar";
 
 interface IUploadImageInput {
   image: File[];

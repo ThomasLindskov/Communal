@@ -1,34 +1,7 @@
+import React from "react";
 import styled from "styled-components";
-const Image = styled.img`
-  display: block;
-  border-radius: 50%;
-  width: max(2vw, 45px);
-  aspect-ratio: 1/1;
-  object-fit: cover;
-`;
-const ProfileImage = styled.img`
-  display: block;
-  border-radius: 50%;
-  width: max(5vw, 140px);
-  aspect-ratio: 1/1;
-  object-fit: cover;
-`;
 
-const ImgWrapper = styled.div<{
-  size: string;
-  clickable?: boolean;
-  large?: boolean;
-}>`
-  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
-  box-sizing: border-box;
-  border-radius: 50%;
-  width: ${(props) => props.size};
-  min-width: ${(props) => props.size};
-  min-height: ${(props) => props.size};
-  ${(props) => props.clickable && "cursor: pointer;"}
-`;
-
-const Avatar = ({
+export const Avatar = ({
   imageUrl,
   altText,
   size,
@@ -65,4 +38,31 @@ const Avatar = ({
   </ImgWrapper>
 );
 
-export default Avatar;
+const Image = styled.img`
+  display: block;
+  border-radius: 50%;
+  width: max(2vw, 45px);
+  aspect-ratio: 1/1;
+  object-fit: cover;
+`;
+const ProfileImage = styled.img`
+  display: block;
+  border-radius: 50%;
+  width: max(5vw, 140px);
+  aspect-ratio: 1/1;
+  object-fit: cover;
+`;
+
+const ImgWrapper = styled.div<{
+  size: string;
+  clickable?: boolean;
+  large?: boolean;
+}>`
+  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
+  box-sizing: border-box;
+  border-radius: 50%;
+  width: ${(props) => props.size};
+  min-width: ${(props) => props.size};
+  min-height: ${(props) => props.size};
+  ${(props) => props.clickable && "cursor: pointer;"}
+`;

@@ -6,12 +6,12 @@ import useNavbarDropDownToggle from "src/hooks/useNavbarDropDownToggle";
 import styled from "styled-components";
 import Logo from "../assets/svgComponents/Logo";
 import { theme } from "../theme";
-import Avatar from "./Avatar";
 import toast, { Toaster } from "react-hot-toast";
 import { CardLink } from "./CardLink";
 import { useLocation } from "react-router-dom";
 import { useAvatarQuery } from "src/hooks/useAvatarQuery";
 import { useToggle } from "ahooks";
+import { Avatar } from "src/components/Avatar";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);

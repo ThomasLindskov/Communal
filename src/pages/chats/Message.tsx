@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Avatar from "src/components/Avatar";
 import Sharktooth from "src/components/Sharktooth";
 import { theme } from "src/theme";
 import styled from "styled-components";
@@ -7,6 +6,7 @@ import { messageType } from "./Chat";
 import moment from "moment";
 import "./style/css/tooltip.css";
 import { getObject } from "src/parse/getObject";
+import { Avatar } from "src/components/Avatar";
 
 const getTooltipClassNames = (type: messageType) => {
   if (type === messageType.Sent) {
@@ -21,7 +21,7 @@ export const Message = ({
   type,
   text,
   sender,
-  createdAt
+  createdAt,
 }: {
   type: messageType;
   text: string;
@@ -53,7 +53,7 @@ export const Message = ({
             imageUrl={user.get("image_url")}
             altText="user-avatar"
             size={theme.avatarSize.medium}
-            name={user.get('username')}
+            name={user.get("username")}
             tooltipClasses={getTooltipClassNames(type)}
           />
 

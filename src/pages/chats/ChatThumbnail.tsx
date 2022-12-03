@@ -1,7 +1,7 @@
+import { Avatar } from "src/components/Avatar";
 import GroupChatAvatar from "src/components/GroupChatAvatar";
 import { theme } from "src/theme";
 import styled from "styled-components";
-import Avatar from "../../components/Avatar";
 
 export const ChatThumbnail = ({
   id,
@@ -13,7 +13,6 @@ export const ChatThumbnail = ({
   timeString,
   group,
 }: ChatThumbnailProps) => {
-  // TODO: Get the chat data from the database from id
   return (
     <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
       {!group && (
@@ -45,8 +44,7 @@ const ThumbnailContainer = styled.div<{ selected: boolean }>`
   cursor: pointer;
   border-radius: ${({ theme }) => theme.utils.borderRadius};
   border: 1px solid ${({ theme }) => theme.colors.tertiary};
-  padding: ${({ theme }) => theme.padding.medium}
-    ${({ theme }) => theme.padding.large};
+  padding: ${({ theme }) => `${theme.padding.medium} ${theme.padding.large}`};
   display: flex;
   gap: ${({ theme }) => theme.flexGap.medium};
   background-color: ${({ theme }) =>

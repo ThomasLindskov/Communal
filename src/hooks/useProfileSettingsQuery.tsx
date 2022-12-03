@@ -7,12 +7,9 @@ const fetchUser = gql`
       username
       email
       address
-      neighborhood
     }
   }
 `;
-
-//TODO: Add image to fetchUser query or create a new query to fetch image in that card
 
 export const useProfileSettingsQuery = (
   setValue: (key: keyof IEditProfileFormInput, value: string) => void
@@ -26,6 +23,7 @@ export const useProfileSettingsQuery = (
     fetchPolicy: "network-only", // To force reload of data when returning to page
     onCompleted: (data) => {
       for (const [key, value] of Object.entries(data.user)) {
+        console.log(key, value);
         setValue(
           key as keyof IEditProfileFormInput,
           value as unknown as string

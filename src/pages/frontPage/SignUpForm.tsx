@@ -32,7 +32,11 @@ export const SignUpForm = () => {
         username: inputData.username,
         password: inputData.password,
         email: inputData.email,
-        address: inputData.address,
+        address: {
+          city: getCity(zip),
+          zipCode: inputData.address.zipCode,
+          street: inputData.address.street,
+        },
         neighborhood: inputData.address.zipCode,
         // default image
         image_url:

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardTitle } from "../../components/CardTitle";
@@ -21,6 +21,7 @@ import { Select } from "src/components/Select";
 const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
 export const EditProfileForm = () => {
+  const [zip, setZip] = useState("");
   const {
     editProfile,
     loading: submitLoading,
@@ -43,14 +44,18 @@ export const EditProfileForm = () => {
       return;
     }
 
-    const { username, email, address, neighborhood } = inputData;
+    const { username, email, address } = inputData;
     const input = {
       id: localStorage.getItem("currentUser"),
       fields: {
         username,
         email,
-        address,
-        neighborhood,
+        address: {
+          city: getCity(zip),
+          zip: address.zipCode,
+          street: address.street,
+        },
+        neighborhood: address.zipCode,
       },
     };
     editProfile({
@@ -63,6 +68,14 @@ export const EditProfileForm = () => {
         }
       },
     });
+  };
+
+  const changeZip = (e: any) => {
+    setZip(e.target.value);
+  };
+
+  const getCity = (zip: string) => {
+    return zipCodes[zip];
   };
 
   const modalWidth = 500;
@@ -135,39 +148,33 @@ export const EditProfileForm = () => {
               width: "300px",
             }}
           >
-            <InputField
+            <Select
               label="Zip code"
               id="zip"
-              type="number"
-              placeholder="Zip code"
               style={{ div: { width: "30%" } }}
               register={register("address.zipCode")}
               errorMessage={errors.address?.zipCode?.message}
-            />
+              onChange={changeZip}
+            >
+              <option>Zip</option>
+              {Object.keys(zipCodes).map((key: string) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </Select>
             <InputField
               label="City"
               id="city"
               type="text"
-              placeholder="City"
+              placeholder={getCity(zip)}
+              value={getCity(zip)}
               style={{ div: { width: "100%" } }}
+              readOnly={true}
               register={register("address.city")}
               errorMessage={errors.address?.city?.message}
             />
           </div>
-          <Select
-            id="neighborhood"
-            register={register("neighborhood")}
-            label={"Preferred area"}
-          >
-            <option key={0} value={0}>
-              No chosen
-            </option>
-            {Object.keys(zipCodes).map((key: string) => (
-              <option key={key} value={key}>
-                {zipCodes[key as any]}
-              </option>
-            ))}
-          </Select>
           <div style={{ marginTop: "20px" }}></div>
           <Button
             color={theme.colors.cta}

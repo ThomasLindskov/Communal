@@ -6,9 +6,9 @@ export interface IEditProfileFormInput {
   address: {
     street: string;
     zipCode: number;
-    city: string;
+    city?: string;
   };
-  neighborhood: number;
+  // neighborhood: number;
 }
 
 export const editProfileSchema: yup.SchemaOf<IEditProfileFormInput> =
@@ -31,7 +31,6 @@ export const editProfileSchema: yup.SchemaOf<IEditProfileFormInput> =
         .number()
         .typeError("Zip code is required")
         .required("Zip code is required"),
-      city: yup.string().required("City is required"),
+      city: yup.string(),
     }),
-    neighborhood: yup.number().required("Neighborhood is required"),
   });
