@@ -1,12 +1,13 @@
 import Parse from "parse";
 import { getLastChatMessage } from "./getLastChatMessage";
 import { getObject } from "./getObject";
+import { getObjectReference } from "./getObjectReference";
 
 export const getPrivateChats = async function () {
   try {
     const userId = localStorage.getItem("currentUserObjectId");
     const parseQuery = new Parse.Query("Chat");
-    let user = await getObject("User", userId);
+    let user = getObjectReference("User", userId);
     parseQuery.equalTo("type", "private");
     parseQuery.equalTo("users", user);
     //parseQuery.include("users");

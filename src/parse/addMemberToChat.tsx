@@ -1,7 +1,7 @@
 import Parse from 'parse';
 import { getObject } from './getObject';
 
-
+//TODO: not used, maybe delete
 export const addMemberToChat = async function (chatid: string, userToAdd: string) {
     try {
         let chat = await getObject('Chat', chatid)

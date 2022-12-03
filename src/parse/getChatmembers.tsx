@@ -1,5 +1,6 @@
 import { getObject } from "./getObject";
 
+//TODO: Not used, maybe delete
 export const getChatMembers = async function (chatid: string) {
   try {
     let chat = await getObject("Chat", chatid);

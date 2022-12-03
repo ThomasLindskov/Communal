@@ -33,7 +33,7 @@ export const Chat = ({ id }: { id: string }) => {
     }
   }, [results]);
 
-  if (isLoading || isSyncing || !isLive) {
+  if (isLoading) {
     return null;
   }
   
