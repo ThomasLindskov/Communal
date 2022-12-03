@@ -11,7 +11,10 @@ export const getUsersByNeighborHood = async () => {
     parseQuery.equalTo("neighborhood", Number(neighborHood));
     const users = await parseQuery.find();
     const filteredUsers = users.filter((user) => user.id !== currentUser);
-    return filteredUsers;
+    const finalFilteredUsers = filteredUsers.filter(
+      (user) => user.id !== "D8QuGkfMOc"
+    );
+    return finalFilteredUsers;
   } catch (error) {
     console.log(error);
   }
