@@ -11,6 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { CardLink } from "./CardLink";
 import { useLocation } from "react-router-dom";
 import { useAvatarQuery } from "src/hooks/useAvatarQuery";
+import { useToggle } from "ahooks";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
@@ -38,11 +39,11 @@ export const Navbar = () => {
 
   // Counter intuitive that it is false by default,
   // but the useEffect hook below toggle it on the initial render
-  // TODO: @pvburleigh have you considered using useToggle hook instead?
-  const [isTogglingEnabled, setTogglingEnabled] = useState(false);
+  const [isDropDownExpandable, { toggle: toggleDropdownExpanding }] =
+    useToggle(false);
 
   useEffect(() => {
-    setTogglingEnabled(!isTogglingEnabled);
+    toggleDropdownExpanding();
   }, [isComponentVisible]);
 
   const toggleDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -89,7 +90,7 @@ export const Navbar = () => {
             gap: theme.flexGap.medium,
             cursor: "pointer",
           }}
-          onClick={isTogglingEnabled ? toggleDropdown : undefined}
+          onClick={isDropDownExpandable ? toggleDropdown : undefined}
         >
           <Avatar
             imageUrl={avatarUrl}
