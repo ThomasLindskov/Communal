@@ -33,7 +33,7 @@ export const DeleteProfileForm = () => {
         toast.success("Profile deleted successfully");
 
         setTimeout(() => {
-          localStorage.setItem("loggingOut", "true");
+          localStorage.clear();
           navigate("/");
         }, 1000);
       },

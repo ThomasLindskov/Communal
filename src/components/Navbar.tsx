@@ -14,18 +14,22 @@ import { useAvatarQuery } from "src/hooks/useAvatarQuery";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const { logOut, error, loading } = useLogOutMutation();
-  const { data: avatar, loading: avatarLoading } = useAvatarQuery();
+  const { logOut, error } = useLogOutMutation();
+  const { data: avatar } = useAvatarQuery();
   let navigate = useNavigate();
 
   const handleLogOut = () => {
-    logOut();
-    if (error && !loading) {
+    logOut({
+      onCompleted: () => {
+        toast.success("Logged out successfully", { duration: 700 });
+        setTimeout(() => {
+          localStorage.clear();
+          navigate("/");
+        }, 1000);
+      },
+    });
+    if (error) {
       toast(error.message);
-    }
-
-    if (!loading) {
-      navigate("/");
     }
   };
 
