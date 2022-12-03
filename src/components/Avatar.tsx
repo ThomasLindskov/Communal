@@ -15,7 +15,11 @@ const ProfileImage = styled.img`
   object-fit: cover;
 `;
 
-const ImgWrapper = styled.div<{ size: string; clickable?: boolean; large?: boolean }>`
+const ImgWrapper = styled.div<{
+  size: string;
+  clickable?: boolean;
+  large?: boolean;
+}>`
   filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
   box-sizing: border-box;
   border-radius: 50%;
@@ -38,22 +42,27 @@ const Avatar = ({
   imageUrl: string | undefined;
   altText: string;
   size: string;
-  tooltipClasses?: string
+  tooltipClasses?: string;
   name?: string;
   clickable?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   large?: boolean;
 }) => (
-  
-  <ImgWrapper size={size} clickable={clickable} onClick={onClick && onClick} className={tooltipClasses} data-text={name} large={large}>
+  <ImgWrapper
+    size={size}
+    clickable={clickable}
+    onClick={onClick && onClick}
+    className={tooltipClasses}
+    data-text={name}
+    large={large}
+  >
     {large ? (
-      <div style={{display: 'flex', justifyContent: 'center'}}>
-      <ProfileImage src={imageUrl ? imageUrl : "/img/EricCartman.png"} alt={altText} /> 
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <ProfileImage src={imageUrl} alt={altText} />
       </div>
-      )  : ( 
-      <Image src={imageUrl ? imageUrl : "/img/EricCartman.png"} alt={altText}/>
-      )
-    }
+    ) : (
+      <Image src={imageUrl} alt={altText} />
+    )}
   </ImgWrapper>
 );
 

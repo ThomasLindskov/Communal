@@ -34,7 +34,9 @@ export const SignUpForm = () => {
         email: inputData.email,
         address: inputData.address,
         neighborhood: inputData.address.zipCode,
-        // TODO: image_url: defaultImage?
+        // default image
+        image_url:
+          "https://as2.ftcdn.net/v2/jpg/03/08/71/39/1000_F_308713928_WsOJijzljhJuJcWX9fof9gWHBPuYWwcs.jpg",
       },
     };
     signUp({
