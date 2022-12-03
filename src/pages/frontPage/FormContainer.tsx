@@ -31,8 +31,8 @@ export default function FormContainer({ form }: { form: forms }) {
     >
       {/* The height of the logo is 110px ish */}
       <div style={{ marginBottom: "10px" }}>
-        <Link to='/'>
-        <Logo color={theme.colors.primary} />
+        <Link to="/">
+          <Logo color={theme.colors.primary} />
         </Link>
       </div>
       <div style={{ height: "calc(100% - 120px)", display: "flex" }}>
@@ -60,10 +60,6 @@ export default function FormContainer({ form }: { form: forms }) {
         position="bottom-center"
         toastOptions={{
           duration: 10000,
-          style: {
-            background: theme.colors.risk,
-            color: theme.colors.white,
-          },
         }}
       />
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -12,17 +12,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { ISignUpFormInput, signUpSchema } from "./validationSchemas/SignUpForm";
 import toast from "react-hot-toast";
-import { getGroupChats } from "src/parse/getGroupChats";
-import { createGroupChat } from "src/parse/createGroupChat";
-import { getObject } from "src/parse/getObject";
 import { Select } from "src/components/Select";
 
 const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
 export const SignUpForm = () => {
-  let [zip, setZip] = useState("");
-  const { signUp, data, loading, error } = useSignUpMutation();
-  let navigate = useNavigate();
+  const [zip, setZip] = useState("");
+  const { signUp, loading, error } = useSignUpMutation();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -37,38 +34,24 @@ export const SignUpForm = () => {
         email: inputData.email,
         address: inputData.address,
         neighborhood: inputData.address.zipCode,
+        // TODO: image_url: defaultImage?
       },
     };
     signUp({
       variables: { input },
+      onCompleted: (data) => {
+        toast.success("Account created successfully");
+        localStorage.setItem("token", data?.signUp?.viewer?.sessionToken);
+        setTimeout(() => {
+          navigate("/chats");
+        }, 1000);
+      },
     });
     if (error) {
-      toast(error.message);
+      toast.error(error.message);
     }
   };
 
-  const assignGroupChat = async (userId: string) => {
-    let chats = await getGroupChats();
-    const user = await getObject("User", userId);
-    if (user) {
-      if (chats && chats.length === 0) {
-        const address = user.get("address");
-        const zipCode = address.zipCode;
-        await createGroupChat("General", zipCode);
-        await createGroupChat("Help", zipCode);
-        await createGroupChat("Vacations", zipCode);
-        chats = await getGroupChats();
-      }
-      if (chats) {
-        for (const chat of chats) {
-          const chatRelation = chat.relation("users");
-          chatRelation.add([user]);
-          await chat.save();
-        }
-      }
-    }
-  };
- 
   const changeZip = (e: any) => {
     setZip(e.target.value);
   };
@@ -76,14 +59,6 @@ export const SignUpForm = () => {
   const getCity = (zip: string) => {
     return zipCodes[zip];
   };
-
-
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem("token", data?.signUp?.viewer?.sessionToken);
-      navigate("/chats");
-    }
-  }, [data]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -143,12 +118,10 @@ export const SignUpForm = () => {
             id="zip"
             style={{ div: { width: "30%" } }}
             register={register("address.zipCode")}
-            errorMessage={errors.address?.zipCode?.message} 
-            onChange={changeZip}          
-            >
-            <option key={0} value={0}>
-              Zip
-            </option>
+            errorMessage={errors.address?.zipCode?.message}
+            onChange={changeZip}
+          >
+            <option>Zip</option>
             {Object.keys(zipCodes).map((key: string) => (
               <option key={key} value={key}>
                 {key}
@@ -160,7 +133,7 @@ export const SignUpForm = () => {
             label="City"
             id="city"
             type="text"
-            placeholder={getCity(zip)}
+            placeholder={getCity(zip) ?? "Please select a zip code"}
             value={getCity(zip)}
             style={{ div: { width: "100%" } }}
             register={register("address.city")}

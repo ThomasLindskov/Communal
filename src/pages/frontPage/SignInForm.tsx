@@ -31,7 +31,7 @@ export const SignInForm = () => {
       variables: { input },
     });
     if (error) {
-      toast(error.message);
+      toast.error(error.message);
     }
   };
 

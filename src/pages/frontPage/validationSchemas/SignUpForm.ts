@@ -42,6 +42,6 @@ export const signUpSchema: yup.SchemaOf<
       .number()
       .typeError("Zip code is required")
       .required("Zip code is required"),
-    city: yup.string()
+    city: yup.string(),
   }),
 });
