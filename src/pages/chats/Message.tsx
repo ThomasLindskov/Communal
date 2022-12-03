@@ -20,11 +20,13 @@ const getTooltipClassNames = (type: messageType) => {
 export const Message = ({
   type,
   text,
-  sender
+  sender,
+  createdAt
 }: {
   type: messageType;
   text: string;
   sender: any;
+  createdAt: Date;
 }) => {
   const [user, setUser] = useState<Parse.Object>();
   const fetchUser = async (
@@ -58,7 +60,7 @@ export const Message = ({
           <MessageContainer
             type={type}
             className={`${getTooltipClassNames(type)} message`}
-            data-text={moment(user.get("createdAt")).fromNow()}
+            data-text={moment(createdAt).fromNow()}
           >
             <SharktoothContainer type={type}>
               <Sharktooth

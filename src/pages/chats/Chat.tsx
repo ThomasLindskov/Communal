@@ -52,8 +52,9 @@ export const Chat = ({ id }: { id: string }) => {
                   type={isSentByCurrentUser(message.get('sender'))}
                 >
                   <Message
-                    text={message.attributes.text}
+                    text={message.get('text')}
                     type={isSentByCurrentUser(message.get('sender'))}
+                    createdAt ={message.get('createdAt')}
                     sender = {message.get('sender')}
                   />
                 </Row>
