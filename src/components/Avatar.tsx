@@ -1,4 +1,3 @@
-import { disableExperimentalFragmentVariables } from "@apollo/client";
 import styled from "styled-components";
 const Image = styled.img`
   display: block;
