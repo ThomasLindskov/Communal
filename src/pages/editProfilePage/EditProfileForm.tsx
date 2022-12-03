@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardTitle } from "../../components/CardTitle";
@@ -65,6 +65,8 @@ export const EditProfileForm = () => {
     });
   };
 
+  const modalWidth = 500;
+
   if (loading) return null;
   if (error) return <p>{`Error :${error.message}`}</p>;
 
@@ -73,17 +75,16 @@ export const EditProfileForm = () => {
       <Modal
         isOpen={isDeleteModalOpen}
         onRequestClose={toggleDeleteModal}
+        ariaHideApp={false}
         contentElement={(props, children) => (
           <div
             {...props}
             style={{
               position: "absolute",
               top: "25%",
-              left: 0,
-              right: 0,
-              display: "flex",
-              justifyContent: "center",
-              margin: 0,
+              left: `calc(50% - ${modalWidth / 2}px - ${theme.padding.large})`,
+              right: `calc(50% - ${modalWidth / 2}px - ${theme.padding.large})`,
+              width: "fit-content",
             }}
           >
             {children}

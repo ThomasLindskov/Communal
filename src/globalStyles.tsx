@@ -25,6 +25,9 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${theme.colors.background};
   } 
 
+  .ReactModal__Overlay {
+    z-index: 1000;
+  }
 `;
 
 export default GlobalStyles;
