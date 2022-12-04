@@ -15,13 +15,14 @@ import { Avatar } from "src/components/Avatar";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const { logOut, error } = useLogOutMutation();
+  const { logOut, error, client } = useLogOutMutation();
   const { data: avatar } = useAvatarQuery();
   let navigate = useNavigate();
 
   const handleLogOut = () => {
     logOut({
       onCompleted: () => {
+        client.clearStore();
         toast.success("Logged out successfully", { duration: 700 });
         setTimeout(() => {
           localStorage.clear();
