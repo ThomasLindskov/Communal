@@ -80,8 +80,11 @@ export const Navbar = () => {
             </Link>
           ) : (
             <Link to="/chats">
-              <div style={{ color: "white" }}>Chats</div>
-            </Link>
+  
+ <CardLink color={theme.colors.white} selected={false}>
+                Chats
+</CardLink>        
+ </Link>
           )}
         </RoutesWrapper>
         <div
@@ -108,7 +111,15 @@ export const Navbar = () => {
           <NavDropdownWrapper ref={ref}>
             <Link to="/edit-profile">
               <NavDropdownItem>
-                <CardLink color={theme.colors.white}>Edit user</CardLink>
+                {location.pathname === "/edit-profile" ? (
+                  <CardLink color={theme.colors.white} selected={true}>
+                    Edit user
+                  </CardLink>
+                ) : (
+                  <CardLink color={theme.colors.white} selected={false}>
+                    Edit user
+                  </CardLink>
+                )}
               </NavDropdownItem>
             </Link>
             <NavDropdownItem onClick={handleLogOut}>Log out</NavDropdownItem>

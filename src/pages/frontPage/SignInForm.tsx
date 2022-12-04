@@ -31,7 +31,8 @@ export const SignInForm = () => {
       variables: { input },
     });
     if (error) {
-      toast.error(error.message);
+      toast(error.message);
+      toast("Beware, the username is case sensitive!");
     }
   };
 
