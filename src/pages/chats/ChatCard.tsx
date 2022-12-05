@@ -88,6 +88,7 @@ const ChatInput = styled.input`
   }
   flex-grow: 1;
   outline: none;
+  width: 100%;
 `;
 
 const InputContainer = styled.div`
