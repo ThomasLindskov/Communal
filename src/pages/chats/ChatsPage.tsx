@@ -70,7 +70,7 @@ export const ChatsPage = () => {
         <ChatTypeWrapper>
           <CardTitle style={{ padding: 0 }}>Common</CardTitle>
           <OverflowContainer>
-            <ChatsContainer ref={groupChatsContainer}>
+            <ChatsContainer ref={groupChatsContainer} group={true}>
               {groupChats &&
                 groupChats
                   .sort((a, b) => {
@@ -154,10 +154,11 @@ const ChatTypeWrapper = styled.div`
   width: 100%;
 `;
 
-const ChatsContainer = styled.div`
+const ChatsContainer = styled.div<{ group?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.flexGap.medium};
+  min-height: ${({ theme }) => (props) => props.group ? theme.utils.minHeight : "250px"};
 `;
 
 const OverflowContainer = styled.div`
