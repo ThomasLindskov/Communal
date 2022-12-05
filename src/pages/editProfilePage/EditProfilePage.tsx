@@ -15,5 +15,5 @@ export default function EditProfilePage() {
 const Container = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: ${({ theme }) => theme.flexGap.medium};
+  gap: ${({ theme }) => theme.flexGap.large};
 `;
