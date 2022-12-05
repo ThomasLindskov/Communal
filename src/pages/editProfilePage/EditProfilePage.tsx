@@ -1,7 +1,6 @@
 import React from "react";
 import { EditProfileForm } from "./EditProfileForm";
 import { UploadImageForm } from "./UploadImageForm";
-import { theme } from "src/theme";
 import styled from "styled-components";
 
 export default function EditProfilePage() {
@@ -16,5 +15,5 @@ export default function EditProfilePage() {
 const Container = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: ${theme.flexGap.large};
+  gap: ${({ theme }) => theme.flexGap.medium};
 `;

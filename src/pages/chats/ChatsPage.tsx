@@ -45,24 +45,20 @@ export const ChatsPage = () => {
     if (selectedChat) {
       const groupchat = groupChats.find((chat) => chat.id === selectedChat);
       const privatechat = privateChats.find((chat) => chat.id === selectedChat);
-        if (groupchat) {
-          return groupchat.get("name");
-        } 
-        else if (privatechat) {
-          
-          const chatName = privatechat.get("name");
-    
-          return "Chat with " + chatName;
-        }
-    }
+      if (groupchat) {
+        return groupchat.get("name");
+      } else if (privatechat) {
+        const chatName = privatechat.get("name");
 
+        return "Chat with " + chatName;
+      }
+    }
   };
 
   useEffect(() => {
     fetchPrivateChats(setPrivateChats);
     fetchGroupChats(setGroupChats);
   }, []);
-  
 
   return (
     <>
@@ -78,10 +74,7 @@ export const ChatsPage = () => {
               {groupChats &&
                 groupChats
                   .sort((a, b) => {
-                    return (
-                      b.get("name") -
-                      a.get("name")
-                    );
+                    return b.get("name") - a.get("name");
                   })
                   .map((chat: Parse.Object) => (
                     <ChatThumbnail
@@ -113,7 +106,7 @@ export const ChatsPage = () => {
               {privateChats &&
                 privateChats
                   .sort((a, b) => {
-                    console.log(a)
+                    console.log(a);
                     return (
                       b.get("lastMessage").get("createdAt") -
                       a.get("lastMessage").get("createdAt")
@@ -122,7 +115,7 @@ export const ChatsPage = () => {
                   .map((chat: Parse.Object) => (
                     <ChatThumbnail
                       name={chat.get("receiver").get("username")}
-                      avatarUrl={chat.get("receiver").get('image_url')}
+                      avatarUrl={chat.get("receiver").get("image_url")}
                       id={chat.id}
                       timeString={chat.get("lastMessage").get("timeAsString")}
                       lastMessage={chat.get("lastMessage").get("text")}
@@ -143,7 +136,7 @@ export const ChatsPage = () => {
           maxWidth: "750px",
         }}
       >
-       {selectedChat ? (
+        {selectedChat ? (
           <ChatCard selectedChat={selectedChat} chatTitle={handleChatTitle()} />
         ) : (
           <CardTitle>Please select a chat on the left</CardTitle>
@@ -164,7 +157,7 @@ const ChatTypeWrapper = styled.div`
 const ChatsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${theme.flexGap.medium};
+  gap: ${({ theme }) => theme.flexGap.medium};
 `;
 
 const OverflowContainer = styled.div`
