@@ -2,13 +2,11 @@ import * as yup from "yup";
 
 export interface IEditProfileFormInput {
   email: string;
-  username: string;
   address: {
     street: string;
     zipCode: number;
     city?: string;
   };
-  // neighborhood: number;
 }
 
 export const editProfileSchema: yup.SchemaOf<IEditProfileFormInput> =
@@ -17,11 +15,6 @@ export const editProfileSchema: yup.SchemaOf<IEditProfileFormInput> =
       .string()
       .email("Email must be valid")
       .required("Email is required"),
-    username: yup
-      .string()
-      .min(5, "Username has to be at least 5 characters")
-      .max(10, "Username has to be shorter than 10 characters")
-      .required(),
     address: yup.object({
       street: yup
         .string()

@@ -29,7 +29,7 @@ export const EditProfileForm = () => {
   } = useEditProfileMutation();
   const {
     register,
-    formState: { errors, isDirty },
+    formState: { errors },
     setValue,
     handleSubmit,
   } = useForm<IEditProfileFormInput>({
@@ -39,23 +39,17 @@ export const EditProfileForm = () => {
   const [isDeleteModalOpen, { toggle: toggleDeleteModal }] = useToggle();
 
   const onSubmit: SubmitHandler<IEditProfileFormInput> = (inputData) => {
-    if (!isDirty) {
-      toast("No changes made");
-      return;
-    }
-
-    const { username, email, address } = inputData;
+    const { email, address } = inputData;
     const input = {
       id: localStorage.getItem("currentUser"),
       fields: {
-        username,
         email,
         address: {
           city: getCity(zip),
-          zipCode: address.zipCode,
+          zipCode: Number(zip),
           street: address.street,
         },
-        neighborhood: address.zipCode,
+        neighborhood: Number(zip),
       },
     };
     editProfile({
@@ -119,13 +113,6 @@ export const EditProfileForm = () => {
           <div style={{ width: "100%" }}>
             <CardTitle children="Edit Profile" />
           </div>
-          <InputField
-            label="Edit username"
-            id="username"
-            type="text"
-            register={register("username")}
-            errorMessage={errors.username?.message}
-          />
           <InputField
             label="Edit email"
             id="email"
