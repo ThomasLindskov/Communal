@@ -15,6 +15,7 @@ type themeType = {
   };
   fontWeight: {
     regular: string;
+    semibold: string;
     bold: string;
   };
   padding: {
@@ -28,6 +29,16 @@ type themeType = {
     borderRadius: string;
     buttonBorderRadius: string;
     dropShadow: string;
+  };
+  avatarSize: {
+    small: string;
+    medium: string;
+    large: string;
+  };
+  flexGap: {
+    small: string;
+    medium: string;
+    large: string;
   };
 };
 
@@ -53,6 +64,7 @@ export const theme: themeType = {
   },
   fontWeight: {
     regular: "normal",
+    semibold: "500",
     bold: "bold",
   },
   padding: {
@@ -60,5 +72,15 @@ export const theme: themeType = {
     medium: "10px",
     large: "15px",
     xxl: "30px",
+  },
+  avatarSize: {
+    small: "2rem",
+    medium: "3rem",
+    large: "4rem",
+  },
+  flexGap: {
+    small: "5px",
+    medium: "10px",
+    large: "20px",
   },
 };

@@ -1,47 +1,88 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardLink } from "../../components/CardLink";
 import { CardTitle } from "../../components/CardTitle";
 import { InputField } from "../../components/InputField";
+import { useSignInMutation } from "../../hooks/useSignInMutation";
 import { theme } from "../../theme";
-import { ChangeURL, forms } from "./FormContainer";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import { ISignInFormInput, signInSchema } from "./validationSchemas/SignInForm";
 
-export const SignInForm = ({
-  setForm,
-}: {
-  setForm: (value: forms) => void;
-}) => (
-  <Card width="300px">
-    <div style={{ width: "100%" }}>
-      <CardTitle>Login</CardTitle>
-    </div>
-    <InputField
-      id="username"
-      type="text"
-      placeholder="Username"
-      label="Username"
-    />
-    <InputField
-      id="password"
-      type="password"
-      placeholder="Password"
-      label="Password"
-    />
-    <Button color={theme.colors.cta}>Login</Button>
-    <div
-      style={{
-        padding: `${theme.padding.small} 0`,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "10px",
-      }}
-    >
-      <CardLink onClick={() => { setForm(forms.SignUp); ChangeURL(forms.SignUp) }}>Sign up</CardLink>
-      <CardLink onClick={() => { setForm(forms.ForgotPassword); ChangeURL(forms.ForgotPassword) }}>
-        Forgot Password?
-      </CardLink>
-    </div>
-  </Card>
-);
+export const SignInForm = () => {
+  const { signIn, data, loading, error } = useSignInMutation();
+  console.log(JSON.stringify(error));
+  let navigate = useNavigate();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<ISignInFormInput>({ resolver: yupResolver(signInSchema) });
+
+  const onSubmit: SubmitHandler<ISignInFormInput> = (inputData) => {
+    const input = {
+      username: inputData.username,
+      password: inputData.password,
+    };
+    signIn({
+      variables: { input },
+    });
+  };
+
+  useEffect(() => {
+    localStorage.removeItem("token");
+    if (data) {
+      console.log(data);
+      localStorage.setItem("token", data?.logIn?.viewer?.sessionToken);
+      navigate("/chats");
+    }
+  }, [data]);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Card width="300px">
+        <div style={{ width: "100%" }}>
+          <CardTitle>Login</CardTitle>
+        </div>
+        <InputField
+          id="username"
+          type="text"
+          placeholder="Username"
+          label="Username"
+          register={register("username")}
+          errorMessage={errors.username?.message}
+        />
+        <InputField
+          id="password"
+          type="password"
+          placeholder="Password"
+          label="Password"
+          register={register("password")}
+          errorMessage={errors.password?.message}
+        />
+        <Button color={theme.colors.cta} type="submit" disabled={loading}>
+          Login
+        </Button>
+        <div
+          style={{
+            padding: `${theme.padding.small} 0`,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: theme.flexGap.medium,
+          }}
+        >
+          <Link to="/sign-up">
+            <CardLink>Sign up</CardLink>
+          </Link>
+          <Link to="/forgot-password">
+            <CardLink>Forgot Password?</CardLink>
+          </Link>
+        </div>
+      </Card>
+    </form>
+  );
+};

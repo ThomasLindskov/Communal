@@ -1,33 +1,61 @@
-import React from 'react'
-import { HTMLInputTypeAttribute } from "react";
+import React from "react";
 import styled from "styled-components";
-import Icon from '../../components/Icon';
+import { Icon } from "../../components/Icon";
+import data from "./groups.json";
 
-interface IIconContainerProps {
-    gridArea: string
+const IconContainer = styled.div`
+  display: flex;
+  overflow: hidden;
+`;
 
-}
-
-const IconContainer = styled.div<IIconContainerProps>`
-    grid-area: ${(props) => props.gridArea};
-    display: flex;
-    overflow: hidden;}
-    `
-
-
+let random = data.sort(() => 0.5 - Math.random()).slice(0, 5);
 
 export const UserIconContainer = ({
-  src,
-  gridArea,
-  style,
-  iconStyle
+  number,
+  className,
+  setTestimonial,
+  setShow,
 }: {
-  src: string;
-  gridArea: string;
-  style?: React.CSSProperties;
-  iconStyle?: React.CSSProperties
-}) => (
-    <IconContainer gridArea={gridArea} style={{ ...style }}>
-        <Icon src={src} style={{...iconStyle}}/>
+  number: number;
+  className: string;
+  setTestimonial: Function;
+  setShow: Function;
+}) => {
+  const handleMouseEnter = () => {
+    setTestimonial(
+      makeQuote(random[number].testimonial, random[number].madeBy)
+    );
+    setShow(true);
+  };
+  const handleMouseLeave = () => {
+    setTestimonial(makeQuote("Hover over us, to hear our experiences"));
+    setShow(false);
+  };
+
+  return (
+    <IconContainer className={className}>
+      <Icon
+        src={random[number].src}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      />
     </IconContainer>
-);
+  );
+};
+
+function makeQuote(testimonial: String, madeBy?: String) {
+  if (madeBy) {
+    return (
+      <blockquote>
+        <p>{testimonial}</p>
+        <cite>— {madeBy}</cite>
+      </blockquote>
+    );
+  } else {
+    return (
+      <blockquote>
+        <p>{testimonial}</p>
+      </blockquote>
+    );
+  }
+}

@@ -1,0 +1,83 @@
+#user-group-container .grid-area-0 {
+  grid-area: x;
+  justify-content: center;
+  align-items: flex-start;
+}
+#user-group-container .grid-area-0 img {
+  transform: rotate(180deg);
+}
+#user-group-container .grid-area-0 img:hover {
+  transform: rotate(180deg) scale(1.04);
+}
+#user-group-container .grid-area-1 {
+  grid-area: y;
+  justify-content: flex-start;
+  padding-left: 14px;
+}
+#user-group-container .grid-area-1 img {
+  transform: rotate(90deg);
+}
+#user-group-container .grid-area-1 img:hover {
+  transform: rotate(90deg) scale(1.04);
+}
+#user-group-container .grid-area-2 {
+  grid-area: z;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+#user-group-container .grid-area-2 img {
+  transform: rotate(-90deg);
+}
+#user-group-container .grid-area-2 img:hover {
+  transform: rotate(-90deg) scale(1.04);
+}
+#user-group-container .grid-area-3 {
+  grid-area: q;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+#user-group-container .grid-area-3 img:hover {
+  transform: scale(1.04);
+}
+#user-group-container .grid-area-4 {
+  grid-area: w;
+  align-items: flex-end;
+}
+#user-group-container .grid-area-4 img:hover {
+  transform: scale(1.04);
+}
+#user-group-container .grid-area-a {
+  grid-area: a;
+  background: url("/public/icons/bubbles/ThoughtBubble.svg") no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#user-group-container .grid-area-a p {
+  font-size: larger;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#user-group-container .grid-area-a cite {
+  font-size: smaller;
+}
+#user-group-container .grid-area-a .fade-enter {
+  opacity: 0;
+}
+#user-group-container .grid-area-a .fade-exit {
+  opacity: 1;
+}
+#user-group-container .grid-area-a .fade-enter-active {
+  opacity: 1;
+}
+#user-group-container .grid-area-a .fade-exit-active {
+  opacity: 0;
+}
+#user-group-container .grid-area-a .fade-enter-active,
+#user-group-container .grid-area-a .fade-exit-active {
+  transition: opacity 300ms;
+}
+
+/*# sourceMappingURL=userGroup.css.map */

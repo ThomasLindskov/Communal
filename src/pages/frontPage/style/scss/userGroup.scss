@@ -1,0 +1,84 @@
+#user-group-container {
+  .grid-area-0 {
+    grid-area: x;
+    justify-content: center;
+    align-items: flex-start;
+    img {
+      transform: rotate(180deg);
+    }
+    img:hover {
+      transform: rotate(180deg) scale(1.04);
+    }
+  }
+  .grid-area-1 {
+    grid-area: y;
+    justify-content: flex-start;
+    padding-left: 14px;
+    img {
+      transform: rotate(90deg);
+    }
+    img:hover {
+      transform: rotate(90deg) scale(1.04);
+    }
+  }
+  .grid-area-2 {
+    grid-area: z;
+    justify-content: flex-end;
+    padding-right: 16px;
+    img {
+      transform: rotate(-90deg);
+    }
+    img:hover {
+      transform: rotate(-90deg) scale(1.04);
+    }
+  }
+  .grid-area-3 {
+    grid-area: q;
+    justify-content: space-around;
+    align-items: flex-end;
+    img:hover {
+      transform: scale(1.04);
+    }
+  }
+  .grid-area-4 {
+    grid-area: w;
+    align-items: flex-end;
+    img:hover {
+      transform: scale(1.04);
+    }
+  }
+  .grid-area-a {
+    grid-area: a;
+    background: url("/public/icons/bubbles/ThoughtBubble.svg") no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-size: larger;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    cite {
+      font-size: smaller;
+    }
+
+    .fade-enter {
+      opacity: 0;
+    }
+    .fade-exit {
+      opacity: 1;
+    }
+    .fade-enter-active {
+      opacity: 1;
+    }
+    .fade-exit-active {
+      opacity: 0;
+    }
+    .fade-enter-active,
+    .fade-exit-active {
+      transition: opacity 300ms;
+    }
+  }
+}

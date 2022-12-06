@@ -6,31 +6,30 @@ import { SignInForm } from "./SignInForm";
 import { SignUpForm } from "./SignUpForm";
 
 export enum forms {
-  SignIn = "sign-in",
-  SignUp = "sign-up",
-  ForgotPassword = "forgot-password",
+  SignIn,
+  SignUp,
+  ForgotPassword,
 }
 
-export const ChangeURL = (form: forms) => {
-  window.history.replaceState(null, '', `/${form}`);
-  var formattedTitle = form.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  document.title = formattedTitle;
-}
+const formMap = {
+  [forms.SignIn]: <SignInForm />,
+  [forms.SignUp]: <SignUpForm />,
+  [forms.ForgotPassword]: <ForgotPassword />,
+};
 
 const containerPadding = 50;
 
-export default function FormContainer() {
-  const [form, setForm] = React.useState<forms>(forms.SignIn);
+export default function FormContainer({ form }: { form: forms }) {
   return (
     <div
       style={{
         padding: `${containerPadding}px`,
-        height: `calc(100% - ${containerPadding * 2}px);`,
+        height: `calc(100% - ${containerPadding * 2}px)`,
       }}
     >
       {/* The height of the logo is 110px ish */}
       <div style={{ marginBottom: "10px" }}>
-        <Logo />
+        <Logo color={theme.colors.primary} />
       </div>
       <div style={{ height: "calc(100% - 120px)", display: "flex" }}>
         <div
@@ -49,13 +48,7 @@ export default function FormContainer() {
               filter: `drop-shadow(${theme.utils.dropShadow})`,
             }}
           >
-            {form === forms.SignIn ? (
-              <SignInForm setForm={setForm} />
-            ) : form === forms.ForgotPassword ? (
-              <ForgotPassword setForm={setForm} />
-            ) : (
-              <SignUpForm setForm={setForm} />
-            )}
+            {formMap[form]}
           </div>
         </div>
       </div>

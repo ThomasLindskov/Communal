@@ -17,5 +17,10 @@ export const Button = styled.button`
     opacity: 0.95; // TODO: improve
   }
   width: fit-content;
-  /* TODO: add onClick */
+  /* ${({ disabled }) =>
+    disabled &&
+    `
+    disabled
+  `} */
+  /* TODO: add disabled state */
 `;
