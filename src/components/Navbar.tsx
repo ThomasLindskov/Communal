@@ -71,19 +71,15 @@ export const Navbar = () => {
           </Link>
         </div>
         <RoutesWrapper style={{ marginLeft: 20 }}>
-          {location.pathname === "/chats" ? (
-            <Link to="/chats">
-              <CardLink color={theme.colors.white} selected={true}>
-                Chats
-              </CardLink>
-            </Link>
-          ) : (
-            <Link to="/chats">
-              <CardLink color={theme.colors.white} selected={false}>
-                Chats
-              </CardLink>
-            </Link>
-          )}
+          <Link
+            to="/chats"
+            style={{
+              textDecoration:
+                location.pathname === "/chats" ? "underline" : "none",
+            }}
+          >
+            <CardLink color={theme.colors.white}>Chats</CardLink>
+          </Link>
         </RoutesWrapper>
         <div
           style={{
@@ -107,20 +103,20 @@ export const Navbar = () => {
         </div>
         {isComponentVisible && (
           <NavDropdownWrapper ref={ref}>
-            <Link to="/edit-profile">
+            <Link
+              to="/edit-profile"
+              style={{
+                textDecoration:
+                  location.pathname === "/edit-profile" ? "underline" : "none",
+              }}
+            >
               <NavDropdownItem>
-                {location.pathname === "/edit-profile" ? (
-                  <CardLink color={theme.colors.white} selected={true}>
-                    Edit user
-                  </CardLink>
-                ) : (
-                  <CardLink color={theme.colors.white} selected={false}>
-                    Edit user
-                  </CardLink>
-                )}
+                <CardLink color={theme.colors.white}>Edit user</CardLink>
               </NavDropdownItem>
             </Link>
-            <NavDropdownItem onClick={handleLogOut}>Log out</NavDropdownItem>
+            <NavDropdownItem onClick={handleLogOut}>
+              <CardLink color={theme.colors.white}>Log out</CardLink>
+            </NavDropdownItem>
           </NavDropdownWrapper>
         )}
       </NavWrapper>
