@@ -11,7 +11,7 @@ export const createGroupChat = async function (
     chat.set("neighborhood", neighborhood);
 
     try {
-      const result = await chat.save();
+      await chat.save();
       return true;
     } catch (error) {
       console.log(error);

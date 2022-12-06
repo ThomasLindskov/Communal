@@ -13,9 +13,7 @@ export enum messageType {
 export const Chat = ({ id }: { id: string }) => {
   const parseQuery = getMessagesInChat(id);
   const currentUser = localStorage.getItem("currentUserObjectId");
-  //make sure your class is enabled for Real Time Notifications (Live Query) checking the menu -> App Settings -> Server Settings -> Server URL and Live Query
-  const { isLive, isLoading, isSyncing, results, count, error, reload } =
-    useParseQuery(parseQuery);
+  const { isLoading, results } = useParseQuery(parseQuery);
 
   const isSentByCurrentUser = (sender: any) => {
     if (sender.id === currentUser || sender.objectId === currentUser) {
@@ -36,7 +34,7 @@ export const Chat = ({ id }: { id: string }) => {
   if (isLoading) {
     return null;
   }
-  
+
   return (
     <>
       {results && (
@@ -49,13 +47,13 @@ export const Chat = ({ id }: { id: string }) => {
               return (
                 <Row
                   key={message.id}
-                  type={isSentByCurrentUser(message.get('sender'))}
+                  type={isSentByCurrentUser(message.get("sender"))}
                 >
                   <Message
-                    text={message.get('text')}
-                    type={isSentByCurrentUser(message.get('sender'))}
-                    createdAt ={message.get('createdAt')}
-                    sender = {message.get('sender')}
+                    text={message.get("text")}
+                    type={isSentByCurrentUser(message.get("sender"))}
+                    createdAt={message.get("createdAt")}
+                    sender={message.get("sender")}
                   />
                 </Row>
               );
