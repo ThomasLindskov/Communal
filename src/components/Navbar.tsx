@@ -39,7 +39,7 @@ export const Navbar = () => {
     useNavbarDropDownToggle(false);
 
   // Counter intuitive that it is false by default,
-  // but the useEffect hook below toggle it on the initial render
+  // but the useEffect hook below toggles it on the initial render
   const [isDropDownExpandable, { toggle: toggleDropdownExpanding }] =
     useToggle(false);
 
@@ -60,7 +60,6 @@ export const Navbar = () => {
   }, [navbarRef]);
 
   const location = useLocation();
-  // TODO: change default avatar to something more appropriate
   const avatarUrl = avatar?.user?.image_url;
 
   return (
@@ -80,11 +79,10 @@ export const Navbar = () => {
             </Link>
           ) : (
             <Link to="/chats">
-  
- <CardLink color={theme.colors.white} selected={false}>
+              <CardLink color={theme.colors.white} selected={false}>
                 Chats
-</CardLink>        
- </Link>
+              </CardLink>
+            </Link>
           )}
         </RoutesWrapper>
         <div

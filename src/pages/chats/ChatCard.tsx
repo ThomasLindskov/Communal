@@ -6,7 +6,13 @@ import { addMessagesToChat } from "src/parse/addMessagesToChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 
-export const ChatCard = ({ selectedChat, chatTitle }: { selectedChat: string, chatTitle: string }) => {
+export const ChatCard = ({
+  selectedChat,
+  chatTitle,
+}: {
+  selectedChat: string;
+  chatTitle: string;
+}) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClick = () => {
@@ -26,7 +32,6 @@ export const ChatCard = ({ selectedChat, chatTitle }: { selectedChat: string, ch
 
   return (
     <>
-      {/* Make below dynamic (chat name) */}
       <CardTitle style={{ padding: 0 }}>{chatTitle}</CardTitle>
       <GrowContainer />
       <PaddingContainer>
@@ -35,13 +40,14 @@ export const ChatCard = ({ selectedChat, chatTitle }: { selectedChat: string, ch
         </OverflowContainer>
       </PaddingContainer>
       <InputContainer className="parent" onClick={handleClick}>
-      <form onSubmit={(e) => {
-          e.preventDefault();
-          handleSend(selectedChat);
-        }}
-        style={{ width: "100%" }}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSend(selectedChat);
+          }}
+          style={{ width: "100%" }}
         >
-        <ChatInput ref={inputRef} />  
+          <ChatInput ref={inputRef} />
         </form>
         <Button
           color={theme.colors.cta}

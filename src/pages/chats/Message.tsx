@@ -34,6 +34,7 @@ export const Message = ({
     sender: any
   ) => {
     if (sender.objectId) {
+      // if sender is a pointer, we need to refetch the user
       const data = await getObject("User", sender.objectId);
       setHandler(data as Parse.Object);
     } else {
