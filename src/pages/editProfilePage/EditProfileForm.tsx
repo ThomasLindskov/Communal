@@ -52,7 +52,7 @@ export const EditProfileForm = () => {
         email,
         address: {
           city: getCity(zip),
-          zip: address.zipCode,
+          zipCode: address.zipCode,
           street: address.street,
         },
         neighborhood: address.zipCode,
