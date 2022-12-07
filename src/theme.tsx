@@ -29,6 +29,7 @@ type themeType = {
     borderRadius: string;
     buttonBorderRadius: string;
     dropShadow: string;
+    minHeight: string;
   };
   avatarSize: {
     small: string;
@@ -56,6 +57,7 @@ export const theme: themeType = {
     borderRadius: "10px",
     buttonBorderRadius: "15px",
     dropShadow: "0px 4px 4px hsl(0, 0%, 0%, 0.25)",
+    minHeight: "200px",
   },
   fontSize: {
     small: "12px",

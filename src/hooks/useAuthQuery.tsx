@@ -7,6 +7,7 @@ const AUTH = gql`
       user {
         id
         objectId
+        neighborhood
       }
     }
   }

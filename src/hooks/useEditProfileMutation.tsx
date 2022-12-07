@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 
-const UpdateObject = gql`
+const UpdateUser = gql`
   mutation UpdateObject($input: UpdateUserInput!) {
     updateUser(input: $input) {
       user {
@@ -11,7 +11,7 @@ const UpdateObject = gql`
 `;
 
 export const useEditProfileMutation = () => {
-  const [editProfile, { data, loading, error }] = useMutation(UpdateObject);
+  const [editProfile, { data, loading, error }] = useMutation(UpdateUser);
   return {
     editProfile,
     data,

@@ -8,11 +8,14 @@ export interface ISignUpFormInput {
   address: {
     street: string;
     zipCode: number;
-    city: string;
+    city?: string;
   };
+  neighborhood: number;
 }
 
-export const signUpSchema: yup.SchemaOf<ISignUpFormInput> = yup.object({
+export const signUpSchema: yup.SchemaOf<
+  Omit<ISignUpFormInput, "neighborhood">
+> = yup.object({
   username: yup
     .string()
     .min(5, "Username has to be at least 5 characters")
@@ -39,6 +42,6 @@ export const signUpSchema: yup.SchemaOf<ISignUpFormInput> = yup.object({
       .number()
       .typeError("Zip code is required")
       .required("Zip code is required"),
-    city: yup.string().required("City is required"),
+    city: yup.string(),
   }),
 });

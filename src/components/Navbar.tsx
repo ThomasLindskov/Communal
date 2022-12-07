@@ -1,38 +1,50 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogOutMutation } from "src/hooks/useLogOutMutation";
 import useNavbarDropDownToggle from "src/hooks/useNavbarDropDownToggle";
 import styled from "styled-components";
 import Logo from "../assets/svgComponents/Logo";
 import { theme } from "../theme";
-import Avatar from "./Avatar";
 import toast, { Toaster } from "react-hot-toast";
+import { CardLink } from "./CardLink";
+import { useLocation } from "react-router-dom";
+import { useAvatarQuery } from "src/hooks/useAvatarQuery";
+import { useToggle } from "ahooks";
+import { Avatar } from "src/components/Avatar";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const { logOut, error, loading } = useLogOutMutation();
+  const { logOut, error, client } = useLogOutMutation();
+  const { data: avatar } = useAvatarQuery();
   let navigate = useNavigate();
 
   const handleLogOut = () => {
-    logOut();
-    if (error && !loading) {
+    logOut({
+      onCompleted: () => {
+        client.clearStore();
+        toast.success("Logged out successfully", { duration: 700 });
+        setTimeout(() => {
+          localStorage.clear();
+          navigate("/");
+        }, 1000);
+      },
+    });
+    if (error) {
       toast(error.message);
-    }
-
-    if (!loading) {
-      localStorage.clear();
-      navigate("/");
     }
   };
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useNavbarDropDownToggle(false);
 
-  const [toggledDisabled, setToggledDisabled] = useState(false);
+  // Counter intuitive that it is false by default,
+  // but the useEffect hook below toggles it on the initial render
+  const [isDropDownExpandable, { toggle: toggleDropdownExpanding }] =
+    useToggle(false);
 
   useEffect(() => {
-    setToggledDisabled(!toggledDisabled);
+    toggleDropdownExpanding();
   }, [isComponentVisible]);
 
   const toggleDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -47,42 +59,64 @@ export const Navbar = () => {
     }
   }, [navbarRef]);
 
+  const location = useLocation();
+  const avatarUrl = avatar?.user?.image_url;
+
   return (
     <>
       <NavWrapper ref={navbarRef}>
         <div style={{ minWidth: "180px" }}>
-          <Logo color={theme.colors.white} />
+          <Link to="/chats">
+            <Logo color={theme.colors.white} />
+          </Link>
         </div>
-        <RoutesWrapper>
-          <div>Chats</div>
-          <div>Groups</div>
-          <div>Profile</div>
+        <RoutesWrapper style={{ marginLeft: 20 }}>
+          <Link
+            to="/chats"
+            style={{
+              textDecoration:
+                location.pathname === "/chats" ? "underline" : "none",
+            }}
+          >
+            <CardLink color={theme.colors.white}>Chats</CardLink>
+          </Link>
         </RoutesWrapper>
         <div
           style={{
             display: "flex",
             alignItems: "center",
             gap: theme.flexGap.medium,
+            cursor: "pointer",
           }}
+          onClick={isDropDownExpandable ? toggleDropdown : undefined}
         >
           <Avatar
-            imageUrl="/img/EricCartman.png"
+            imageUrl={avatarUrl}
             altText="user-avatar"
             size={theme.avatarSize.medium}
-            clickable
-            {...(toggledDisabled && { onClick: toggleDropdown })}
           />
           <img
             src="/icons/Chevron.svg"
             alt="chevron"
             style={{ cursor: "pointer" }}
-            {...(toggledDisabled && { onClick: toggleDropdown })}
           />
         </div>
         {isComponentVisible && (
           <NavDropdownWrapper ref={ref}>
-            <NavDropdownItem>Edit user</NavDropdownItem>
-            <NavDropdownItem onClick={handleLogOut}>Log out</NavDropdownItem>
+            <Link
+              to="/edit-profile"
+              style={{
+                textDecoration:
+                  location.pathname === "/edit-profile" ? "underline" : "none",
+              }}
+            >
+              <NavDropdownItem>
+                <CardLink color={theme.colors.white}>Edit user</CardLink>
+              </NavDropdownItem>
+            </Link>
+            <NavDropdownItem onClick={handleLogOut}>
+              <CardLink color={theme.colors.white}>Log out</CardLink>
+            </NavDropdownItem>
           </NavDropdownWrapper>
         )}
       </NavWrapper>
@@ -128,7 +162,7 @@ const NavDropdownWrapper = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.semibold};
   z-index: 999;
   > * {
-    &: not(: last-child) {
+    &:not(:last-child) {
       border-bottom: 1px solid ${({ theme }) => theme.colors.white};
     }
   }

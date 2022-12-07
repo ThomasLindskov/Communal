@@ -6,7 +6,7 @@ export const Animation = ({
   testimonial,
 }: {
   show: boolean;
-  testimonial: String;
+  testimonial: JSX.Element;
 }) => {
   const helloRef = useRef(null);
   const goodbyeRef = useRef(null);
@@ -14,11 +14,11 @@ export const Animation = ({
   return (
     <div className="main">
       <SwitchTransition mode={"out-in"}>
-        {/*@ts-ignore: do not remove or change the line under this. the key value confuses TS*/}
-        <CSSTransition key={show}
+        <CSSTransition
+          key={show as any}
           nodeRef={nodeRef}
-          addEndListener={(done: any) => {
-            // @ts-expect-error: ts thinks noderef and current are never, which they are not
+          addEndListener={(done: HTMLElement) => {
+            // @ts-ignore
             nodeRef.current.addEventListener("transitionend", done, false);
           }}
           classNames="fade"

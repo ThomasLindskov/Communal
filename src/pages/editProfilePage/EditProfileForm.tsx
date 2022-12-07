@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { CardTitle } from "../../components/CardTitle";
@@ -13,8 +13,15 @@ import {
 import { useEditProfileMutation } from "src/hooks/useEditProfileMutation";
 import { useProfileSettingsQuery } from "src/hooks/useProfileSettingsQuery";
 import toast, { Toaster } from "react-hot-toast";
+import { useToggle } from "ahooks";
+import Modal from "react-modal";
+import { DeleteProfileForm } from "src/pages/editProfilePage/DeleteProfileForm";
+import { Select } from "src/components/Select";
+
+const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
 export const EditProfileForm = () => {
+  const [zip, setZip] = useState("");
   const {
     editProfile,
     loading: submitLoading,
@@ -22,100 +29,140 @@ export const EditProfileForm = () => {
   } = useEditProfileMutation();
   const {
     register,
-    formState: { errors, isDirty },
+    formState: { errors },
     setValue,
     handleSubmit,
   } = useForm<IEditProfileFormInput>({
     resolver: yupResolver(editProfileSchema),
   });
   const { loading, error } = useProfileSettingsQuery(setValue);
-  const notification = (message: string) => toast(message);
+  const [isDeleteModalOpen, { toggle: toggleDeleteModal }] = useToggle();
 
   const onSubmit: SubmitHandler<IEditProfileFormInput> = (inputData) => {
-    if (!isDirty) {
-      notification("No changes made");
-      return;
-    }
-
-    const { username, email, address } = inputData;
+    const { email, address } = inputData;
     const input = {
       id: localStorage.getItem("currentUser"),
       fields: {
-        username,
         email,
-        address,
+        address: {
+          city: getCity(zip),
+          zipCode: Number(zip),
+          street: address.street,
+        },
+        neighborhood: Number(zip),
       },
     };
     editProfile({
       variables: { input },
       onCompleted: () => {
         if (submitError) {
-          notification(submitError.message);
+          toast(submitError.message);
         } else {
-          notification("Profile updated successfully");
+          toast.success("Profile updated successfully");
         }
       },
     });
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{`Error :${error.message}`}(</p>;
+  const changeZip = (e: any) => {
+    setZip(e.target.value);
+  };
+
+  const getCity = (zip: string) => {
+    return zipCodes[zip];
+  };
+
+  const modalWidth = 500;
+
+  if (loading) return null;
+  if (error) return <p>{`Error :${error.message}`}</p>;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Card width="300px">
-        <div style={{ width: "100%" }}>
-          <CardTitle children="Edit Profile" />
-        </div>
-        <InputField
-          label="Edit username"
-          id="username"
-          type="text"
-          register={register("username")}
-          errorMessage={errors.username?.message}
-        />
-        <InputField
-          label="Edit email"
-          id="email"
-          type="text"
-          register={register("email")}
-          errorMessage={errors.email?.message}
-        />
-        <InputField
-          label="Street name and number"
-          id="street"
-          type="text"
-          placeholder="Street name and number"
-          register={register("address.street")}
-          errorMessage={errors.address?.street?.message}
-        />
-        <div
+    <>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={toggleDeleteModal}
+        ariaHideApp={false}
+        contentElement={(props, children) => (
+          <div
+            {...props}
+            style={{
+              position: "absolute",
+              top: "25%",
+              left: `calc(50% - ${modalWidth / 2}px - ${theme.padding.large})`,
+              right: `calc(50% - ${modalWidth / 2}px - ${theme.padding.large})`,
+              width: "fit-content",
+            }}
+          >
+            {children}
+          </div>
+        )}
+      >
+        <DeleteProfileForm />
+      </Modal>
+      <Card>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
           style={{
             display: "flex",
+            flexDirection: "column",
             gap: theme.flexGap.medium,
-            width: "300px",
+            alignItems: "center",
           }}
         >
+          <div style={{ width: "100%" }}>
+            <CardTitle children="Edit Profile" />
+          </div>
           <InputField
-            label="Zip code"
-            id="zip"
-            type="number"
-            placeholder="Zip code"
-            style={{ div: { width: "30%" } }}
-            register={register("address.zipCode")}
-            errorMessage={errors.address?.zipCode?.message}
-          />
-          <InputField
-            label="City"
-            id="city"
+            label="Edit email"
+            id="email"
             type="text"
-            placeholder="City"
-            style={{ div: { width: "100%" } }}
-            register={register("address.city")}
-            errorMessage={errors.address?.city?.message}
+            register={register("email")}
+            errorMessage={errors.email?.message}
           />
-        </div>
-        <div style={{ marginTop: "20px" }}>
+          <InputField
+            label="Street name and number"
+            id="street"
+            type="text"
+            placeholder="Street name and number"
+            register={register("address.street")}
+            errorMessage={errors.address?.street?.message}
+          />
+          <div
+            style={{
+              display: "flex",
+              gap: theme.flexGap.medium,
+              width: "300px",
+            }}
+          >
+            <Select
+              label="Zip code"
+              id="zip"
+              style={{ div: { width: "30%" } }}
+              register={register("address.zipCode")}
+              errorMessage={errors.address?.zipCode?.message}
+              onChange={changeZip}
+            >
+              <option>Zip</option>
+              {Object.keys(zipCodes).map((key: string) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </Select>
+            <InputField
+              label="City"
+              id="city"
+              type="text"
+              placeholder={getCity(zip)}
+              value={getCity(zip)}
+              style={{ div: { width: "100%" } }}
+              readOnly={true}
+              register={register("address.city")}
+              errorMessage={errors.address?.city?.message}
+            />
+          </div>
+          <div style={{ marginTop: "20px" }}></div>
           <Button
             color={theme.colors.cta}
             type="submit"
@@ -123,9 +170,12 @@ export const EditProfileForm = () => {
           >
             Save changes
           </Button>
-        </div>
+        </form>
+        <Button color={theme.colors.risk} onClick={toggleDeleteModal}>
+          Delete profile
+        </Button>
       </Card>
       <Toaster position="bottom-center" />
-    </form>
+    </>
   );
 };

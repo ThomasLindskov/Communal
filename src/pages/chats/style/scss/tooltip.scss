@@ -1,0 +1,80 @@
+.tooltip {
+  position:relative; 
+  z-index: 2;
+
+  &.message{
+    z-index: 1;
+  }
+
+  &:before{
+    content: attr(data-text); 
+    position:absolute;
+    
+    top:50%;
+    transform:translateY(-50%);
+    
+    left:100%;
+    margin-left:15px; 
+    
+    width:100px;
+    padding:10px;
+    border-radius:10px;
+    background:rgba(210,215,211,0.5);
+    color: black;
+    text-align:center;
+
+    visibility: hidden;
+    opacity:0;
+    transition:0.5s opacity;   
+  }
+
+  &:hover:before, &:hover::after{
+    opacity:1;
+    visibility: visible;
+
+  }
+
+  &.left:before{
+    // reset  
+    left:initial;
+    margin:initial;
+
+    // set new values 
+    right:100%;
+    margin-right:15px;
+  }
+
+  &.left:after{
+    // reset defaults 
+    left:initial;
+    margin:initial;
+
+    // set new values 
+    right:100%;
+    margin-right:-5px;
+    border-color: transparent transparent transparent rgba(210,215,211,0.5);
+
+  }
+
+  &:after{
+    content: "";
+    position:absolute;
+    
+    left:100%;
+    margin-left:-5px;
+   
+    top:50%;
+    transform:translateY(-50%);
+   
+    // the arrow 
+    border:10px solid rgba(210,215,211,0.5);
+    border-color: transparent rgba(0210,215,211,0.5) transparent transparent;
+    
+    visibility: hidden;
+    opacity:0;
+    
+    transition:.5s opacity;   
+  }
+  
+}
+

@@ -1,12 +1,50 @@
+import { Avatar } from "src/components/Avatar";
+import GroupChatAvatar from "src/components/GroupChatAvatar";
 import { theme } from "src/theme";
 import styled from "styled-components";
-import Avatar from "../../components/Avatar";
+
+export const ChatThumbnail = ({
+  id,
+  selected,
+  onClick,
+  name,
+  avatarUrl,
+  lastMessage,
+  timeString,
+  group,
+}: ChatThumbnailProps) => {
+  return (
+    <ThumbnailContainer selected={selected} onClick={onClick} key={id}>
+      {!group && (
+        <Avatar
+          imageUrl={avatarUrl}
+          altText="user-picture"
+          size={theme.avatarSize.medium}
+        />
+      )}
+      {group && (
+        <GroupChatAvatar
+          color={selected ? theme.colors.tertiary : theme.colors.primary}
+          name={name}
+        />
+      )}
+
+      <TextContainer>
+        <UpperTextContainer>
+          <Name selected={selected}>{name}</Name>
+          <LastMessageTime>{timeString}</LastMessageTime>
+        </UpperTextContainer>
+        <Message>{lastMessage}</Message>
+      </TextContainer>
+    </ThumbnailContainer>
+  );
+};
 
 const ThumbnailContainer = styled.div<{ selected: boolean }>`
+  cursor: pointer;
   border-radius: ${({ theme }) => theme.utils.borderRadius};
   border: 1px solid ${({ theme }) => theme.colors.tertiary};
-  padding: ${({ theme }) => theme.padding.medium}
-    ${({ theme }) => theme.padding.large};
+  padding: ${({ theme }) => `${theme.padding.medium} ${theme.padding.large}`};
   display: flex;
   gap: ${({ theme }) => theme.flexGap.medium};
   background-color: ${({ theme }) =>
@@ -24,12 +62,18 @@ const TextContainer = styled.div`
 const UpperTextContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 interface ChatThumbnailProps {
   id: string;
   selected: boolean;
+  onClick: () => void;
+  name: string;
+  avatarUrl?: string;
+  lastMessage: string;
+  timeString: string;
+  group?: boolean;
 }
 
 const Name = styled.p<{ selected: boolean }>`
@@ -42,8 +86,8 @@ const Name = styled.p<{ selected: boolean }>`
 `;
 
 const LastMessageTime = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.medium};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
+  font-size: ${({ theme }) => theme.fontSize.small};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
   color: ${({ theme }) => theme.colors.tertiary};
   margin: 0;
 `;
@@ -57,24 +101,3 @@ const Message = styled.p`
   white-space: nowrap;
   margin: 0;
 `;
-
-export const ChatThumbnail = ({ id, selected }: ChatThumbnailProps) => {
-  // TODO: Get the chat data from the database from id
-
-  return (
-    <ThumbnailContainer selected={selected}>
-      <Avatar
-        imageUrl="/img/EricCartman.png"
-        altText="user-picture"
-        size={theme.avatarSize.medium}
-      />
-      <TextContainer>
-        <UpperTextContainer>
-          <Name selected={selected}>Eric Cartman</Name>
-          <LastMessageTime>Now</LastMessageTime>
-        </UpperTextContainer>
-        <Message>Hello, how are you?</Message>
-      </TextContainer>
-    </ThumbnailContainer>
-  );
-};

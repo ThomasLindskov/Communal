@@ -27,7 +27,7 @@ const Container = styled.div`
 
 export const UserGroup = () => {
   const [testimonial, setTestimonial] = useState(
-    "Hover over us, to hear our experiences"
+    <p>Hover over us, to hear our experiences</p>
   );
   const [show, setShow] = useState(true);
 

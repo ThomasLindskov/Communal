@@ -19,11 +19,21 @@ const GlobalStyles = createGlobalStyle`
   font-weight: bold;
   }
 
-  body {
-    margin: 0;
-    font-family: 'SF Pro', sans-serif;
-    background-color: ${theme.colors.background};
-  } 
+body {
+  margin: 0;
+  font-family: 'SF Pro', sans-serif;
+  background-color: ${theme.colors.background};
+} 
+
+.ReactModal__Overlay {
+  z-index: 1000;
+}
+
+a {
+  &:visited {
+    color: ${theme.colors.white};
+  }
+}
 
 `;
 

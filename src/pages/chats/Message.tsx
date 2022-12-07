@@ -1,9 +1,85 @@
-import React from "react";
-import Avatar from "src/components/Avatar";
+import React, { useEffect, useState } from "react";
 import Sharktooth from "src/components/Sharktooth";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { messageType } from "./Chat";
+import moment from "moment";
+import "./style/css/tooltip.css";
+import { getObject } from "src/parse/getObject";
+import { Avatar } from "src/components/Avatar";
+
+const getTooltipClassNames = (type: messageType) => {
+  if (type === messageType.Sent) {
+    return "tooltip left";
+  }
+  if (type === messageType.Received) {
+    return "tooltip";
+  }
+};
+
+export const Message = ({
+  type,
+  text,
+  sender,
+  createdAt,
+}: {
+  type: messageType;
+  text: string;
+  sender: any;
+  createdAt: Date;
+}) => {
+  const [user, setUser] = useState<Parse.Object>();
+  const fetchUser = async (
+    setHandler: (data: Parse.Object) => void,
+    sender: any
+  ) => {
+    if (sender.objectId) {
+      // if sender is a pointer, we need to refetch the user
+      const data = await getObject("User", sender.objectId);
+      setHandler(data as Parse.Object);
+    } else {
+      setHandler(sender);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser(setUser, sender);
+  }, [sender]);
+
+  return (
+    <>
+      {user && (
+        <Wrapper type={type}>
+          <Avatar
+            imageUrl={user.get("image_url")}
+            altText="user-avatar"
+            size={theme.avatarSize.medium}
+            name={user.get("username")}
+            tooltipClasses={getTooltipClassNames(type)}
+          />
+
+          <MessageContainer
+            type={type}
+            className={`${getTooltipClassNames(type)} message`}
+            data-text={moment(createdAt).fromNow()}
+          >
+            <SharktoothContainer type={type}>
+              <Sharktooth
+                color={
+                  type === messageType.Sent
+                    ? theme.colors.primary
+                    : theme.colors.white
+                }
+                borderColor={theme.colors.tertiary}
+              />
+            </SharktoothContainer>
+            {text}
+          </MessageContainer>
+        </Wrapper>
+      )}
+    </>
+  );
+};
 
 const Wrapper = styled.div<{ type: messageType }>`
   display: flex;
@@ -34,30 +110,3 @@ const SharktoothContainer = styled.div<{ type: messageType }>`
   ${(props) => (props.type === messageType.Sent ? "right" : "left")}: -13px;
   ${(props) => props.type === messageType.Sent && "transform: rotate(180deg);"}
 `;
-
-export default function Message({ type }: { type: messageType }) {
-  return (
-    <Wrapper type={type}>
-      <Avatar
-        imageUrl="/img/EricCartman.png"
-        altText="user-avatar"
-        size={theme.avatarSize.medium}
-      />
-
-      <MessageContainer type={type}>
-        <SharktoothContainer type={type}>
-          <Sharktooth
-            color={
-              type === messageType.Sent
-                ? theme.colors.primary
-                : theme.colors.white
-            }
-            borderColor={theme.colors.tertiary}
-          />
-        </SharktoothContainer>
-        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean
-        lacinia bibendum nulla sed consectetur.
-      </MessageContainer>
-    </Wrapper>
-  );
-}

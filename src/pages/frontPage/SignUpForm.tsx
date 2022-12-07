@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -11,10 +11,15 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { ISignUpFormInput, signUpSchema } from "./validationSchemas/SignUpForm";
+import toast from "react-hot-toast";
+import { Select } from "src/components/Select";
+
+const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
 export const SignUpForm = () => {
-  const { signUp, data, loading, error } = useSignUpMutation();
-  let navigate = useNavigate();
+  const [zip, setZip] = useState("");
+  const { signUp, loading, error } = useSignUpMutation();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -27,20 +32,39 @@ export const SignUpForm = () => {
         username: inputData.username,
         password: inputData.password,
         email: inputData.email,
-        address: inputData.address,
+        address: {
+          city: getCity(zip),
+          zipCode: inputData.address.zipCode,
+          street: inputData.address.street,
+        },
+        neighborhood: inputData.address.zipCode,
+        // default image
+        image_url:
+          "https://as2.ftcdn.net/v2/jpg/03/08/71/39/1000_F_308713928_WsOJijzljhJuJcWX9fof9gWHBPuYWwcs.jpg",
       },
     };
     signUp({
       variables: { input },
+      onCompleted: (data) => {
+        toast.success("Account created successfully");
+        localStorage.setItem("token", data?.signUp?.viewer?.sessionToken);
+        setTimeout(() => {
+          navigate("/chats");
+        }, 1000);
+      },
     });
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem("token", data?.signUp?.viewer?.sessionToken);
-      navigate("/chats");
-    }
-  }, [data]);
+  const changeZip = (e: any) => {
+    setZip(e.target.value);
+  };
+
+  const getCity = (zip: string) => {
+    return zipCodes[zip];
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,22 +119,31 @@ export const SignUpForm = () => {
             width: "300px",
           }}
         >
-          <InputField
+          <Select
             label="Zip code"
             id="zip"
-            type="number"
-            placeholder="Zip code"
             style={{ div: { width: "30%" } }}
             register={register("address.zipCode")}
             errorMessage={errors.address?.zipCode?.message}
-          />
+            onChange={changeZip}
+          >
+            <option>Zip</option>
+            {Object.keys(zipCodes).map((key: string) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
+          </Select>
+
           <InputField
             label="City"
             id="city"
             type="text"
-            placeholder="City"
+            placeholder={getCity(zip) ?? "Please select a zip code"}
+            value={getCity(zip)}
             style={{ div: { width: "100%" } }}
             register={register("address.city")}
+            readOnly={true}
             errorMessage={errors.address?.city?.message}
           />
         </div>
