@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -14,7 +14,7 @@ import { ISignInFormInput, signInSchema } from "./validationSchemas/SignInForm";
 import toast from "react-hot-toast";
 
 export const SignInForm = () => {
-  const { signIn, data, loading, error } = useSignInMutation();
+  const { signIn, loading } = useSignInMutation();
   let navigate = useNavigate();
   const {
     register,
@@ -29,20 +29,21 @@ export const SignInForm = () => {
     };
     signIn({
       variables: { input },
+      onCompleted: (data) => {
+        localStorage.removeItem("token");
+        if (data) {
+          localStorage.setItem("token", data?.logIn?.viewer?.sessionToken);
+          navigate("/chats");
+        }
+      },
+      onError: (error) => {
+        toast.error(error.message);
+        toast("Beware, the username is case sensitive!", {
+          icon: "👀",
+        });
+      },
     });
-    if (error) {
-      toast(error.message);
-      toast("Beware, the username is case sensitive!");
-    }
   };
-
-  useEffect(() => {
-    localStorage.removeItem("token");
-    if (data) {
-      localStorage.setItem("token", data?.logIn?.viewer?.sessionToken);
-      navigate("/chats");
-    }
-  }, [data]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

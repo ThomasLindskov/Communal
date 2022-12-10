@@ -12,13 +12,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { ISignUpFormInput, signUpSchema } from "./validationSchemas/SignUpForm";
 import toast from "react-hot-toast";
-import { Select } from "src/components/Select";
+import { Select } from "../../components/Select";
 
 const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
 export const SignUpForm = () => {
   const [zip, setZip] = useState("");
-  const { signUp, loading, error } = useSignUpMutation();
+  const { signUp, loading } = useSignUpMutation();
   const navigate = useNavigate();
   const {
     register,
@@ -52,10 +52,10 @@ export const SignUpForm = () => {
           navigate("/chats");
         }, 1000);
       },
+      onError: (error) => {
+        toast.error(error.message);
+      },
     });
-    if (error) {
-      toast.error(error.message);
-    }
   };
 
   const changeZip = (e: any) => {

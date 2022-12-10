@@ -60,6 +60,10 @@ export default function FormContainer({ form }: { form: forms }) {
         position="bottom-center"
         toastOptions={{
           duration: 10000,
+          style: {
+            borderRadius: theme.utils.borderRadius,
+            filter: `drop-shadow(${theme.utils.dropShadow})`,
+          },
         }}
       />
     </div>
