@@ -162,7 +162,7 @@ export const SignUpForm = () => {
           }}
         >
           <Link to="/">
-            <CardLink>Back to login</CardLink>
+            <CardLink selected={true}>Back to login</CardLink>
           </Link>
         </div>
       </Card>

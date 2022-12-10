@@ -79,10 +79,10 @@ export const SignInForm = () => {
           }}
         >
           <Link to="/sign-up">
-            <CardLink>Sign up</CardLink>
+            <CardLink selected={true}>Sign up</CardLink>
           </Link>
           <Link to="/forgot-password">
-            <CardLink>Forgot Password?</CardLink>
+            <CardLink selected={true}>Forgot Password?</CardLink>
           </Link>
         </div>
       </Card>
