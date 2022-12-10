@@ -15,7 +15,7 @@ import { Avatar } from "src/components/Avatar";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const { logOut, error, client } = useLogOutMutation();
+  const { logOut, client } = useLogOutMutation();
   const { data: avatar } = useAvatarQuery();
   let navigate = useNavigate();
 
@@ -29,10 +29,10 @@ export const Navbar = () => {
           navigate("/");
         }, 1000);
       },
+      onError: (error) => {
+        toast.error(error.message);
+      },
     });
-    if (error) {
-      toast(error.message);
-    }
   };
 
   const { ref, isComponentVisible, setIsComponentVisible } =

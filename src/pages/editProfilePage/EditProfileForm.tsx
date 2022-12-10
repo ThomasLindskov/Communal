@@ -22,11 +22,7 @@ const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
 export const EditProfileForm = () => {
   const [zip, setZip] = useState("");
-  const {
-    editProfile,
-    loading: submitLoading,
-    error: submitError,
-  } = useEditProfileMutation();
+  const { editProfile, loading: submitLoading } = useEditProfileMutation();
   const {
     register,
     formState: { errors },
@@ -55,11 +51,10 @@ export const EditProfileForm = () => {
     editProfile({
       variables: { input },
       onCompleted: () => {
-        if (submitError) {
-          toast(submitError.message);
-        } else {
-          toast.success("Profile updated successfully");
-        }
+        toast.success("Profile updated successfully");
+      },
+      onError: (error) => {
+        toast.error(error.message);
       },
     });
   };

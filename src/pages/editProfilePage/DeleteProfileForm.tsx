@@ -22,7 +22,7 @@ export const DeleteProfileForm = () => {
   } = useForm<IDeleteProfileFormInput>({
     resolver: yupResolver(deleteProfileSchema),
   });
-  const { deleteUser, loading, error } = useDeleteUserQuery();
+  const { deleteUser, loading } = useDeleteUserQuery();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IDeleteProfileFormInput> = () => {
@@ -37,11 +37,10 @@ export const DeleteProfileForm = () => {
           navigate("/");
         }, 1000);
       },
+      onError: (error) => {
+        toast.error(error.message);
+      },
     });
-
-    if (error) {
-      toast(error.message);
-    }
   };
 
   return (
