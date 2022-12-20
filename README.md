@@ -1,3 +1,6 @@
+## Prerequisites
+In the handed-in zip-file a .env file containing vital environment variables is present. This file is not available on github.
+
 ## Available Scripts
 
 In the project directory, you can run:
