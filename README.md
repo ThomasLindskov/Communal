@@ -1,5 +1,17 @@
+## Website
+The app is available at [link](https://communal.netlify.app/). Things to do: 
+* Create an account
+* Login
+* Change profile picture and information
+* Chat in general chats 
+* Chat in private chats
+* Create another users to see persistent chat messages
+
+## Collaboration
+Made in collab with 3 other students mainly Niklas, Emil and Philip. 
+
 ## Prerequisites
-In the handed-in zip-file a .env file containing vital environment variables is present. This file is not available on github.
+A .env file containing environment variables. This file is not available on github.
 
 ## Available Scripts
 
@@ -8,19 +20,19 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [localhost](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Any lint errors will also be visible in the console.
 
 Remember to run `npm i` or `yarn` first!
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production in the build folder.
+This command bundles React in production mode and optimizes the build for optimal performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The build is minified and filenames include hashes.
+Your app is ready for deployment!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For more information on deployment, check out the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) 
