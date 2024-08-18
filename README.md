@@ -1,11 +1,11 @@
 ## Website
-The app is available at [link](https://communal.netlify.app/). Things to do: 
+The app is available at [link](https://communal.netlify.app/). Things to do:
 * Create an account
-* Login
+* Log in
 * Change profile picture and information
-* Chat in general chats 
+* Chat in general chats
 * Chat in private chats
-* Create another users to see persistent chat messages
+* Create other users to see persistent chat messages
 
 ## Collaboration
 Made in collab with 3 other students mainly Niklas, Emil and Philip. 
