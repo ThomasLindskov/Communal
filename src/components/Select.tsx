@@ -61,6 +61,7 @@ export const Select = ({
         id={id}
         style={{
           ...style?.input,
+          fontSize: theme.fontSize.medium,
           ...(errorMessage && { borderColor: theme.colors.risk }),
         }}
         {...register}

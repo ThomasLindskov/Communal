@@ -17,6 +17,7 @@ import { useToggle } from "ahooks";
 import Modal from "react-modal";
 import { DeleteProfileForm } from "src/pages/editProfilePage/DeleteProfileForm";
 import { Select } from "src/components/Select";
+import styled from "styled-components";
 
 const zipCodes: { [key: string]: any } = require("src/assets/zipCodes.json");
 
@@ -127,13 +128,13 @@ export const EditProfileForm = () => {
             style={{
               display: "flex",
               gap: theme.flexGap.medium,
-              width: "300px",
+              width: "100%",
             }}
           >
             <Select
               label="Zip code"
               id="zip"
-              style={{ div: { width: "30%" } }}
+              style={{ div: { flex: "2" }}}
               register={register("address.zipCode")}
               errorMessage={errors.address?.zipCode?.message}
               onChange={changeZip}
@@ -151,7 +152,7 @@ export const EditProfileForm = () => {
               type="text"
               placeholder={getCity(zip)}
               value={getCity(zip)}
-              style={{ div: { width: "100%" } }}
+              style={{ div: { flex: "1" } }}
               readOnly={true}
               register={register("address.city")}
               errorMessage={errors.address?.city?.message}
@@ -174,3 +175,4 @@ export const EditProfileForm = () => {
     </>
   );
 };
+

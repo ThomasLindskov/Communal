@@ -61,7 +61,7 @@ export const theme: themeType = {
   },
   fontSize: {
     small: "12px",
-    medium: "14px",
+    medium: "18px",
     large: "24px",
   },
   fontWeight: {

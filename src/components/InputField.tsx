@@ -67,6 +67,7 @@ export const InputField = ({
         placeholder={placeholder}
         style={{
           ...style?.input,
+          fontSize: theme.fontSize.medium,
           ...(errorMessage && { borderColor: theme.colors.risk }),
         }}
         {...register}

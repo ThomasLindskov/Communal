@@ -84,6 +84,7 @@ const ChatInput = styled.input`
     color: ${({ theme }) => theme.colors.secondary};
     font-size: ${({ theme }) => theme.fontSize.medium};
   }
+  font-size: ${({ theme }) => theme.fontSize.medium};
   resize: none;
   height: 100%;
   box-sizing: border-box;
