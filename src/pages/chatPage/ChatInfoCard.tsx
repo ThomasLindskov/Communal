@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { Button } from "src/components/Button";
 import { CardTitle } from "src/components/CardTitle";
-import { Chat } from "src/pages/chats/Chat";
+import { Chat } from "src/pages/chatPage/Chat";
 import { addMessagesToChat } from "src/parse/addMessagesToChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 
-export const ChatCard = ({
+export const ChatInfoCard = ({
   selectedChat,
   chatTitle,
 }: {

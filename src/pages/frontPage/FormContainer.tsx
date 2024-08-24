@@ -1,9 +1,9 @@
 import React from "react";
 import Logo from "../../assets/svgComponents/Logo";
 import { theme } from "../../theme";
-import { ForgotPassword } from "./ForgotPassword";
-import { SignInForm } from "./SignInForm";
-import { SignUpForm } from "./SignUpForm";
+import { ForgotPasswordForm } from "../../components/forms/ForgotPasswordForm";
+import { SignInForm } from "../../components/forms/SignInForm";
+import { SignUpForm } from "../../components/forms/SignUpForm";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export enum forms {
 const formMap = {
   [forms.SignIn]: <SignInForm />,
   [forms.SignUp]: <SignUpForm />,
-  [forms.ForgotPassword]: <ForgotPassword />,
+  [forms.ForgotPassword]: <ForgotPasswordForm />,
 };
 
 const containerPadding = 50;

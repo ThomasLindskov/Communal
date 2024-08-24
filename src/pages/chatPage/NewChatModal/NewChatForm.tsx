@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
   INewChatFormInput,
   NewChatFormInput,
-} from "src/pages/chats/NewChat/validationSchema/NewChatForm";
+} from "src/pages/chatPage/NewChatModal/validationSchema/NewChatForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { Select } from "src/components/Select";

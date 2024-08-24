@@ -3,7 +3,7 @@ import { getMessagesInChat } from "src/parse/queryToGetMessagesInChat";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { useParseQuery } from "@parse/react";
-import { Message } from "src/pages/chats/Message";
+import { Message } from "src/pages/chatPage/Message";
 
 export enum messageType {
   Sent,

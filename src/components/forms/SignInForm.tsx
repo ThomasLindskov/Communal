@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../../components/Button";
-import { Card } from "../../components/Card";
-import { CardLink } from "../../components/CardLink";
-import { CardTitle } from "../../components/CardTitle";
-import { InputField } from "../../components/InputField";
+import { Button } from "../Button";
+import { Card } from "../Card";
+import { CardLink } from "../CardLink";
+import { CardTitle } from "../CardTitle";
+import { InputField } from "../InputField";
 import { useSignInMutation } from "../../hooks/useSignInMutation";
 import { theme } from "../../theme";
 import { useForm, SubmitHandler } from "react-hook-form";

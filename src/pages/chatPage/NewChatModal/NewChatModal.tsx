@@ -1,6 +1,6 @@
 import Modal from "react-modal";
 import { Card } from "src/components/Card";
-import { NewChatForm } from "src/pages/chats/NewChat/NewChatForm";
+import { NewChatForm } from "src/pages/chatPage/NewChatModal/NewChatForm";
 import { theme } from "src/theme";
 
 const modalWidth = 300;

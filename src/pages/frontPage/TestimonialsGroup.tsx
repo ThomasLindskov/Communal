@@ -25,7 +25,7 @@ const Container = styled.div`
     ". q . . . . . . w .";
 `;
 
-export const UserGroup = () => {
+export const TestimonialsGroup = () => {
   const [testimonial, setTestimonial] = useState(
     <p>Hover over us, to hear our experiences</p>
   );

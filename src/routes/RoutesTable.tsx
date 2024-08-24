@@ -3,13 +3,14 @@ import { Routes, Route } from "react-router-dom";
 import EditProfilePage from "src/pages/editProfilePage/EditProfilePage";
 import { forms } from "../pages/frontPage/FormContainer";
 import FrontPage from "../pages/frontPage/FrontPage";
-import { ChatsPage } from "../pages/chats/ChatsPage";
+import { ChatsPage } from "../pages/chatPage/ChatsPage";
 import { PrivateRoutes } from "./PrivateRoutes";
 
 export default function RoutesTable() {
   return (
     <Routes>
       {/* Public routes */}
+
       <Route path="/" element={<FrontPage form={forms.SignIn} />} />
       <Route path="/sign-up" element={<FrontPage form={forms.SignUp} />} />
       <Route

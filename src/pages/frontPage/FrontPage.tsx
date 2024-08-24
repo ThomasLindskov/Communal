@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { UserGroup } from "./UserGroup";
+import { TestimonialsGroup } from "./TestimonialsGroup";
 import FormContainer, { forms } from "./FormContainer";
 
 
@@ -20,7 +20,7 @@ export default function FrontPage({ form }: { form: forms }) {
     <Wrapper>
       <FormContainer form={form} />
       <div style={{ width: "100%" }} id="user-group-container">
-        <UserGroup />
+        <TestimonialsGroup />
       </div>
     </Wrapper>
   );

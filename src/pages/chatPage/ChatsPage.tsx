@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { CardTitle } from "src/components/CardTitle";
-import { ChatCard } from "src/pages/chats/ChatCard";
-import { ChatThumbnail } from "src/pages/chats/ChatThumbnail";
+import { ChatInfoCard } from "src/pages/chatPage/ChatInfoCard";
+import { ChatThumbnail } from "src/pages/chatPage/ChatThumbnail";
 import { getPrivateChats } from "src/parse/getPrivateChats";
 import { theme } from "src/theme";
 import styled from "styled-components";
 import { useToggle } from "ahooks";
 import { getGroupChats } from "src/parse/getGroupChats";
-import { NewChatModal } from "src/pages/chats/NewChat/NewChatModal";
+import { NewChatModal } from "src/pages/chatPage/NewChatModal/NewChatModal";
 
 export enum chatType {
   Private,
@@ -133,11 +133,11 @@ export const ChatsPage = () => {
           gap: theme.flexGap.small,
           flexGrow: 1,
           alignItems: "flex-start",
-          maxWidth: "750px",
+          
         }}
       >
         {selectedChat ? (
-          <ChatCard selectedChat={selectedChat} chatTitle={handleChatTitle()} />
+          <ChatInfoCard selectedChat={selectedChat} chatTitle={handleChatTitle()} />
         ) : (
           <CardTitle>Please select a chat on the left</CardTitle>
         )}
@@ -153,6 +153,7 @@ const ChatTypeWrapper = styled.div`
   height: calc(50% - ${({ theme }) => theme.flexGap.small});
   width: 100%;
 `;
+
 
 const ChatsContainer = styled.div<{ group?: boolean }>`
   display: flex;

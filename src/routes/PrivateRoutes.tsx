@@ -20,6 +20,7 @@ export const PrivateRoutes = () => {
     gap: ${theme.flexGap.large};
     box-sizing: border-box;
     max-height: calc(100vh - 112px);
+    height: 100%;
   `;
 
   if (loading) {
