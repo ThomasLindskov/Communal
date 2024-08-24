@@ -76,7 +76,7 @@ export const UploadImageForm = () => {
         <div style={{ width: "100%" }}>
           <CardTitle children="Edit Profile Picture" />
         </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "center"}}>
           {data && (
             <Avatar
               imageUrl={data.user.image_url}

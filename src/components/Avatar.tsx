@@ -42,6 +42,7 @@ const Image = styled.img`
   display: block;
   border-radius: 50%;
   width: max(2vw, 45px);
+  max-width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
 `;
