@@ -1,6 +1,6 @@
 import React from "react";
-import { Icon } from "../../components/Icon";
-import data from "./groups.json";
+import { IconStyle } from "../../components/Icon";
+import { Icon } from "src/types/Icon";
 
 
 
@@ -11,7 +11,7 @@ export const UserIconContainer = ({
   setShow,
   as: Component = 'div'
 }: {
-  iconData: { src: string; testimonial: string; madeBy: string };
+  iconData: Icon;
   className: string;
   setTestimonial: Function;
   setShow: Function;
@@ -31,7 +31,7 @@ export const UserIconContainer = ({
 
   return (
     <Component className={className}>
-      <Icon
+      <IconStyle
         src={iconData.src}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Icon = styled.img`
+export const IconStyle = styled.img`
   max-width: 100%;
   max-height: 100%;
   transition: opacity 0.3s ease; /* Smooth transition for hover effect */

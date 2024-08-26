@@ -2,9 +2,8 @@ import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import { UserIconContainer } from "./UserIconContainer";
 import { Animation } from "./Animation";
-import data from "./groups.json";
-
-
+import useUniqueIcons  from "../../hooks/useUniqueIcons"
+import testimonialData from './testimonials.json';
 
 
 export const TestimonialsGroup = () => {
@@ -13,10 +12,7 @@ export const TestimonialsGroup = () => {
   );
   const [show, setShow] = useState(true);
 
-  const randomIcons = useMemo(() => {
-    return data.sort(() => 0.5 - Math.random()).slice(0, 6);
-  }, []);
-
+  const randomIcons = useUniqueIcons(testimonialData, 6)
   return (
     <Container>
       <UserIconContainer
