@@ -32,6 +32,7 @@ export const InputField = ({
   errorMessage,
   value,
   readOnly,
+  accept
 }: {
   id?: string;
   label?: string;
@@ -45,6 +46,7 @@ export const InputField = ({
   errorMessage?: string;
   value?: string;
   readOnly?: boolean;
+  accept?: string
 }) => (
   <>
     <div
@@ -73,6 +75,7 @@ export const InputField = ({
         {...register}
         value={value}
         readOnly={readOnly}
+        accept={accept}
       />
       {errorMessage && (
         <Label htmlFor={id} color={theme.colors.risk}>

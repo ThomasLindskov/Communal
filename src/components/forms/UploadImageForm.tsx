@@ -16,8 +16,6 @@ interface IUploadImageInput {
 }
 
 export const UploadImageForm = () => {
-  //const [images, setImages] = useState([]);
-
   const {
     uploadImage,
     loading: submitLoading,
@@ -37,7 +35,11 @@ export const UploadImageForm = () => {
     }
 
     const image = inputData.image[0];
-    const parseFile = new Parse.File(image.name, image);
+    const sanitizeFilename = (filename: string) => {
+      return filename.replace(/[^a-zA-Z0-9._-]/g, '_');
+    };
+    const sanitizedFilename = sanitizeFilename(image.name);
+    const parseFile = new Parse.File(sanitizedFilename, image);
     const responseFile = await parseFile.save();
 
     const input = {
@@ -72,11 +74,11 @@ export const UploadImageForm = () => {
         alignItems: "center",
       }}
     >
-      <Card width="200px" style={{height: "100%", justifyContent:"space-between"}}>
+      <Card width="200px" style={{ height: "100%", justifyContent: "space-between" }}>
         <div style={{ width: "100%" }}>
           <CardTitle children="Edit Profile Picture" />
         </div>
-        <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "center"}}>
+        <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "center" }}>
           {data && (
             <Avatar
               imageUrl={data.user.image_url}
@@ -93,6 +95,7 @@ export const UploadImageForm = () => {
             id="image"
             type="file"
             placeholder="Image"
+            accept="image/*"
             style={{ div: { width: "100%" } }}
             register={register("image")}
             errorMessage={errors.image?.message}
