@@ -1,12 +1,12 @@
 import React from "react";
-import { EditProfileForm } from "./EditProfileForm";
-import { UploadImageForm } from "./UploadImageForm";
+import { EditProfile } from "./EditProfile";
+import { UploadImageForm } from "../../components/forms/UploadImageForm";
 import styled from "styled-components";
 
 export default function EditProfilePage() {
   return (
     <Container>
-      <EditProfileForm />
+      <EditProfile />
       <UploadImageForm />
     </Container>
   );

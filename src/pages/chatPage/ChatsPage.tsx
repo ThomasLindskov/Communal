@@ -7,7 +7,7 @@ import { Button } from 'src/components/Button';
 import { Card } from 'src/components/Card';
 import { CardTitle } from 'src/components/CardTitle';
 import { ChatInfoCard } from 'src/pages/chatPage/ChatInfoCard';
-import { NewChatModal } from 'src/pages/chatPage/NewChatModal/NewChatModal';
+import { NewChatModal } from 'src/pages/chatPage/NewChatModal';
 import { getPrivateChats } from 'src/parse/getPrivateChats';
 import { getGroupChats } from 'src/parse/getGroupChats';
 import { theme } from 'src/theme';
@@ -23,7 +23,7 @@ export const ChatsPage = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [privateChats, setPrivateChats] = useState<Parse.Object[]>([]);
   const [groupChats, setGroupChats] = useState<Parse.Object[]>([]);
-  const [activeTab, setActiveTab] = useState<ChatType>(ChatType.Group);
+  const [activeTab, setActiveTab] = useState<ChatType>(ChatType.Private);
   const [isNewPrivateChatOpen, { toggle: toggleIsNewPrivateChatOpen }] = useToggle();
 
   useEffect(() => {
@@ -49,11 +49,11 @@ export const ChatsPage = () => {
       <NewChatModal isOpen={isNewPrivateChatOpen} toggle={toggleIsNewPrivateChatOpen} />
       <Card style={{ flex: 1, padding: 0 }} >
         <TabContainer>
+        <TabButton active={activeTab === ChatType.Private} onClick={() => setActiveTab(ChatType.Private)}>
+            <FontAwesomeIcon icon={faUser} /> Private
+          </TabButton>
           <TabButton active={activeTab === ChatType.Group} onClick={() => setActiveTab(ChatType.Group)}>
             <FontAwesomeIcon icon={faUsers} /> Common
-          </TabButton>
-          <TabButton active={activeTab === ChatType.Private} onClick={() => setActiveTab(ChatType.Private)}>
-            <FontAwesomeIcon icon={faUser} /> Private
           </TabButton>
         </TabContainer>
 

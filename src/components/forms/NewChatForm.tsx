@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
   INewChatFormInput,
   NewChatFormInput,
-} from "src/pages/chatPage/NewChatModal/validationSchema/NewChatForm";
+} from "./validationSchemas/NewChatForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { Select } from "src/components/Select";
@@ -32,7 +32,7 @@ export const NewChatForm = () => {
     resolver: yupResolver(NewChatFormInput),
   });
 
-  const onSubmit: SubmitHandler<INewChatFormInput> = (inputData) => {
+  const onSubmit: SubmitHandler<INewChatFormInput> = (inputData) => {    
     const currentUser = localStorage.getItem("currentUserObjectId");
 
     if (!currentUser) {

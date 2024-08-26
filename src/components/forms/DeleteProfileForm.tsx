@@ -11,7 +11,7 @@ import { useDeleteUserQuery } from "src/hooks/useDeleteUserQuery";
 import {
   deleteProfileSchema,
   IDeleteProfileFormInput,
-} from "src/pages/editProfilePage/validationSchemas/DeleteProfileForm";
+} from "./validationSchemas/DeleteProfileForm";
 import { theme } from "src/theme";
 
 export const DeleteProfileForm = () => {

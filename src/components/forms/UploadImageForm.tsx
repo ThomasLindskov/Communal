@@ -1,8 +1,8 @@
 import React from "react";
-import { Button } from "../../components/Button";
-import { Card } from "../../components/Card";
-import { CardTitle } from "../../components/CardTitle";
-import { InputField } from "../../components/InputField";
+import { Button } from "../Button";
+import { Card } from "../Card";
+import { CardTitle } from "../CardTitle";
+import { InputField } from "../InputField";
 import { theme } from "../../theme";
 import toast, { Toaster } from "react-hot-toast";
 import { useForm, SubmitHandler } from "react-hook-form";

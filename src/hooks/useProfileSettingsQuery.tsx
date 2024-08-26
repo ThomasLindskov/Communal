@@ -1,5 +1,5 @@
 import { ApolloError, gql, useQuery } from "@apollo/client";
-import { IEditProfileFormInput } from "src/pages/editProfilePage/validationSchemas/EditProfileForm";
+import { IEditProfileFormInput } from "src/components/forms/validationSchemas/EditProfileForm";
 
 const fetchUser = gql`
   query GetUser($id: ID!) {
