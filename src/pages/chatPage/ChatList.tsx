@@ -49,9 +49,9 @@ const ChatsContainer = styled.div<{ group?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.flexGap.medium};
-  min-height: ${({ group, theme }) => (group ? theme.utils.minHeight : '250px')};
 `;
 
 const OverflowContainer = styled.div`
+  padding: 10px;
   overflow: auto;
 `;

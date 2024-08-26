@@ -47,7 +47,7 @@ export const SignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card width="300px">
+      <Card width="400px">
         <div style={{ width: "100%" }}>
           <CardTitle>Login</CardTitle>
         </div>
@@ -67,7 +67,7 @@ export const SignInForm = () => {
           register={register("password")}
           errorMessage={errors.password?.message}
         />
-        <Button color={theme.colors.cta} type="submit" disabled={loading}>
+        <Button color={theme.colors.cta} type="submit" disabled={loading} >
           Login
         </Button>
         <div

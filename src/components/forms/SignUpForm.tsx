@@ -116,7 +116,7 @@ export const SignUpForm = () => {
           style={{
             display: "flex",
             gap: theme.flexGap.medium,
-            width: "300px",
+            width: "400px",
           }}
         >
           <Select

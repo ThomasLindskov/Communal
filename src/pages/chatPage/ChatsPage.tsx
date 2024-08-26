@@ -47,7 +47,7 @@ export const ChatsPage = () => {
   return (
     <>
       <NewChatModal isOpen={isNewPrivateChatOpen} toggle={toggleIsNewPrivateChatOpen} />
-      <Card style={{ flex: 1 }}>
+      <Card style={{ flex: 1, padding: 0 }} >
         <TabContainer>
           <TabButton active={activeTab === ChatType.Group} onClick={() => setActiveTab(ChatType.Group)}>
             <FontAwesomeIcon icon={faUsers} /> Common
