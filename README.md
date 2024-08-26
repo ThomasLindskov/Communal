@@ -1,4 +1,6 @@
 ## Website
+At this moment it is optimized for normal screen view. 
+
 The app is available at [link](https://communal.netlify.app/). Things to do:
 * Create an account
 * Log in

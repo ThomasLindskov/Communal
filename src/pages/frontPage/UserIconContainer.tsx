@@ -1,45 +1,42 @@
 import React from "react";
-import styled from "styled-components";
 import { Icon } from "../../components/Icon";
 import data from "./groups.json";
 
-const IconContainer = styled.div`
-  display: flex;
-  overflow: hidden;
-`;
 
-let random = data.sort(() => 0.5 - Math.random()).slice(0, 5);
 
 export const UserIconContainer = ({
-  number,
+  iconData,
   className,
   setTestimonial,
   setShow,
+  as: Component = 'div'
 }: {
-  number: number;
+  iconData: { src: string; testimonial: string; madeBy: string };
   className: string;
   setTestimonial: Function;
   setShow: Function;
+  as?: React.ElementType;
 }) => {
   const handleMouseEnter = () => {
     setTestimonial(
-      makeQuote(random[number].testimonial, random[number].madeBy)
+      makeQuote(iconData.testimonial, iconData.madeBy)
     );
     setShow(true);
   };
+
   const handleMouseLeave = () => {
     setTestimonial(makeQuote("Hover over us, to hear our experiences"));
     setShow(false);
   };
 
   return (
-    <IconContainer className={className}>
+    <Component className={className}>
       <Icon
-        src={random[number].src}
+        src={iconData.src}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       />
-    </IconContainer>
+    </Component>
   );
 };
 
