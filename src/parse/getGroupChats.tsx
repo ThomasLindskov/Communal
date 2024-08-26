@@ -18,10 +18,11 @@ export const getGroupChats = async () => {
       }
       const chats = await parseQuery.find();
 
-      for (let i = 0; i < chats.length; i++) {
-        const lastMessage = await getLastChatMessage(chats[i]);
-        chats[i].set("lastMessage", lastMessage);
-      }
+      await Promise.all(chats.map(async (chat) => {
+        const lastMessage = await getLastChatMessage(chat);
+        chat.set("lastMessage", lastMessage);
+      }));
+      
       return chats;
     }
   } catch (error) {
