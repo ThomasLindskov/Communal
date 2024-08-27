@@ -35,8 +35,8 @@ export const EditProfileForm = () => {
             fields: {
                 email,
                 address: {
-                    city: getCity(zip),
-                    zipCode: Number(zip),
+                    city: getCity(String(address.zipCode)),
+                    zipCode: Number(address.zipCode),
                     street: address.street,
                 },
                 neighborhood: Number(zip),

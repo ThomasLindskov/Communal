@@ -21,15 +21,10 @@ export const EditProfile = () => {
   } = useForm<IEditProfileFormInput>({
     resolver: yupResolver(editProfileSchema),
   });
-  const { loading, error } = useProfileSettingsQuery(setValue);
+
   const [isDeleteModalOpen, { toggle: toggleDeleteModal }] = useToggle();
 
   const modalWidth = 500;
-
-  if (loading) return ( <Card>
-    loading....
-  </Card>);
-  if (error) return <p>{`Error :${error.message}`}</p>;
 
   return (
     <>

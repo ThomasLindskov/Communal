@@ -15,8 +15,6 @@ import { useToggle } from 'ahooks';
 import { ChatList } from 'src/pages/chatPage/ChatList';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-
-
 export enum ChatType {
   Private,
   Group,
@@ -84,12 +82,12 @@ export const ChatsPage = () => {
           <ChatList chats={groupChats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} group />
         ) : (
           <>
+            <ChatList chats={privateChats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
             <ButtonContainer>
               <Button color={theme.colors.cta} onClick={toggleIsNewPrivateChatOpen}>
                 New private chat
               </Button>
             </ButtonContainer>
-            <ChatList chats={privateChats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
           </>
         )}
       </Card>
