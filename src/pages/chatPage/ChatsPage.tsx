@@ -12,7 +12,10 @@ import { getPrivateChats } from 'src/parse/getPrivateChats';
 import { getGroupChats } from 'src/parse/getGroupChats';
 import { theme } from 'src/theme';
 import { useToggle } from 'ahooks';
-import { ChatList } from 'src/pages/chatPage/ChatList'; 
+import { ChatList } from 'src/pages/chatPage/ChatList';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+
 
 export enum ChatType {
   Private,
@@ -23,8 +26,13 @@ export const ChatsPage = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [privateChats, setPrivateChats] = useState<Parse.Object[]>([]);
   const [groupChats, setGroupChats] = useState<Parse.Object[]>([]);
-  const [activeTab, setActiveTab] = useState<ChatType>(ChatType.Private);
   const [isNewPrivateChatOpen, { toggle: toggleIsNewPrivateChatOpen }] = useToggle();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<ChatType>(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get('tab') === 'group' ? ChatType.Group : ChatType.Private;
+  });
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -39,6 +47,21 @@ export const ChatsPage = () => {
     fetchChats();
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tabParam = params.get('tab');
+    if (tabParam === 'group' && activeTab !== ChatType.Group) {
+      setActiveTab(ChatType.Group);
+    } else if (tabParam !== 'group' && activeTab !== ChatType.Private) {
+      setActiveTab(ChatType.Private);
+    }
+  }, [location.search]);
+
+  const setActiveTabAndUpdateURL = (tab: ChatType) => {
+    setActiveTab(tab);
+    navigate(`?tab=${tab === ChatType.Group ? 'group' : 'private'}`, { replace: true });
+  };
+
   const handleChatTitle = () => {
     const chat = groupChats.find((chat) => chat.id === selectedChat) || privateChats.find((chat) => chat.id === selectedChat);
     return chat ? chat.get('name') || `Chat with ${chat.get('receiver').get('username')}` : null;
@@ -49,10 +72,10 @@ export const ChatsPage = () => {
       <NewChatModal isOpen={isNewPrivateChatOpen} toggle={toggleIsNewPrivateChatOpen} />
       <Card style={{ flex: 1, padding: 0 }} >
         <TabContainer>
-        <TabButton active={activeTab === ChatType.Private} onClick={() => setActiveTab(ChatType.Private)}>
+          <TabButton active={activeTab === ChatType.Private} onClick={() => setActiveTabAndUpdateURL(ChatType.Private)}>
             <FontAwesomeIcon icon={faUser} /> Private
           </TabButton>
-          <TabButton active={activeTab === ChatType.Group} onClick={() => setActiveTab(ChatType.Group)}>
+          <TabButton active={activeTab === ChatType.Group} onClick={() => setActiveTabAndUpdateURL(ChatType.Group)}>
             <FontAwesomeIcon icon={faUsers} /> Common
           </TabButton>
         </TabContainer>
