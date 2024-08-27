@@ -6,8 +6,8 @@ import styled from "styled-components";
 export default function EditProfilePage() {
   return (
     <Container>
-      <EditProfile />
       <UploadImageForm />
+      <EditProfile />
     </Container>
   );
 }

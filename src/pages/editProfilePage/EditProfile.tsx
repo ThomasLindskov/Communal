@@ -26,7 +26,9 @@ export const EditProfile = () => {
 
   const modalWidth = 500;
 
-  if (loading) return null;
+  if (loading) return ( <Card>
+    loading....
+  </Card>);
   if (error) return <p>{`Error :${error.message}`}</p>;
 
   return (

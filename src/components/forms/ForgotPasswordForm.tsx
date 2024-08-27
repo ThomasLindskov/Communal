@@ -49,7 +49,7 @@ export const ForgotPasswordForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card width="300px">
+        <Card width="400px">
           <div style={{ width: "100%" }}>
             <CardTitle>Reset password</CardTitle>
           </div>

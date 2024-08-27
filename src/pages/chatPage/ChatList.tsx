@@ -41,7 +41,6 @@ const ChatTypeWrapper = styled.div`
   gap: ${({ theme }) => theme.flexGap.small};
   display: flex;
   flex-direction: column;
-  height: calc(50% - ${({ theme }) => theme.flexGap.small});
   width: 100%;
 `;
 

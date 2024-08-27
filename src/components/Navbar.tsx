@@ -81,13 +81,8 @@ export const Navbar = () => {
             <CardLink color={theme.colors.white}>Chats</CardLink>
           </Link>
         </RoutesWrapper>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: theme.flexGap.medium,
-            cursor: "pointer",
-          }}
+        <AvatarWrapper
+          isActive={isComponentVisible}
           onClick={isDropDownExpandable ? toggleDropdown : undefined}
         >
           <Avatar
@@ -100,7 +95,7 @@ export const Navbar = () => {
             alt="chevron"
             style={{ cursor: "pointer" }}
           />
-        </div>
+        </AvatarWrapper>
         {isComponentVisible && (
           <NavDropdownWrapper ref={ref}>
             <Link
@@ -138,6 +133,28 @@ const NavWrapper = styled.div`
   display: flex;
   gap: 60px;
   z-index: 999;
+`;
+
+const AvatarWrapper = styled.div<{ isActive: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.flexGap.medium};
+  cursor: pointer;
+  padding: 5px;
+  border-radius: ${({ theme }) => theme.utils.borderRadius};
+  box-shadow: ${({ isActive, theme }) => isActive ? `0 0 0 2px ${theme.colors.white}` : 'none'};
+  transition: box-shadow 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    border-radius: inherit;
+    pointer-events: none;
+  }
 `;
 
 const RoutesWrapper = styled.div`
