@@ -59,7 +59,7 @@ const ImgWrapper = styled.div<{
   clickable?: boolean;
   large?: boolean;
 }>`
-  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
+  box-shadow: ${({ theme }) => theme.utils.boxShadow};
   box-sizing: border-box;
   border-radius: 50%;
   width: ${(props) => props.size};

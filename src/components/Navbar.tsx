@@ -124,7 +124,7 @@ export const Navbar = () => {
 const NavWrapper = styled.div`
   border-radius: ${({ theme }) => theme.utils.borderRadius};
   background-color: ${({ theme }) => theme.colors.primary};
-  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
+  box-shadow: ${({ theme }) => theme.utils.boxShadow};
   padding: 17px 70px;
   position: fixed;
   left: ${({ theme }) => theme.padding.medium};

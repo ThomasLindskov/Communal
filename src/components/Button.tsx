@@ -10,7 +10,7 @@ export const Button = styled.button.attrs((props) => ({
   padding: 12px ${({ theme }) => theme.padding.xxl};
   font-size: ${({ theme }) => theme.fontSize.medium};
   border: none;
-  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
+  box-shadow: ${({ theme }) => theme.utils.boxShadow};
   font-weight: bold;
   &:hover {
     ${({ disabled }) => !disabled && "cursor: pointer; opacity: 0.90;"}

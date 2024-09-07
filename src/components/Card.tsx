@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Card = styled.div<{ width?: string }>`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.utils.borderRadius};
-  filter: drop-shadow(${({ theme }) => theme.utils.dropShadow});
+  box-shadow: ${({ theme }) => theme.utils.boxShadow};
   padding: ${({ theme }) => theme.padding.large};
   display: flex;
   flex-direction: column;

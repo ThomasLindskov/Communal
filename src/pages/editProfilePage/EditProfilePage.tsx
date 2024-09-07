@@ -17,4 +17,9 @@ const Container = styled.div`
   align-items: stretch;
   gap: ${({ theme }) => theme.flexGap.large};
   height: fit-content;
+
+  @media (max-width: 1200px) {
+    flex-direction: column; 
+    align-items: center;   
+  }
 `;

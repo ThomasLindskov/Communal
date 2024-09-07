@@ -61,8 +61,6 @@ export const EditProfileForm = () => {
         return zipCodes[zip];
     };
 
-    const modalWidth = 500;
-
     if (loading) return null;
     if (error) return <p>{`Error :${error.message}`}</p>;
 
@@ -128,7 +126,6 @@ export const EditProfileForm = () => {
                     errorMessage={errors.address?.city?.message}
                 />
             </div>
-            <div style={{ marginTop: "20px" }}></div>
             <Button
                 color={theme.colors.cta}
                 type="submit"

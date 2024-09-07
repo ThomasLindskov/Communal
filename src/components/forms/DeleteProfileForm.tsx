@@ -44,7 +44,7 @@ export const DeleteProfileForm = () => {
   };
 
   return (
-    <Card width="500px">
+    <Card>
       <form
         onSubmit={handleSubmit(onSubmit)}
         style={{

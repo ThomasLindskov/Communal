@@ -68,7 +68,7 @@ export const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card width="300px">
+      <Card>
         <div style={{ width: "100%" }}>
           <CardTitle children="Create account" />
         </div>
@@ -112,46 +112,35 @@ export const SignUpForm = () => {
           register={register("address.street")}
           errorMessage={errors.address?.street?.message}
         />
-        <div
-          style={{
-            display: "flex",
-            gap: theme.flexGap.medium,
-            width: "400px",
-          }}
+        <Select
+          label="Zip code"
+          id="zip"
+          register={register("address.zipCode")}
+          errorMessage={errors.address?.zipCode?.message}
+          onChange={changeZip}
         >
-          <Select
-            label="Zip code"
-            id="zip"
-            style={{ div: { width: "30%" } }}
-            register={register("address.zipCode")}
-            errorMessage={errors.address?.zipCode?.message}
-            onChange={changeZip}
-          >
-            <option>Zip</option>
-            {Object.keys(zipCodes).map((key: string) => (
-              <option key={key} value={key}>
-                {key}
-              </option>
-            ))}
-          </Select>
+          <option>Zip</option>
+          {Object.keys(zipCodes).map((key: string) => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </Select>
+        <InputField
+          label="City"
+          id="city"
+          type="text"
+          placeholder={getCity(zip) ?? "Please select a zip code"}
+          value={getCity(zip)}
+          style={{ div: { width: "100%" } }}
+          register={register("address.city")}
+          readOnly={true}
+          errorMessage={errors.address?.city?.message}
+        />
 
-          <InputField
-            label="City"
-            id="city"
-            type="text"
-            placeholder={getCity(zip) ?? "Please select a zip code"}
-            value={getCity(zip)}
-            style={{ div: { width: "100%" } }}
-            register={register("address.city")}
-            readOnly={true}
-            errorMessage={errors.address?.city?.message}
-          />
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <Button color={theme.colors.cta} type="submit" disabled={loading}>
-            Create account
-          </Button>
-        </div>
+        <Button color={theme.colors.cta} type="submit" disabled={loading}>
+          Create account
+        </Button>
         <div
           style={{
             padding: `${theme.padding.small} 0`,

@@ -74,7 +74,7 @@ export const UploadImageForm = () => {
         alignItems: "center",
       }}
     >
-      <Card width="200px" style={{ height: "100%", justifyContent: "space-between" }}>
+      <Card style={{ height: "100%", justifyContent: "space-between" }}>
         <div style={{ width: "100%" }}>
           <CardTitle children="Edit Profile Picture" />
         </div>

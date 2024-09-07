@@ -28,7 +28,7 @@ type themeType = {
   utils: {
     borderRadius: string;
     buttonBorderRadius: string;
-    dropShadow: string;
+    boxShadow: string;
     minHeight: string;
   };
   avatarSize: {
@@ -56,7 +56,7 @@ export const theme: themeType = {
   utils: {
     borderRadius: "10px",
     buttonBorderRadius: "15px",
-    dropShadow: "0px 4px 4px hsl(0, 0%, 0%, 0.25)",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
     minHeight: "200px",
   },
   fontSize: {

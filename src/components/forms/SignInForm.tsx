@@ -47,7 +47,7 @@ export const SignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card width="400px">
+      <Card>
         <div style={{ width: "100%" }}>
           <CardTitle>Login</CardTitle>
         </div>
