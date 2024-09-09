@@ -24,6 +24,9 @@ export const ChatsPage = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [privateChats, setPrivateChats] = useState<Parse.Object[]>([]);
   const [groupChats, setGroupChats] = useState<Parse.Object[]>([]);
+  const [viewMode, setViewMode] = useState<React.SetStateAction<string | null>>('select-chat');
+  const [isSmallScreen, setIsSmallScreen] = useState(false); // Track if it's a small screen
+ // Track the view mode ('select-chat' or 'chat')
   const [isNewPrivateChatOpen, { toggle: toggleIsNewPrivateChatOpen }] = useToggle();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,6 +34,17 @@ export const ChatsPage = () => {
     const params = new URLSearchParams(location.search);
     return params.get('tab') === 'group' ? ChatType.Group : ChatType.Private;
   });
+
+  // Function to handle chat selection
+  const handleChatSelect = (chat: React.SetStateAction<string | null>) => {
+    setSelectedChat(chat);
+    setViewMode('chat'); // Switch to chat view
+  };
+
+  // Function to handle going back to chat list
+  const handleBackToChatList = () => {
+    setViewMode('select-chat'); // Switch back to select-chat view
+  };
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -55,6 +69,23 @@ export const ChatsPage = () => {
     }
   }, [location.search]);
 
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768); // Adjust breakpoint as needed (768px is common for small screens)
+    };
+
+    // Set initial screen size
+    handleResize();
+
+    // Listen for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
   const setActiveTabAndUpdateURL = (tab: ChatType) => {
     setActiveTab(tab);
     navigate(`?tab=${tab === ChatType.Group ? 'group' : 'private'}`, { replace: true });
@@ -68,36 +99,79 @@ export const ChatsPage = () => {
   return (
     <>
       <NewChatModal isOpen={isNewPrivateChatOpen} toggle={toggleIsNewPrivateChatOpen} />
-      <Card style={{ flex: 1, padding: 0 }} >
-        <TabContainer>
-          <TabButton active={activeTab === ChatType.Private} onClick={() => setActiveTabAndUpdateURL(ChatType.Private)}>
-            <FontAwesomeIcon icon={faUser} /> Private
-          </TabButton>
-          <TabButton active={activeTab === ChatType.Group} onClick={() => setActiveTabAndUpdateURL(ChatType.Group)}>
-            <FontAwesomeIcon icon={faUsers} /> Common
-          </TabButton>
-        </TabContainer>
-
-        {activeTab === ChatType.Group ? (
-          <ChatList chats={groupChats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} group />
+      
+      {isSmallScreen ? (
+        viewMode === 'select-chat' ? (
+          <Card style={{ flex: 1, padding: 0 }}>
+            <TabContainer>
+              <TabButton active={activeTab === ChatType.Private} onClick={() => setActiveTabAndUpdateURL(ChatType.Private)}>
+                <FontAwesomeIcon icon={faUser} /> Private
+              </TabButton>
+              <TabButton active={activeTab === ChatType.Group} onClick={() => setActiveTabAndUpdateURL(ChatType.Group)}>
+                <FontAwesomeIcon icon={faUsers} /> Common
+              </TabButton>
+            </TabContainer>
+  
+            {activeTab === ChatType.Group ? (
+              <ChatList chats={groupChats} selectedChat={selectedChat} setSelectedChat={handleChatSelect} group />
+            ) : (
+              <>
+                <ChatList chats={privateChats} selectedChat={selectedChat} setSelectedChat={handleChatSelect} />
+                <ButtonContainer>
+                  <Button color={theme.colors.cta} onClick={toggleIsNewPrivateChatOpen}>
+                    New private chat
+                  </Button>
+                </ButtonContainer>
+              </>
+            )}
+          </Card>
         ) : (
-          <>
-            <ChatList chats={privateChats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
-            <ButtonContainer>
-              <Button color={theme.colors.cta} onClick={toggleIsNewPrivateChatOpen}>
-                New private chat
-              </Button>
-            </ButtonContainer>
-          </>
-        )}
-      </Card>
-      <Card style={{ gap: theme.flexGap.small, flex: 2, alignItems: 'flex-start' }}>
-        {selectedChat ? (
-          <ChatInfoCard selectedChat={selectedChat} chatTitle={handleChatTitle()} />
-        ) : (
-          <CardTitle>Please select a chat on the left</CardTitle>
-        )}
-      </Card>
+          <Card style={{ flex: 2, padding: '1rem' }}>
+            <Button onClick={handleBackToChatList} style={{ marginBottom: '1rem' }} color={theme.colors.cta}>
+              ← Back to chat list
+            </Button>
+            {selectedChat ? (
+              <ChatInfoCard selectedChat={selectedChat} chatTitle={handleChatTitle()} />
+            ) : (
+              <CardTitle>Please select a chat</CardTitle>
+            )}
+          </Card>
+        )
+      ) : (
+        <>
+          {/* For large screens, show both the chat list and the chat content side by side */}
+          <Card style={{ flex: 1, padding: 0 }}>
+            <TabContainer>
+              <TabButton active={activeTab === ChatType.Private} onClick={() => setActiveTabAndUpdateURL(ChatType.Private)}>
+                <FontAwesomeIcon icon={faUser} /> Private
+              </TabButton>
+              <TabButton active={activeTab === ChatType.Group} onClick={() => setActiveTabAndUpdateURL(ChatType.Group)}>
+                <FontAwesomeIcon icon={faUsers} /> Common
+              </TabButton>
+            </TabContainer>
+  
+            {activeTab === ChatType.Group ? (
+              <ChatList chats={groupChats} selectedChat={selectedChat} setSelectedChat={handleChatSelect} group />
+            ) : (
+              <>
+                <ChatList chats={privateChats} selectedChat={selectedChat} setSelectedChat={handleChatSelect} />
+                <ButtonContainer>
+                  <Button color={theme.colors.cta} onClick={toggleIsNewPrivateChatOpen}>
+                    New private chat
+                  </Button>
+                </ButtonContainer>
+              </>
+            )}
+          </Card>
+          <Card style={{ flex: 2, padding: '1rem' }}>
+            {selectedChat ? (
+              <ChatInfoCard selectedChat={selectedChat} chatTitle={handleChatTitle()} />
+            ) : (
+              <CardTitle>Please select a chat on the left</CardTitle>
+            )}
+          </Card>
+        </>
+      )}
     </>
   );
 };
