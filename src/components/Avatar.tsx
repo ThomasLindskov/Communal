@@ -45,6 +45,7 @@ const Image = styled.img`
   max-width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
+  box-shadow: ${({ theme }) => theme.utils.boxShadow};
 `;
 const ProfileImage = styled.img`
   display: block;
@@ -59,7 +60,6 @@ const ImgWrapper = styled.div<{
   clickable?: boolean;
   large?: boolean;
 }>`
-  box-shadow: ${({ theme }) => theme.utils.boxShadow};
   box-sizing: border-box;
   border-radius: 50%;
   width: ${(props) => props.size};

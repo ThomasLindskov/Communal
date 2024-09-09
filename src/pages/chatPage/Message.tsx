@@ -100,9 +100,11 @@ const MessageContainer = styled.div<{ type: messageType }>`
     props.type === messageType.Sent
       ? theme.colors.white
       : theme.colors.tertiary};
-  max-width: 300px;
+  max-width: 50%;
   font-size: ${theme.fontSize.medium};
   position: relative;
+  word-break: break-word;
+  overflow-wrap: break-word; 
 `;
 
 const SharktoothContainer = styled.div<{ type: messageType }>`
