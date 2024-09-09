@@ -9,7 +9,7 @@ The app is available at [link](https://communal.netlify.app/). Things to do:
 
 ## Technology Stack
 
-No component libaries was used.
+No component libaries was used. Mostly optimized for non-mobile view.
 
 - 🔩 **Core Framework:**
   - ⚛️ React
