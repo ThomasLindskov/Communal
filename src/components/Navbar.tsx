@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useLogOutMutation } from "src/hooks/useLogOutMutation";
 import useNavbarDropDownToggle from "src/hooks/useNavbarDropDownToggle";
 import styled from "styled-components";
@@ -8,13 +7,13 @@ import Logo from "../assets/svgComponents/Logo";
 import { theme } from "../theme";
 import toast, { Toaster } from "react-hot-toast";
 import { CardLink } from "./CardLink";
-import { useLocation } from "react-router-dom";
 import { useAvatarQuery } from "src/hooks/useAvatarQuery";
 import { useToggle } from "ahooks";
 import { Avatar } from "src/components/Avatar";
 
 export const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { logOut, client } = useLogOutMutation();
   const { data: avatar } = useAvatarQuery();
   let navigate = useNavigate();
@@ -38,8 +37,6 @@ export const Navbar = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useNavbarDropDownToggle(false);
 
-  // Counter intuitive that it is false by default,
-  // but the useEffect hook below toggles it on the initial render
   const [isDropDownExpandable, { toggle: toggleDropdownExpanding }] =
     useToggle(false);
 
@@ -49,6 +46,10 @@ export const Navbar = () => {
 
   const toggleDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setIsComponentVisible(!isComponentVisible);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const navbarRef = useRef<HTMLInputElement | null>(null);
@@ -70,50 +71,66 @@ export const Navbar = () => {
             <Logo color={theme.colors.white} />
           </Link>
         </div>
-        <RoutesWrapper style={{ marginLeft: 20 }}>
-          <Link
-            to="/chats"
-            style={{
-              textDecoration:
-                location.pathname === "/chats" ? "underline" : "none",
-            }}
-          >
-            <CardLink color={theme.colors.white}>Chats</CardLink>
-          </Link>
-        </RoutesWrapper>
-        <AvatarWrapper
-          isActive={isComponentVisible}
-          onClick={isDropDownExpandable ? toggleDropdown : undefined}
-        >
-          <Avatar
-            imageUrl={avatarUrl}
-            altText="user-avatar"
-            size={theme.avatarSize.medium}
-          />
-          <img
-            src="/icons/Chevron.svg"
-            alt="chevron"
-            style={{ cursor: "pointer" }}
-          />
-        </AvatarWrapper>
-        {isComponentVisible && (
-          <NavDropdownWrapper ref={ref}>
+        <DesktopMenu>
+          <RoutesWrapper style={{ marginLeft: 20 }}>
             <Link
-              to="/edit-profile"
+              to="/chats"
               style={{
                 textDecoration:
-                  location.pathname === "/edit-profile" ? "underline" : "none",
+                  location.pathname === "/chats" ? "underline" : "none",
               }}
             >
-              <NavDropdownItem>
-                <CardLink color={theme.colors.white}>Edit user</CardLink>
-              </NavDropdownItem>
+              <CardLink color={theme.colors.white}>Chats</CardLink>
             </Link>
-            <NavDropdownItem onClick={handleLogOut}>
-              <CardLink color={theme.colors.white}>Log out</CardLink>
-            </NavDropdownItem>
-          </NavDropdownWrapper>
-        )}
+          </RoutesWrapper>
+          <AvatarWrapper
+            isActive={isComponentVisible}
+            onClick={isDropDownExpandable ? toggleDropdown : undefined}
+          >
+            <Avatar
+              imageUrl={avatarUrl}
+              altText="user-avatar"
+              size={theme.avatarSize.medium}
+            />
+            <img
+              src="/icons/Chevron.svg"
+              alt="chevron"
+              style={{ cursor: "pointer" }}
+            />
+          </AvatarWrapper>
+          {isComponentVisible && (
+            <NavDropdownWrapper ref={ref}>
+              <Link
+                to="/edit-profile"
+                style={{
+                  textDecoration:
+                    location.pathname === "/edit-profile" ? "underline" : "none",
+                }}
+              >
+                <NavDropdownItem>
+                  <CardLink color={theme.colors.white}>Edit user</CardLink>
+                </NavDropdownItem>
+              </Link>
+              <NavDropdownItem onClick={handleLogOut}>
+                <CardLink color={theme.colors.white}>Log out</CardLink>
+              </NavDropdownItem>
+            </NavDropdownWrapper>
+          )}
+        </DesktopMenu>
+        <MobileMenuButton onClick={toggleMobileMenu}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </MobileMenuButton>
+        <MobileMenu isOpen={isMobileMenuOpen}>
+          <Link to="/chats">
+            <MobileMenuItem>Chats</MobileMenuItem>
+          </Link>
+          <Link to="/edit-profile">
+            <MobileMenuItem>Edit user</MobileMenuItem>
+          </Link>
+          <MobileMenuItem onClick={handleLogOut}>Log out</MobileMenuItem>
+        </MobileMenu>
       </NavWrapper>
       <NavBarDimensionsPlaceholder height={navbarHeight} />
       <Toaster position="bottom-center" />
@@ -131,8 +148,20 @@ const NavWrapper = styled.div`
   top: ${({ theme }) => theme.padding.medium};
   right: ${({ theme }) => theme.padding.medium};
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 60px;
   z-index: 999;
+`;
+
+const DesktopMenu = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 60px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const AvatarWrapper = styled.div<{ isActive: boolean }>`
@@ -189,6 +218,62 @@ const NavDropdownItem = styled.div`
   padding: 1em;
   &:hover {
     cursor: pointer;
+  }
+`;
+
+const MobileMenuButton = styled.div`
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+
+  span {
+    width: 2rem;
+    height: 0.25rem;
+    background: ${({ theme }) => theme.colors.white};
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
+const MobileMenu = styled.div<{ isOpen: boolean }>`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    background-color: ${({ theme }) => theme.colors.primary};
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    transition: transform 0.3s ease-in-out;
+    transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-100%)')};
+    opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+    visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+  }
+`;
+
+const MobileMenuItem = styled.div`
+  padding: 1em;
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: ${({ theme }) => theme.fontWeight.semibold};
+  text-decoration: none;
+  
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 
