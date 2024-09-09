@@ -1,11 +1,11 @@
 ## Website
 The app is available at [link](https://communal.netlify.app/). Things to do:
-* Create an account
-* Log in
-* Change profile picture and information
-* Chat in general chats
-* Chat in private chats
-* Create other users to see persistent chat messages
+* Create a new account
+* Log in to your existing account
+* Update your profile picture and information
+* Participate in general chats
+* Send and receive private messages
+* Create additional users to test how messages persist and update in real-time.
 
 ## Technology Stack
 
@@ -43,7 +43,7 @@ No component libaries was used.
   - 🌐 Netlify
 
 ## Collaboration
-Made in collab with 3 other students mainly Niklas, Emil and Philip. 
+Made in collab with 3 other students mainly Niklas, Emil and Philip. Refactored and changed by me (Thomas).
 
 ## Prerequisites
 A .env file containing environment variables. This file is not available on github.
@@ -71,5 +71,3 @@ The build is minified and filenames include hashes.
 Your app is ready for deployment!
 
 For more information on deployment, check out the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) 
-
-

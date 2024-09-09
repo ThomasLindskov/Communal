@@ -1,5 +1,5 @@
 // src/pages/chatPage/ChatsPage.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -46,18 +46,22 @@ export const ChatsPage = () => {
     setViewMode('select-chat'); // Switch back to select-chat view
   };
 
-  useEffect(() => {
-    const fetchChats = async () => {
+  const fetchChats = useCallback(async () => {
+    try {
       const [privateData, groupData] = await Promise.all([
         getPrivateChats(),
         getGroupChats(),
       ]);
       setPrivateChats(privateData as Parse.Object[]);
       setGroupChats(groupData as Parse.Object[]);
-    };
-
-    fetchChats();
+    } catch (error) {
+      console.error("Failed to fetch chats:", error);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchChats();
+  }, [fetchChats]);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
