@@ -1,6 +1,4 @@
 ## Website
-At this moment it is optimized for normal screen view. 
-
 The app is available at [link](https://communal.netlify.app/). Things to do:
 * Create an account
 * Log in
@@ -8,6 +6,41 @@ The app is available at [link](https://communal.netlify.app/). Things to do:
 * Chat in general chats
 * Chat in private chats
 * Create other users to see persistent chat messages
+
+## Technology Stack
+
+No component libaries was used.
+
+- 🔩 **Core Framework:**
+  - ⚛️ React
+
+- 🔷 **Language:**
+  - 🇹 TypeScript
+
+- 🗄️ **State Management and Data Fetching:**
+  - 🚀 Apollo Client
+  - 📊 GraphQL
+  - 🧩 Parse
+
+- 🚦 **Routing:**
+  - 🛣️ React Router
+
+- 📝 **Forms and Validation:**
+  - 🎣 React Hook Form
+  - ✅ Yup
+
+- 🎨 **UI and Styling:**
+  - 💅 Styled Components
+
+- 🛠️ **Utility Libraries:**
+  - ⏰ Moment.js
+  - 🪝 ahooks
+
+- 🔧 **Backend as a Service:**
+  - 🔙 Back4App (Parse Server)
+
+- 🚀 **Hosting and Deployment:**
+  - 🌐 Netlify
 
 ## Collaboration
 Made in collab with 3 other students mainly Niklas, Emil and Philip. 
@@ -38,3 +71,5 @@ The build is minified and filenames include hashes.
 Your app is ready for deployment!
 
 For more information on deployment, check out the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) 
+
+
